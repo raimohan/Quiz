@@ -103,12 +103,6 @@ body {
     background-color: #f8fafc; /* Fallback background */
 }
 
-h1, h2, h3, .logo-font {
-    font-family: 'Anton', sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
 .hero-section {
     background: linear-gradient(170deg, #f0f5fb 0%, #ffffff 70%);
     position: relative;
