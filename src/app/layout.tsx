@@ -1,20 +1,9 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
-import { Anton, Lato } from 'next/font/google';
+import { Inter } from 'next/font/google';
 
-const anton = Anton({
-  subsets: ['latin'],
-  weight: ['400'],
-  variable: '--font-anton',
-});
-
-const lato = Lato({
-  subsets: ['latin'],
-  weight: ['400', '700'],
-  variable: '--font-lato',
-});
-
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Agniveer Ascent',
@@ -28,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${anton.variable} ${lato.variable} font-sans text-slate-800 antialiased`}>
+      <body className={`${inter.className} text-slate-800 antialiased`}>
         {children}
         <Toaster />
       </body>
