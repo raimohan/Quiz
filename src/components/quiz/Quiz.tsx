@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { User, signInAnonymously } from 'firebase/auth';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { auth, firestore, isFirebaseConfigured } from '@/lib/firebase';
@@ -8,8 +8,9 @@ import { allQuestions, Question } from '@/lib/questions';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import { ArrowLeft, ArrowRight, Bookmark } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Bookmark, Sparkles, Loader2 } from 'lucide-react';
 import CircularTimer from './CircularTimer';
+import { explainQuestion } from '@/ai/flows/explain-question-flow';
 
 type QuizState = 'onboarding' | 'in-progress' | 'finished';
 
@@ -20,6 +21,8 @@ const Quiz: React.FC = () => {
     const [answers, setAnswers] = useState<(string | null)[]>(Array(allQuestions.length).fill(null));
     const [markedForReview, setMarkedForReview] = useState<boolean[]>(Array(allQuestions.length).fill(false));
     const [timerKey, setTimerKey] = useState(Date.now());
+    const [aiExplanation, setAiExplanation] = useState<string | null>(null);
+    const [isAiExplanationLoading, setIsAiExplanationLoading] = useState(false);
 
     const totalQuestions = allQuestions.length;
     const currentQuestion: Question = useMemo(() => allQuestions[currentQuestionIndex], [currentQuestionIndex]);
@@ -55,30 +58,36 @@ const Quiz: React.FC = () => {
         authenticate();
     }, []);
 
+    const resetQuestionState = useCallback(() => {
+        setTimerKey(Date.now());
+        setAiExplanation(null);
+        setIsAiExplanationLoading(false);
+    }, []);
+
     const handleStartQuiz = () => {
         setQuizState('in-progress');
-        setTimerKey(Date.now());
+        resetQuestionState();
     };
 
-    const handleNextQuestion = () => {
+    const handleNextQuestion = useCallback(() => {
         if (currentQuestionIndex < totalQuestions - 1) {
             setCurrentQuestionIndex(prev => prev + 1);
-            setTimerKey(Date.now());
+            resetQuestionState();
         } else {
             finishQuiz();
         }
-    };
+    }, [currentQuestionIndex, totalQuestions, resetQuestionState]);
 
     const handlePreviousQuestion = () => {
         if (currentQuestionIndex > 0) {
             setCurrentQuestionIndex(prev => prev - 1);
-            setTimerKey(Date.now());
+            resetQuestionState();
         }
     };
     
     const handleNavigateToQuestion = (index: number) => {
         setCurrentQuestionIndex(index);
-        setTimerKey(Date.now());
+        resetQuestionState();
     };
 
     const handleAnswerSelect = (option: string) => {
@@ -92,6 +101,29 @@ const Quiz: React.FC = () => {
         const newMarked = [...markedForReview];
         newMarked[currentQuestionIndex] = !newMarked[currentQuestionIndex];
         setMarkedForReview(newMarked);
+    };
+
+    const handleAiExplain = async () => {
+        if (!isFirebaseConfigured) {
+            setAiExplanation("AI features are disabled. Please configure Firebase credentials in src/lib/firebase.ts to enable them.");
+            return;
+        }
+        setIsAiExplanationLoading(true);
+        setAiExplanation(null);
+        try {
+            const result = await explainQuestion({
+                question: currentQuestion.question,
+                options: currentQuestion.options,
+                answer: currentQuestion.answer,
+                explanation: currentQuestion.explanation,
+            });
+            setAiExplanation(result.detailedExplanation);
+        } catch (error) {
+            console.error("Error fetching AI explanation:", error);
+            setAiExplanation("Sorry, I couldn't generate an explanation right now. Please try again.");
+        } finally {
+            setIsAiExplanationLoading(false);
+        }
     };
 
     const finishQuiz = async () => {
@@ -126,7 +158,7 @@ const Quiz: React.FC = () => {
         setCurrentQuestionIndex(0);
         setAnswers(Array(totalQuestions).fill(null));
         setMarkedForReview(Array(totalQuestions).fill(false));
-        setTimerKey(Date.now());
+        resetQuestionState();
     };
 
     const selectedAnswer = answers[currentQuestionIndex];
@@ -206,9 +238,29 @@ const Quiz: React.FC = () => {
                         })}
                     </div>
                     {selectedAnswer && (
-                        <div className="p-4 bg-muted/50 rounded-lg border animate-fade-in">
-                            <h4 className="font-bold text-primary">Explanation</h4>
-                            <p className="text-muted-foreground mt-1">{currentQuestion.explanation}</p>
+                        <div className="p-4 bg-muted/50 rounded-lg border animate-fade-in space-y-4">
+                            <div>
+                                <h4 className="font-bold text-primary">Explanation</h4>
+                                <p className="text-muted-foreground mt-1">{currentQuestion.explanation}</p>
+                            </div>
+                            <Button onClick={handleAiExplain} disabled={isAiExplanationLoading} size="sm" variant="outline">
+                                {isAiExplanationLoading ? (
+                                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                ) : (
+                                    <Sparkles className="mr-2 h-4 w-4 text-yellow-500" />
+                                )}
+                                Tell me more
+                            </Button>
+                            {isAiExplanationLoading && <p className="text-sm text-muted-foreground animate-pulse">Generating detailed explanation...</p>}
+                            {aiExplanation && (
+                                <div className="pt-4 border-t">
+                                    <h4 className="font-bold text-primary flex items-center gap-2">
+                                        <Sparkles className="h-5 w-5 text-yellow-500" />
+                                        AI Explanation
+                                    </h4>
+                                    <p className="text-muted-foreground mt-1 whitespace-pre-wrap">{aiExplanation}</p>
+                                </div>
+                            )}
                         </div>
                     )}
                     <div className="flex justify-between items-center pt-4 border-t">
