@@ -17,7 +17,7 @@ const Quiz: React.FC = () => {
     const [user, setUser] = useState<User | null>(null);
     const [quizState, setQuizState] = useState<QuizState>('onboarding');
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const [answers, setAnswers] = useState<(string | null)[]>(Array(allQuestions.length).fill(null));
+    const [answers, setAnswers] = useState<(number | null)[]>(Array(allQuestions.length).fill(null));
     const [markedForReview, setMarkedForReview] = useState<boolean[]>(Array(allQuestions.length).fill(false));
     const [aiExplanation, setAiExplanation] = useState<string | null>(null);
     const [isAiExplanationLoading, setIsAiExplanationLoading] = useState(false);
@@ -27,7 +27,7 @@ const Quiz: React.FC = () => {
     
     const score = useMemo(() => {
         return answers.reduce((acc, answer, index) => {
-            if (answer !== null && answer === allQuestions[index].options[allQuestions[index].answer]) {
+            if (answer !== null && answer === allQuestions[index].answer) {
                 return acc + 1;
             }
             return acc;
@@ -38,14 +38,8 @@ const Quiz: React.FC = () => {
         const initAuth = async () => {
             if (isFirebaseConfigured) {
                 try {
-                    await signInAnonymously(auth);
-                    auth.onAuthStateChanged(user => {
-                        if (user) {
-                            setUser(user);
-                        } else {
-                            setUser(null);
-                        }
-                    });
+                    const userCredential = await signInAnonymously(auth);
+                    setUser(userCredential.user);
                 } catch (error) {
                     console.error("Anonymous authentication failed. Have you configured your Firebase credentials in src/lib/firebase.ts?", error);
                 }
@@ -133,10 +127,10 @@ const Quiz: React.FC = () => {
         }
     };
 
-    const handleAnswerSelect = (option: string) => {
+    const handleAnswerSelect = (selectedIndex: number) => {
         if (answers[currentQuestionIndex] !== null) return;
         const newAnswers = [...answers];
-        newAnswers[currentQuestionIndex] = option;
+        newAnswers[currentQuestionIndex] = selectedIndex;
         setAnswers(newAnswers);
         handleAiExplain();
     };
@@ -155,7 +149,7 @@ const Quiz: React.FC = () => {
         resetQuestionState();
     };
 
-    const selectedAnswer = answers[currentQuestionIndex];
+    const selectedAnswerIndex = answers[currentQuestionIndex];
 
     if (quizState === 'onboarding') {
         return (
@@ -186,6 +180,7 @@ const Quiz: React.FC = () => {
                         {score} <span className="text-3xl text-muted-foreground">/ {totalQuestions}</span>
                     </div>
                     <div className="text-2xl font-semibold text-accent">{percentage}%</div>
+                    <p className="text-lg text-muted-foreground">i love you 😅❤️</p>
                     <Button size="lg" onClick={handleAttemptAgain} className="mt-4">Attempt Again</Button>
                 </CardContent>
             </Card>
@@ -208,10 +203,10 @@ const Quiz: React.FC = () => {
                     <p className="text-xl font-semibold min-h-[5rem]">{currentQuestion.question}</p>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                         {currentQuestion.options.map((option, i) => {
-                            const isSelected = selectedAnswer === option;
-                            const isCorrect = currentQuestion.options[currentQuestion.answer] === option;
+                            const isSelected = selectedAnswerIndex === i;
+                            const isCorrect = currentQuestion.answer === i;
                             let buttonClass = 'hover:bg-accent/10';
-                            if (selectedAnswer) {
+                            if (selectedAnswerIndex !== null) {
                                 if (isCorrect) buttonClass = 'correct-answer';
                                 else if (isSelected) buttonClass = 'incorrect-answer';
                                 else buttonClass = 'other-option';
@@ -219,8 +214,8 @@ const Quiz: React.FC = () => {
                             return (
                                 <Button
                                     key={i}
-                                    onClick={() => handleAnswerSelect(option)}
-                                    disabled={!!selectedAnswer}
+                                    onClick={() => handleAnswerSelect(i)}
+                                    disabled={selectedAnswerIndex !== null}
                                     variant="outline"
                                     className={`justify-start h-auto p-4 text-base text-left whitespace-normal leading-snug ${buttonClass}`}
                                 >
@@ -229,9 +224,9 @@ const Quiz: React.FC = () => {
                             );
                         })}
                     </div>
-                    {selectedAnswer && (
+                    {(selectedAnswerIndex !== null || aiExplanation) && (
                         <div className="p-4 bg-muted/50 rounded-lg border animate-fade-in space-y-4">
-                            <div>
+                             <div>
                                 <h4 className="font-bold text-primary">Explanation</h4>
                                 <p className="text-muted-foreground mt-1">{currentQuestion.explanation}</p>
                             </div>
@@ -303,3 +298,5 @@ const Quiz: React.FC = () => {
         </div>
     );
 };
+
+export default Quiz;
