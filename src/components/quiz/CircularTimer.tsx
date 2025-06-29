@@ -20,6 +20,7 @@ const CircularTimer: React.FC<CircularTimerProps> = ({
   const [timeLeft, setTimeLeft] = useState(duration);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
+  // Effect to handle the countdown
   useEffect(() => {
     setTimeLeft(duration);
 
@@ -28,14 +29,7 @@ const CircularTimer: React.FC<CircularTimerProps> = ({
     }
 
     intervalRef.current = setInterval(() => {
-      setTimeLeft((prevTime) => {
-        if (prevTime <= 1) {
-          if (intervalRef.current) clearInterval(intervalRef.current);
-          onTimeout();
-          return 0;
-        }
-        return prevTime - 1;
-      });
+      setTimeLeft((prevTime) => prevTime - 1);
     }, 1000);
 
     return () => {
@@ -43,11 +37,22 @@ const CircularTimer: React.FC<CircularTimerProps> = ({
         clearInterval(intervalRef.current);
       }
     };
-  }, [resetKey, duration, onTimeout]);
+  }, [resetKey, duration]);
+
+  // Effect to handle the timeout action
+  useEffect(() => {
+    if (timeLeft <= 0) {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+      onTimeout();
+    }
+  }, [timeLeft, onTimeout]);
+
 
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
-  const progress = (timeLeft / duration);
+  const progress = (Math.max(0, timeLeft) / duration);
   const offset = circumference - progress * circumference;
 
   const color = progress > 0.5 ? 'stroke-green-500' : progress > 0.2 ? 'stroke-yellow-500' : 'stroke-red-500';
@@ -76,7 +81,7 @@ const CircularTimer: React.FC<CircularTimerProps> = ({
         />
       </svg>
       <span className="absolute text-xl font-bold text-foreground">
-        {timeLeft}
+        {Math.max(0, timeLeft)}
       </span>
     </div>
   );
