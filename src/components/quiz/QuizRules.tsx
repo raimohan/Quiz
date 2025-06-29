@@ -7,12 +7,45 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
-import { ShieldCheck, Target, Clock, AlertTriangle, BookOpen } from 'lucide-react';
+import { ListChecks, Target, AlertTriangle, Clock, Flag, Palette, CheckCircle, BookOpen } from 'lucide-react';
 
 interface QuizRulesProps {
   quizPath: string;
   quizTitle: string;
 }
+
+const rules = [
+    {
+        icon: Clock,
+        title: "Time Limit per Question",
+        description: "Each question has a 60-second timer. If the timer runs out, you will be automatically moved to the next question without your current question being answered.",
+    },
+    {
+        icon: Target,
+        title: "Scoring System",
+        description: "You get +1 point for each correct answer and a penalty of -0.25 points for each incorrect answer. There is no penalty for unanswered questions.",
+    },
+    {
+        icon: Palette,
+        title: "Question Palette Guide",
+        description: "Green: Correct, Red: Incorrect, Yellow: Marked for Review, Gray: Unanswered. Click any number to jump to that question.",
+    },
+    {
+        icon: Flag,
+        title: "Mark for Review",
+        description: "Use the 'Mark for Review' button for questions you are unsure about. They will be highlighted in yellow for easy access later.",
+    },
+    {
+        icon: CheckCircle,
+        title: "Review and Submit",
+        description: "You can navigate between questions and change answers any time before the final submission. Once submitted, the test is final.",
+    },
+    {
+        icon: AlertTriangle,
+        title: "Honesty Policy",
+        description: "Please attempt the quiz fairly. Do not use external aids or seek help from others during the test.",
+    },
+];
 
 const QuizRules: React.FC<QuizRulesProps> = ({ quizPath, quizTitle }) => {
   const [isAccepted, setIsAccepted] = useState(false);
@@ -25,59 +58,49 @@ const QuizRules: React.FC<QuizRulesProps> = ({ quizPath, quizTitle }) => {
   };
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-background to-white p-4">
-      <Card className="w-full max-w-2xl shadow-2xl animate-fade-in-up">
-        <CardHeader className="text-center">
-          <div className="mx-auto bg-primary text-primary-foreground rounded-full p-3 w-fit mb-4">
+    <main className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-slate-50 to-blue-100 p-4">
+      <Card className="w-full max-w-3xl shadow-2xl animate-fade-in-up border-0">
+        <CardHeader className="text-center p-8">
+          <div className="mx-auto bg-primary text-primary-foreground rounded-full p-3 w-fit mb-4 shadow-lg">
              <BookOpen className="h-8 w-8" />
           </div>
-          <CardTitle className="text-3xl font-extrabold">{quizTitle} - Quiz Rules</CardTitle>
+          <CardTitle className="text-3xl font-extrabold tracking-tight">{quizTitle} - Instructions</CardTitle>
           <CardDescription className="text-lg text-muted-foreground mt-2">
-            Read the instructions carefully before you begin.
+            Please read the instructions carefully before you begin the test.
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-6 px-8">
-          <ul className="space-y-4 text-left text-muted-foreground">
-            <li className="flex items-start gap-4">
-              <ShieldCheck className="h-6 w-6 text-primary mt-1 shrink-0" />
-              <div>
-                <span className="font-semibold text-foreground">Total Questions:</span> This quiz consists of multiple-choice questions.
-              </div>
-            </li>
-            <li className="flex items-start gap-4">
-              <Target className="h-6 w-6 text-primary mt-1 shrink-0" />
-              <div>
-                <span className="font-semibold text-foreground">Scoring:</span> You will get <span className="text-green-600 font-bold">+1 point</span> for each correct answer.
-              </div>
-            </li>
-            <li className="flex items-start gap-4">
-              <AlertTriangle className="h-6 w-6 text-primary mt-1 shrink-0" />
-              <div>
-                <span className="font-semibold text-foreground">Negative Marking:</span> <span className="text-red-600 font-bold">-0.25 points</span> will be deducted for each incorrect answer. There is no penalty for unanswered questions.
-              </div>
-            </li>
-            <li className="flex items-start gap-4">
-              <Clock className="h-6 w-6 text-primary mt-1 shrink-0" />
-               <div>
-                <span className="font-semibold text-foreground">No Time Limit:</span> Take your time to answer each question thoughtfully. There is no overall timer for the quiz.
-              </div>
-            </li>
-          </ul>
+        <CardContent className="px-8 md:px-12 py-8 bg-slate-50/50">
+          <div className="space-y-8">
+            {rules.map((rule, index) => {
+              const Icon = rule.icon;
+              return (
+                <div key={index} className="flex items-start gap-5">
+                  <div className="flex-shrink-0 mt-1">
+                    <Icon className="h-7 w-7 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-lg text-foreground">{rule.title}</h3>
+                    <p className="text-muted-foreground leading-relaxed">{rule.description}</p>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
         </CardContent>
-        <CardFooter className="flex-col gap-6 p-8">
-          <div className="flex items-center space-x-2">
-            <Checkbox id="terms" checked={isAccepted} onCheckedChange={(checked) => setIsAccepted(!!checked)} />
-            <Label htmlFor="terms" className="text-sm text-muted-foreground cursor-pointer">
+        <CardFooter className="flex-col gap-6 p-8 bg-white rounded-b-lg">
+          <div className="flex items-center space-x-3">
+            <Checkbox id="terms" checked={isAccepted} onCheckedChange={(checked) => setIsAccepted(!!checked)} className="h-5 w-5"/>
+            <Label htmlFor="terms" className="text-base text-muted-foreground cursor-pointer">
               I have read and understood all the instructions.
             </Label>
           </div>
           <Button
             size="lg"
-            className="w-full font-bold text-lg"
+            className="w-full max-w-sm font-bold text-lg"
             disabled={!isAccepted}
             onClick={handleStartTest}
           >
-            Start Test
+            Start The Challenge
           </Button>
         </CardFooter>
       </Card>
