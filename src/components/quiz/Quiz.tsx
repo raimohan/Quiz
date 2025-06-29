@@ -39,11 +39,19 @@ const Quiz: React.FC<QuizProps> = ({ onFinish }) => {
                 try {
                     const userCredential = await signInAnonymously(auth);
                     setUser(userCredential.user);
-                } catch (error) {
+                } catch (error: any) {
                     console.error("Anonymous authentication failed:", error);
+                    
+                    let description = "An unknown Firebase error occurred. AI features may not work.";
+                    if (error.code === 'auth/api-key-not-valid') {
+                        description = "Your Firebase API Key seems invalid. Please verify your credentials in src/lib/firebase.ts.";
+                    } else if (error.code === 'auth/configuration-not-found') {
+                        description = "Enable Anonymous Sign-In in your Firebase Console. Go to Authentication > Sign-in method, and enable 'Anonymous' to save results.";
+                    }
+                    
                     toast({
                         title: "Firebase Connection Error",
-                        description: "AI features and result saving are disabled. Please verify your Firebase credentials in src/lib/firebase.ts.",
+                        description: description,
                         variant: "destructive",
                         duration: 9000,
                     });
@@ -85,8 +93,8 @@ const Quiz: React.FC<QuizProps> = ({ onFinish }) => {
     };
 
     const handleAiExplain = async () => {
-        if (!isFirebaseConfigured) {
-            setAiExplanation("AI features are disabled because Firebase is not configured.");
+        if (!isFirebaseConfigured || !user) {
+            setAiExplanation("AI features are disabled because Firebase is not configured correctly.");
             return;
         }
         setIsAiExplanationLoading(true);

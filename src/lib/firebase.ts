@@ -10,12 +10,12 @@ import { getFirestore } from "firebase/firestore";
 const firebaseConfig = {
   // This is a placeholder configuration. AI features and result saving will
   // be disabled until you replace this with your own project's credentials.
-  apiKey: "AIzaSyAPI_KEY_PLACEHOLDER_REPLACE_ME",
-  authDomain: "your-project-id.firebaseapp.com",
-  projectId: "your-project-id",
-  storageBucket: "your-project-id.appspot.com",
-  messagingSenderId: "1234567890",
-  appId: "1:1234567890:web:abcdef1234567890"
+  apiKey: "AIzaSyDbQMZJWwIXApuSwtz3kI6msUojdpAh4YU",
+  authDomain: "agniveer-ascent-app.firebaseapp.com",
+  projectId: "agniveer-ascent-app",
+  storageBucket: "agniveer-ascent-app.firebasestorage.app",
+  messagingSenderId: "789950458081",
+  appId: "1:789950458081:web:b83ddac438af7851c22fa0"
 };
 
 // This flag is used to enable Firebase-dependent features.
