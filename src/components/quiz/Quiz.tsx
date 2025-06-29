@@ -24,9 +24,10 @@ const Quiz: React.FC = () => {
 
     const totalQuestions = allQuestions.length;
     const currentQuestion: Question = useMemo(() => allQuestions[currentQuestionIndex], [currentQuestionIndex]);
+    
     const score = useMemo(() => {
         return answers.reduce((acc, answer, index) => {
-            if (answer === allQuestions[index].answer) {
+            if (answer !== null && answer === allQuestions[index].options[allQuestions[index].answer]) {
                 return acc + 1;
             }
             return acc;
@@ -34,26 +35,25 @@ const Quiz: React.FC = () => {
     }, [answers]);
 
     useEffect(() => {
-        if (!isFirebaseConfigured) {
-            console.warn("Firebase not configured. Authentication and results saving are disabled. Please update src/lib/firebase.ts");
-            return;
-        }
-
-        const authenticate = async () => {
-            try {
-                await signInAnonymously(auth);
-                auth.onAuthStateChanged(user => {
-                    if (user) {
-                        setUser(user);
-                    } else {
-                        setUser(null);
-                    }
-                });
-            } catch (error) {
-                console.error("Anonymous authentication failed:", error);
+        const initAuth = async () => {
+            if (isFirebaseConfigured) {
+                try {
+                    await signInAnonymously(auth);
+                    auth.onAuthStateChanged(user => {
+                        if (user) {
+                            setUser(user);
+                        } else {
+                            setUser(null);
+                        }
+                    });
+                } catch (error) {
+                    console.error("Anonymous authentication failed. Have you configured your Firebase credentials in src/lib/firebase.ts?", error);
+                }
+            } else {
+                console.warn("Firebase not configured. AI explanations and results saving are disabled.");
             }
         };
-        authenticate();
+        initAuth();
     }, []);
 
     const resetQuestionState = useCallback(() => {
@@ -69,12 +69,8 @@ const Quiz: React.FC = () => {
     const finishQuiz = async () => {
         setQuizState('finished');
         
-        if (!isFirebaseConfigured) {
-            return;
-        }
-
-        if (!user) {
-            console.error("User not authenticated, cannot save results.");
+        if (!isFirebaseConfigured || !user) {
+            console.error("User not authenticated or Firebase not configured, cannot save results.");
             return;
         }
 
@@ -100,7 +96,7 @@ const Quiz: React.FC = () => {
         } else {
             finishQuiz();
         }
-    }, [currentQuestionIndex, totalQuestions, resetQuestionState, finishQuiz]);
+    }, [currentQuestionIndex, totalQuestions, resetQuestionState]);
 
     const handlePreviousQuestion = () => {
         if (currentQuestionIndex > 0) {
@@ -125,7 +121,7 @@ const Quiz: React.FC = () => {
             const result = await explainQuestion({
                 question: currentQuestion.question,
                 options: currentQuestion.options,
-                answer: currentQuestion.answer,
+                answer: currentQuestion.options[currentQuestion.answer],
                 explanation: currentQuestion.explanation,
             });
             setAiExplanation(result.detailedExplanation);
@@ -213,7 +209,7 @@ const Quiz: React.FC = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                         {currentQuestion.options.map((option, i) => {
                             const isSelected = selectedAnswer === option;
-                            const isCorrect = currentQuestion.answer === option;
+                            const isCorrect = currentQuestion.options[currentQuestion.answer] === option;
                             let buttonClass = 'hover:bg-accent/10';
                             if (selectedAnswer) {
                                 if (isCorrect) buttonClass = 'correct-answer';
@@ -307,5 +303,3 @@ const Quiz: React.FC = () => {
         </div>
     );
 };
-
-export default Quiz;
