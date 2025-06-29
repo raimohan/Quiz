@@ -1,21 +1,26 @@
 "use client";
 
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { User, signInAnonymously } from 'firebase/auth';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
-import { auth, firestore, isFirebaseConfigured } from '@/lib/firebase';
-import { allQuestions, Question } from '@/lib/questions';
+import { auth, isFirebaseConfigured } from '@/lib/firebase';
+import { Question, allQuestions } from '@/lib/questions';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import { ArrowLeft, ArrowRight, Bookmark, Sparkles, Loader2 } from 'lucide-react';
-import { explainQuestion } from '@/ai/flows/explain-question-flow';
+import { ArrowLeft, ArrowRight, Bookmark, Sparkles, Loader2, CheckCircle, XCircle } from 'lucide-react';
+import { explainQuestion, ExplainQuestionOutput } from '@/ai/flows/explain-question-flow';
 
-type QuizState = 'onboarding' | 'in-progress' | 'finished';
+interface QuizProps {
+  onFinish: (results: {
+    score: number;
+    correctAnswers: number;
+    incorrectAnswers: number;
+    unanswered: number;
+  }) => void;
+}
 
-const Quiz: React.FC = () => {
+const Quiz: React.FC<QuizProps> = ({ onFinish }) => {
     const [user, setUser] = useState<User | null>(null);
-    const [quizState, setQuizState] = useState<QuizState>('onboarding');
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [answers, setAnswers] = useState<(number | null)[]>(Array(allQuestions.length).fill(null));
     const [markedForReview, setMarkedForReview] = useState<boolean[]>(Array(allQuestions.length).fill(false));
@@ -25,15 +30,6 @@ const Quiz: React.FC = () => {
     const totalQuestions = allQuestions.length;
     const currentQuestion: Question = useMemo(() => allQuestions[currentQuestionIndex], [currentQuestionIndex]);
     
-    const score = useMemo(() => {
-        return answers.reduce((acc, answer, index) => {
-            if (answer !== null && answer === allQuestions[index].answer) {
-                return acc + 1;
-            }
-            return acc;
-        }, 0);
-    }, [answers]);
-
     useEffect(() => {
         const initAuth = async () => {
             if (isFirebaseConfigured) {
@@ -41,7 +37,7 @@ const Quiz: React.FC = () => {
                     const userCredential = await signInAnonymously(auth);
                     setUser(userCredential.user);
                 } catch (error) {
-                    console.error("Anonymous authentication failed. Have you configured your Firebase credentials in src/lib/firebase.ts?", error);
+                    console.error("Anonymous authentication failed:", error);
                 }
             } else {
                 console.warn("Firebase not configured. AI explanations and results saving are disabled.");
@@ -55,42 +51,12 @@ const Quiz: React.FC = () => {
         setIsAiExplanationLoading(false);
     }, []);
 
-    const handleStartQuiz = () => {
-        setQuizState('in-progress');
-        resetQuestionState();
-    };
-
-    const finishQuiz = async () => {
-        setQuizState('finished');
-        
-        if (!isFirebaseConfigured || !user) {
-            console.error("User not authenticated or Firebase not configured, cannot save results.");
-            return;
-        }
-
-        const percentage = Math.round((score / totalQuestions) * 100);
-
-        try {
-            await addDoc(collection(firestore, "quizAttempts"), {
-                userId: user.uid,
-                score,
-                totalQuestions,
-                percentage,
-                completedAt: serverTimestamp(),
-            });
-        } catch (error) {
-            console.error("Error saving quiz results:", error);
-        }
-    };
-
-    const handleNextQuestion = useCallback(() => {
+    const handleNextQuestion = () => {
         if (currentQuestionIndex < totalQuestions - 1) {
             setCurrentQuestionIndex(prev => prev + 1);
             resetQuestionState();
-        } else {
-            finishQuiz();
         }
-    }, [currentQuestionIndex, totalQuestions, resetQuestionState]);
+    };
 
     const handlePreviousQuestion = () => {
         if (currentQuestionIndex > 0) {
@@ -106,13 +72,13 @@ const Quiz: React.FC = () => {
 
     const handleAiExplain = async () => {
         if (!isFirebaseConfigured) {
-            setAiExplanation("AI features are disabled. Please configure Firebase credentials in src/lib/firebase.ts to enable them.");
+            setAiExplanation("AI features are disabled. Please configure Firebase credentials to enable them.");
             return;
         }
         setIsAiExplanationLoading(true);
         setAiExplanation(null);
         try {
-            const result = await explainQuestion({
+            const result: ExplainQuestionOutput = await explainQuestion({
                 question: currentQuestion.question,
                 options: currentQuestion.options,
                 answer: currentQuestion.options[currentQuestion.answer],
@@ -141,60 +107,41 @@ const Quiz: React.FC = () => {
         setMarkedForReview(newMarked);
     };
 
-    const handleAttemptAgain = () => {
-        setQuizState('onboarding');
-        setCurrentQuestionIndex(0);
-        setAnswers(Array(totalQuestions).fill(null));
-        setMarkedForReview(Array(totalQuestions).fill(false));
-        resetQuestionState();
+    const handleSubmitTest = () => {
+        let score = 0;
+        let correctAnswers = 0;
+        let incorrectAnswers = 0;
+
+        for (let i = 0; i < totalQuestions; i++) {
+            if (answers[i] !== null) {
+                if (answers[i] === allQuestions[i].answer) {
+                    score += 1;
+                    correctAnswers++;
+                } else {
+                    score -= 0.25;
+                    incorrectAnswers++;
+                }
+            }
+        }
+        
+        onFinish({
+            score: parseFloat(score.toFixed(2)),
+            correctAnswers,
+            incorrectAnswers,
+            unanswered: totalQuestions - (correctAnswers + incorrectAnswers),
+        });
     };
 
     const selectedAnswerIndex = answers[currentQuestionIndex];
 
-    if (quizState === 'onboarding') {
-        return (
-            <Card className="w-full max-w-2xl text-center shadow-2xl animate-fade-in">
-                <CardHeader className="p-8">
-                    <CardTitle className="text-4xl font-extrabold text-primary tracking-tight">The Agniveer Knowledge Challenge</CardTitle>
-                    <CardDescription className="text-lg text-muted-foreground pt-2">Test your mettle. Begin your journey.</CardDescription>
-                </CardHeader>
-                <CardContent className="p-8">
-                    <Button size="lg" className="text-lg px-8 py-6" onClick={handleStartQuiz}>Begin Assessment</Button>
-                </CardContent>
-            </Card>
-        );
-    }
-
-    if (quizState === 'finished') {
-        const percentage = Math.round((score / totalQuestions) * 100);
-        return (
-            <Card className="w-full max-w-2xl text-center shadow-2xl p-8 animate-fade-in">
-                <CardHeader>
-                    <CardTitle className="text-3xl font-bold text-primary">Assessment Complete!</CardTitle>
-                    <CardDescription className="text-lg text-muted-foreground pt-2">
-                        {percentage >= 75 ? "Excellent work! Your dedication shines through." : "Good effort! Every attempt is a step towards mastery."}
-                    </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                    <div className="text-7xl font-bold text-primary">
-                        {score} <span className="text-3xl text-muted-foreground">/ {totalQuestions}</span>
-                    </div>
-                    <div className="text-2xl font-semibold text-accent">{percentage}%</div>
-                    <p className="text-lg text-muted-foreground">i love you 😅❤️</p>
-                    <Button size="lg" onClick={handleAttemptAgain} className="mt-4">Attempt Again</Button>
-                </CardContent>
-            </Card>
-        );
-    }
-
     return (
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 w-full max-w-screen-2xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 w-full max-w-screen-2xl mx-auto p-4 md:p-8">
             <Card className="lg:col-span-8 shadow-xl">
                 <CardHeader>
                     <div className="flex justify-between items-start">
                         <div>
                             <p className="text-sm font-medium text-primary">Question {currentQuestionIndex + 1}/{totalQuestions}</p>
-                            <p className="text-sm text-muted-foreground">Score: {score}</p>
+                             <p className="text-xs text-muted-foreground mt-1">Correct: +1 | Incorrect: -0.25</p>
                         </div>
                     </div>
                     <Progress value={((currentQuestionIndex + 1) / totalQuestions) * 100} className="mt-4" />
@@ -227,7 +174,10 @@ const Quiz: React.FC = () => {
                     {(selectedAnswerIndex !== null || aiExplanation) && (
                         <div className="p-4 bg-muted/50 rounded-lg border animate-fade-in space-y-4">
                              <div>
-                                <h4 className="font-bold text-primary">Explanation</h4>
+                                <h4 className="font-bold text-primary flex items-center gap-2">
+                                  {selectedAnswerIndex === currentQuestion.answer ? <CheckCircle className="text-green-500 h-5 w-5"/> : <XCircle className="text-red-500 h-5 w-5" />}
+                                  Explanation
+                                </h4>
                                 <p className="text-muted-foreground mt-1">{currentQuestion.explanation}</p>
                             </div>
                             
@@ -249,12 +199,12 @@ const Quiz: React.FC = () => {
                         <Button variant="outline" onClick={handlePreviousQuestion} disabled={currentQuestionIndex === 0}>
                             <ArrowLeft className="mr-2 h-4 w-4" /> Previous
                         </Button>
-                        <Button variant="outline" onClick={handleMarkForReview} className={markedForReview[currentQuestionIndex] ? 'ring-2 ring-offset-2 ring-yellow-400' : ''}>
+                        <Button variant="outline" onClick={handleMarkForReview} className={markedForReview[currentQuestionIndex] ? 'navigator-marked' : ''}>
                            <Bookmark className={`mr-2 h-4 w-4 transition-colors ${markedForReview[currentQuestionIndex] ? 'fill-yellow-400 text-yellow-500' : ''}`} />
                             Mark
                         </Button>
-                        <Button onClick={handleNextQuestion}>
-                            {currentQuestionIndex === totalQuestions - 1 ? 'Finish' : 'Next'} <ArrowRight className="ml-2 h-4 w-4" />
+                        <Button onClick={handleNextQuestion} disabled={currentQuestionIndex === totalQuestions - 1}>
+                           Next <ArrowRight className="ml-2 h-4 w-4" />
                         </Button>
                     </div>
                 </CardContent>
@@ -264,39 +214,41 @@ const Quiz: React.FC = () => {
                 <CardHeader>
                     <CardTitle>Question Navigator</CardTitle>
                 </CardHeader>
-                <CardContent className="grid grid-cols-6 sm:grid-cols-8 md:grid-cols-10 lg:grid-cols-6 gap-2">
-                    {allQuestions.map((_, index) => {
-                        const isCurrent = index === currentQuestionIndex;
-                        const isAnswered = answers[index] !== null;
-                        const isMarked = markedForReview[index];
+                <CardContent className="flex flex-col justify-between h-[calc(100%-4rem)]">
+                    <div className="grid grid-cols-5 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-6 gap-2">
+                        {allQuestions.map((_, index) => {
+                            const isCurrent = index === currentQuestionIndex;
+                            const answeredIndex = answers[index];
+                            const isAnswered = answeredIndex !== null;
+                            const isCorrect = isAnswered && answeredIndex === allQuestions[index].answer;
+                            const isMarked = markedForReview[index];
 
-                        let variant: "default" | "secondary" | "outline" = "outline";
-                        let extraClasses = "";
-                        if (isCurrent) {
-                            variant = "default";
-                        } else if (isAnswered) {
-                            variant = "secondary";
-                        }
-                        if (isMarked) {
-                            extraClasses = 'ring-2 ring-offset-background ring-yellow-400';
-                        }
-                        
-                        return (
-                            <Button
-                                key={index}
-                                variant={variant}
-                                size="icon"
-                                className={`h-10 w-10 font-bold ${extraClasses}`}
-                                onClick={() => handleNavigateToQuestion(index)}
-                            >
-                                {index + 1}
-                            </Button>
-                        );
-                    })}
+                            let variant: "default" | "secondary" | "outline" = "outline";
+                            let extraClasses = "";
+                            if (isCurrent) {
+                                variant = "default";
+                            } else if (isAnswered) {
+                                extraClasses += isCorrect ? ' navigator-correct' : ' navigator-incorrect';
+                            }
+                            if (isMarked) {
+                                extraClasses += ' navigator-marked';
+                            }
+                            
+                            return (
+                                <Button
+                                    key={index}
+                                    variant={variant}
+                                    size="icon"
+                                    className={`h-10 w-10 font-bold ${extraClasses}`}
+                                    onClick={() => handleNavigateToQuestion(index)}
+                                >
+                                    {index + 1}
+                                </Button>
+                            );
+                        })}
+                    </div>
+                    <Button size="lg" className="w-full mt-6" onClick={handleSubmitTest}>
+                        Submit Test
+                    </Button>
                 </CardContent>
-            </Card>
-        </div>
-    );
-};
-
-export default Quiz;
+            
