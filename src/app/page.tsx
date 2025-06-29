@@ -42,11 +42,11 @@ const testCategories = [
 
 export default function Home() {
   return (
-    <div className="text-slate-800 antialiased">
+    <div className="text-slate-800 antialiased hero-section">
         {/* Header / Navigation Bar */}
         <header className="sticky-header">
             <nav className="container mx-auto px-4 py-4 flex justify-between items-center">
-                <Link href="/" className="font-anton uppercase tracking-wider text-2xl text-slate-800">Agniveer Ascent</Link>
+                <Link href="/" className="font-bold uppercase tracking-wider text-2xl text-slate-800">Agniveer Ascent</Link>
                 <div className="hidden md:flex items-center space-x-8">
                     <Link href="#challenges" className="text-slate-600 hover:text-blue-600 transition-colors font-semibold">Challenges</Link>
                     <Link href="#" className="text-slate-600 hover:text-blue-600 transition-colors font-semibold">About</Link>
@@ -56,9 +56,9 @@ export default function Home() {
         </header>
 
         {/* Hero Section */}
-        <section className="hero-section">
+        <section>
             <div className="hero-content container mx-auto px-4 pt-24 pb-28 text-center fade-in-stagger">
-                <h1 className="font-anton uppercase text-5xl sm:text-6xl md:text-7xl font-normal mb-4 text-slate-900 tracking-wider">
+                <h1 className="font-bold uppercase text-5xl sm:text-6xl md:text-7xl mb-4 text-slate-900 tracking-wider">
                     Master Your Knowledge
                 </h1>
                 <p className="text-lg text-slate-600 max-w-2xl mx-auto mb-8">
@@ -71,10 +71,10 @@ export default function Home() {
         </section>
 
         {/* Main Content Section for Cards */}
-        <div id="challenges" className="bg-white">
+        <div id="challenges">
             <div className="container mx-auto px-4 py-16 sm:py-24">
                 <header className="text-center mb-16">
-                    <h2 className="font-anton uppercase text-4xl text-slate-900 tracking-wider">Choose Your Challenge</h2>
+                    <h2 className="font-bold uppercase text-4xl text-slate-900 tracking-wider">Choose Your Challenge</h2>
                 </header>
 
                 <main className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto">
@@ -87,7 +87,7 @@ export default function Home() {
                                     <Icon />
                                 </div>
                             </div>
-                            <h3 className="font-anton uppercase tracking-wider text-2xl mb-2 text-slate-900">{category.title}</h3>
+                            <h3 className="font-bold uppercase tracking-wider text-2xl mb-2 text-slate-900">{category.title}</h3>
                             <p className="text-slate-600 mb-6 flex-grow">{category.description}</p>
                             
                             {category.disabled ? (
