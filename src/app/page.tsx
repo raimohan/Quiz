@@ -30,19 +30,19 @@ const testCategories = [
   },
   {
     title: 'Currency Test',
-    description: 'How well do you know the world\'s currencies?',
-    href: '#',
+    description: "How well do you know the world's currencies?",
+    href: '/quiz/currency',
     imageUrl: 'https://placehold.co/600x400.png',
     dataAiHint: 'currency money',
-    disabled: true,
+    disabled: false,
   },
   {
     title: 'Capital Test',
     description: 'Match countries to their capital cities.',
-    href: '#',
+    href: '/quiz/capital',
     imageUrl: 'https://placehold.co/600x400.png',
     dataAiHint: 'world map',
-    disabled: true,
+    disabled: false,
   },
 ];
 

@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Award, CheckCircle, XCircle, HelpCircle, Repeat } from 'lucide-react';
-import { allQuestions } from '@/lib/questions';
 
 interface ResultsProps {
   results: {
@@ -14,10 +13,10 @@ interface ResultsProps {
     incorrectAnswers: number;
     unanswered: number;
   };
+  totalQuestions: number;
 }
 
-const Results: React.FC<ResultsProps> = ({ results }) => {
-  const totalQuestions = allQuestions.length;
+const Results: React.FC<ResultsProps> = ({ results, totalQuestions }) => {
   const percentage = totalQuestions > 0 ? ((results.correctAnswers / totalQuestions) * 100).toFixed(2) : 0;
 
   return (

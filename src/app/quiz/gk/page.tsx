@@ -4,5 +4,5 @@
 import QuizRules from '@/components/quiz/QuizRules';
 
 export default function GkRulesPage() {
-  return <QuizRules quizPath="/quiz/gk/test" />;
+  return <QuizRules quizTitle="General Knowledge" quizPath="/quiz/gk/test" />;
 }

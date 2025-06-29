@@ -1,17 +1,19 @@
 
 "use client";
 
-import React, { useState, useMemo, useCallback, useEffect } from 'react';
-import { User, signInAnonymously } from 'firebase/auth';
+import React, { useState, useMemo, useEffect } from 'react';
+import type { User } from 'firebase/auth';
+import { signInAnonymously } from 'firebase/auth';
 import { auth, isFirebaseConfigured } from '@/lib/firebase';
-import { Question, allQuestions } from '@/lib/questions';
+import type { Question } from '@/lib/questions';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import { ArrowLeft, ArrowRight, Star, CheckCircle, XCircle, Circle } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Star, CheckCircle, XCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 interface QuizProps {
+  questions: Question[];
   onFinish: (user: User | null, results: {
     score: number;
     correctAnswers: number;
@@ -20,15 +22,15 @@ interface QuizProps {
   }) => void;
 }
 
-const Quiz: React.FC<QuizProps> = ({ onFinish }) => {
+const Quiz: React.FC<QuizProps> = ({ questions, onFinish }) => {
     const { toast } = useToast();
     const [user, setUser] = useState<User | null>(null);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const [answers, setAnswers] = useState<(number | null)[]>(Array(allQuestions.length).fill(null));
-    const [markedForReview, setMarkedForReview] = useState<boolean[]>(Array(allQuestions.length).fill(false));
+    const [answers, setAnswers] = useState<(number | null)[]>(Array(questions.length).fill(null));
+    const [markedForReview, setMarkedForReview] = useState<boolean[]>(Array(questions.length).fill(false));
 
-    const totalQuestions = allQuestions.length;
-    const currentQuestion: Question = useMemo(() => allQuestions[currentQuestionIndex], [currentQuestionIndex]);
+    const totalQuestions = questions.length;
+    const currentQuestion: Question = useMemo(() => questions[currentQuestionIndex], [currentQuestionIndex, questions]);
     
     useEffect(() => {
         const initAuth = async () => {
@@ -101,7 +103,7 @@ const Quiz: React.FC<QuizProps> = ({ onFinish }) => {
 
         for (let i = 0; i < totalQuestions; i++) {
             if (answers[i] !== null) {
-                if (answers[i] === allQuestions[i].answer) {
+                if (answers[i] === questions[i].answer) {
                     score += 1;
                     correctAnswers++;
                 } else {
@@ -123,12 +125,12 @@ const Quiz: React.FC<QuizProps> = ({ onFinish }) => {
     
     const stats = useMemo(() => {
         const answeredCount = answers.filter(a => a !== null).length;
-        const correct = answers.reduce((count, ans, i) => count + (ans !== null && ans === allQuestions[i].answer ? 1 : 0), 0);
+        const correct = answers.reduce((count, ans, i) => count + (ans !== null && ans === questions[i].answer ? 1 : 0), 0);
         const incorrect = answeredCount - correct;
         const marked = markedForReview.filter(m => m).length;
         const unanswered = totalQuestions - answeredCount;
         return { correct, incorrect, marked, unanswered };
-    }, [answers, markedForReview]);
+    }, [answers, markedForReview, questions]);
 
     return (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 w-full max-w-screen-2xl mx-auto p-4 md:p-8">
@@ -223,11 +225,11 @@ const Quiz: React.FC<QuizProps> = ({ onFinish }) => {
                         </div>
 
                         <div className="grid grid-cols-5 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-6 gap-2">
-                            {allQuestions.map((_, index) => {
+                            {questions.map((_, index) => {
                                 const isCurrent = index === currentQuestionIndex;
                                 const answeredIndex = answers[index];
                                 const isAnswered = answeredIndex !== null;
-                                const isCorrect = isAnswered && answeredIndex === allQuestions[index].answer;
+                                const isCorrect = isAnswered && answeredIndex === questions[index].answer;
                                 const isMarked = markedForReview[index];
 
                                 let variant: "default" | "secondary" | "outline" = "outline";

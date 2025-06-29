@@ -11,9 +11,10 @@ import { ShieldCheck, Target, Clock, AlertTriangle, BookOpen } from 'lucide-reac
 
 interface QuizRulesProps {
   quizPath: string;
+  quizTitle: string;
 }
 
-const QuizRules: React.FC<QuizRulesProps> = ({ quizPath }) => {
+const QuizRules: React.FC<QuizRulesProps> = ({ quizPath, quizTitle }) => {
   const [isAccepted, setIsAccepted] = useState(false);
   const router = useRouter();
 
@@ -30,7 +31,7 @@ const QuizRules: React.FC<QuizRulesProps> = ({ quizPath }) => {
           <div className="mx-auto bg-primary text-primary-foreground rounded-full p-3 w-fit mb-4">
              <BookOpen className="h-8 w-8" />
           </div>
-          <CardTitle className="text-3xl font-extrabold">General Knowledge - Quiz Rules</CardTitle>
+          <CardTitle className="text-3xl font-extrabold">{quizTitle} - Quiz Rules</CardTitle>
           <CardDescription className="text-lg text-muted-foreground mt-2">
             Read the instructions carefully before you begin.
           </CardDescription>

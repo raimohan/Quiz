@@ -5,7 +5,7 @@ import { useState } from 'react';
 import Quiz from '@/components/quiz/Quiz';
 import Results from '@/components/quiz/Results';
 import type { User } from 'firebase/auth';
-import { allQuestions } from '@/lib/questions';
+import { currencyQuestions } from '@/lib/currency-questions';
 import { firestore, isFirebaseConfigured } from '@/lib/firebase';
 import { doc, setDoc } from 'firebase/firestore';
 
@@ -16,19 +16,19 @@ interface ResultData {
   unanswered: number;
 }
 
-export default function GkTestPage() {
+export default function CurrencyTestPage() {
   const [quizFinished, setQuizFinished] = useState(false);
   const [results, setResults] = useState<ResultData | null>(null);
 
   const saveResultsToFirestore = async (user: User | null, finalResults: ResultData) => {
     if (isFirebaseConfigured && user) {
       try {
-        const testResultRef = doc(firestore, 'quizResults', user.uid, 'tests', 'GK');
+        const testResultRef = doc(firestore, 'quizResults', user.uid, 'tests', 'Currency');
         await setDoc(testResultRef, {
           ...finalResults,
-          quizType: 'GK',
+          quizType: 'Currency',
           timestamp: new Date(),
-          totalQuestions: allQuestions.length,
+          totalQuestions: currencyQuestions.length,
         });
       } catch (error) {
         console.error("Error writing document: ", error);
@@ -43,8 +43,8 @@ export default function GkTestPage() {
   };
 
   if (quizFinished && results) {
-    return <Results results={results} totalQuestions={allQuestions.length} />;
+    return <Results results={results} totalQuestions={currencyQuestions.length} />;
   }
 
-  return <Quiz questions={allQuestions} onFinish={handleFinish} />;
+  return <Quiz questions={currencyQuestions} onFinish={handleFinish} />;
 }
