@@ -9,7 +9,6 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { ArrowLeft, ArrowRight, Bookmark, Sparkles, Loader2 } from 'lucide-react';
-import CircularTimer from './CircularTimer';
 import { explainQuestion } from '@/ai/flows/explain-question-flow';
 
 type QuizState = 'onboarding' | 'in-progress' | 'finished';
@@ -20,7 +19,6 @@ const Quiz: React.FC = () => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [answers, setAnswers] = useState<(string | null)[]>(Array(allQuestions.length).fill(null));
     const [markedForReview, setMarkedForReview] = useState<boolean[]>(Array(allQuestions.length).fill(false));
-    const [timerKey, setTimerKey] = useState(Date.now());
     const [aiExplanation, setAiExplanation] = useState<string | null>(null);
     const [isAiExplanationLoading, setIsAiExplanationLoading] = useState(false);
 
@@ -59,7 +57,6 @@ const Quiz: React.FC = () => {
     }, []);
 
     const resetQuestionState = useCallback(() => {
-        setTimerKey(Date.now());
         setAiExplanation(null);
         setIsAiExplanationLoading(false);
     }, []);
@@ -67,63 +64,6 @@ const Quiz: React.FC = () => {
     const handleStartQuiz = () => {
         setQuizState('in-progress');
         resetQuestionState();
-    };
-
-    const handleNextQuestion = useCallback(() => {
-        if (currentQuestionIndex < totalQuestions - 1) {
-            setCurrentQuestionIndex(prev => prev + 1);
-            resetQuestionState();
-        } else {
-            finishQuiz();
-        }
-    }, [currentQuestionIndex, totalQuestions, resetQuestionState]);
-
-    const handlePreviousQuestion = () => {
-        if (currentQuestionIndex > 0) {
-            setCurrentQuestionIndex(prev => prev - 1);
-            resetQuestionState();
-        }
-    };
-    
-    const handleNavigateToQuestion = (index: number) => {
-        setCurrentQuestionIndex(index);
-        resetQuestionState();
-    };
-
-    const handleAnswerSelect = (option: string) => {
-        if (answers[currentQuestionIndex] !== null) return;
-        const newAnswers = [...answers];
-        newAnswers[currentQuestionIndex] = option;
-        setAnswers(newAnswers);
-    };
-
-    const handleMarkForReview = () => {
-        const newMarked = [...markedForReview];
-        newMarked[currentQuestionIndex] = !newMarked[currentQuestionIndex];
-        setMarkedForReview(newMarked);
-    };
-
-    const handleAiExplain = async () => {
-        if (!isFirebaseConfigured) {
-            setAiExplanation("AI features are disabled. Please configure Firebase credentials in src/lib/firebase.ts to enable them.");
-            return;
-        }
-        setIsAiExplanationLoading(true);
-        setAiExplanation(null);
-        try {
-            const result = await explainQuestion({
-                question: currentQuestion.question,
-                options: currentQuestion.options,
-                answer: currentQuestion.answer,
-                explanation: currentQuestion.explanation,
-            });
-            setAiExplanation(result.detailedExplanation);
-        } catch (error) {
-            console.error("Error fetching AI explanation:", error);
-            setAiExplanation("Sorry, I couldn't generate an explanation right now. Please try again.");
-        } finally {
-            setIsAiExplanationLoading(false);
-        }
     };
 
     const finishQuiz = async () => {
@@ -151,6 +91,64 @@ const Quiz: React.FC = () => {
         } catch (error) {
             console.error("Error saving quiz results:", error);
         }
+    };
+
+    const handleNextQuestion = useCallback(() => {
+        if (currentQuestionIndex < totalQuestions - 1) {
+            setCurrentQuestionIndex(prev => prev + 1);
+            resetQuestionState();
+        } else {
+            finishQuiz();
+        }
+    }, [currentQuestionIndex, totalQuestions, resetQuestionState, finishQuiz]);
+
+    const handlePreviousQuestion = () => {
+        if (currentQuestionIndex > 0) {
+            setCurrentQuestionIndex(prev => prev - 1);
+            resetQuestionState();
+        }
+    };
+    
+    const handleNavigateToQuestion = (index: number) => {
+        setCurrentQuestionIndex(index);
+        resetQuestionState();
+    };
+
+    const handleAiExplain = async () => {
+        if (!isFirebaseConfigured) {
+            setAiExplanation("AI features are disabled. Please configure Firebase credentials in src/lib/firebase.ts to enable them.");
+            return;
+        }
+        setIsAiExplanationLoading(true);
+        setAiExplanation(null);
+        try {
+            const result = await explainQuestion({
+                question: currentQuestion.question,
+                options: currentQuestion.options,
+                answer: currentQuestion.answer,
+                explanation: currentQuestion.explanation,
+            });
+            setAiExplanation(result.detailedExplanation);
+        } catch (error) {
+            console.error("Error fetching AI explanation:", error);
+            setAiExplanation("Sorry, I couldn't generate an explanation right now. Please try again.");
+        } finally {
+            setIsAiExplanationLoading(false);
+        }
+    };
+
+    const handleAnswerSelect = (option: string) => {
+        if (answers[currentQuestionIndex] !== null) return;
+        const newAnswers = [...answers];
+        newAnswers[currentQuestionIndex] = option;
+        setAnswers(newAnswers);
+        handleAiExplain();
+    };
+
+    const handleMarkForReview = () => {
+        const newMarked = [...markedForReview];
+        newMarked[currentQuestionIndex] = !newMarked[currentQuestionIndex];
+        setMarkedForReview(newMarked);
     };
 
     const handleAttemptAgain = () => {
@@ -192,7 +190,6 @@ const Quiz: React.FC = () => {
                         {score} <span className="text-3xl text-muted-foreground">/ {totalQuestions}</span>
                     </div>
                     <div className="text-2xl font-semibold text-accent">{percentage}%</div>
-                    <p className="text-4xl pt-4 font-bold text-gray-700 dark:text-gray-300 animate-pulse">i love you 😅❤️</p>
                     <Button size="lg" onClick={handleAttemptAgain} className="mt-4">Attempt Again</Button>
                 </CardContent>
             </Card>
@@ -208,7 +205,6 @@ const Quiz: React.FC = () => {
                             <p className="text-sm font-medium text-primary">Question {currentQuestionIndex + 1}/{totalQuestions}</p>
                             <p className="text-sm text-muted-foreground">Score: {score}</p>
                         </div>
-                        <CircularTimer duration={10} onTimeout={handleNextQuestion} resetKey={timerKey} />
                     </div>
                     <Progress value={((currentQuestionIndex + 1) / totalQuestions) * 100} className="mt-4" />
                 </CardHeader>
@@ -243,22 +239,17 @@ const Quiz: React.FC = () => {
                                 <h4 className="font-bold text-primary">Explanation</h4>
                                 <p className="text-muted-foreground mt-1">{currentQuestion.explanation}</p>
                             </div>
-                            <Button onClick={handleAiExplain} disabled={isAiExplanationLoading} size="sm" variant="outline">
-                                {isAiExplanationLoading ? (
-                                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                ) : (
-                                    <Sparkles className="mr-2 h-4 w-4 text-yellow-500" />
-                                )}
-                                Tell me more
-                            </Button>
-                            {isAiExplanationLoading && <p className="text-sm text-muted-foreground animate-pulse">Generating detailed explanation...</p>}
-                            {aiExplanation && (
+                            
+                            {(isAiExplanationLoading || aiExplanation) && (
                                 <div className="pt-4 border-t">
                                     <h4 className="font-bold text-primary flex items-center gap-2">
                                         <Sparkles className="h-5 w-5 text-yellow-500" />
                                         AI Explanation
                                     </h4>
-                                    <p className="text-muted-foreground mt-1 whitespace-pre-wrap">{aiExplanation}</p>
+                                    {isAiExplanationLoading && !aiExplanation && <div className="flex items-center gap-2 mt-1"><Loader2 className="h-4 w-4 animate-spin" /><p className="text-sm text-muted-foreground">Generating detailed explanation...</p></div>}
+                                    {aiExplanation && (
+                                        <p className="text-muted-foreground mt-1 whitespace-pre-wrap">{aiExplanation}</p>
+                                    )}
                                 </div>
                             )}
                         </div>
