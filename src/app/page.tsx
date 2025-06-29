@@ -95,6 +95,9 @@ export default function Home() {
            </div>
         </div>
       </div>
+      <footer className="mt-16 text-center text-sm text-muted-foreground pb-8">
+        <p>Copyright &copy; 2025 @raianukrishna</p>
+      </footer>
     </main>
   );
 }
