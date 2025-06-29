@@ -8,7 +8,7 @@ import { Question, allQuestions } from '@/lib/questions';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import { ArrowLeft, ArrowRight, Star, CheckCircle, XCircle, CheckCircle2, Circle } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Star, CheckCircle, XCircle, Circle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 interface QuizProps {
@@ -122,12 +122,13 @@ const Quiz: React.FC<QuizProps> = ({ onFinish }) => {
     const selectedAnswerIndex = answers[currentQuestionIndex];
     
     const stats = useMemo(() => {
+        const answeredCount = answers.filter(a => a !== null).length;
         const correct = answers.reduce((count, ans, i) => count + (ans !== null && ans === allQuestions[i].answer ? 1 : 0), 0);
-        const incorrect = answers.reduce((count, ans, i) => count + (ans !== null && ans !== allQuestions[i].answer ? 1 : 0), 0);
+        const incorrect = answeredCount - correct;
         const marked = markedForReview.filter(m => m).length;
-        const unanswered = totalQuestions - (correct + incorrect);
+        const unanswered = totalQuestions - answeredCount;
         return { correct, incorrect, marked, unanswered };
-    }, [answers, markedForReview, totalQuestions]);
+    }, [answers, markedForReview]);
 
     return (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 w-full max-w-screen-2xl mx-auto p-4 md:p-8">
@@ -141,7 +142,7 @@ const Quiz: React.FC<QuizProps> = ({ onFinish }) => {
                             </p>
                         </div>
                     </div>
-                    <Progress value={((currentQuestionIndex + 1) / totalQuestions) * 100} className="mt-4" />
+                    <Progress value={((answers.filter(a => a !== null).length) / totalQuestions) * 100} className="mt-4" />
                 </CardHeader>
                 <CardContent className="space-y-6 px-6 pb-6">
                     <div key={currentQuestionIndex} className="animate-fade-in-up space-y-6">
@@ -198,30 +199,26 @@ const Quiz: React.FC<QuizProps> = ({ onFinish }) => {
 
             <Card className="lg:col-span-4 shadow-xl">
                 <CardHeader>
-                    <CardTitle>Question Navigator</CardTitle>
+                    <CardTitle>Questions List</CardTitle>
                 </CardHeader>
                 <CardContent className="flex flex-col justify-between h-[calc(100%-4rem)]">
                     <div>
-                        <div className="grid grid-cols-2 gap-4 mb-6 text-sm font-medium">
-                            <div className="flex items-center gap-2 text-green-600 dark:text-green-500">
-                                <CheckCircle2 className="h-5 w-5" />
-                                <div>Correct</div>
-                                <div className="ml-auto font-bold">{stats.correct}</div>
+                        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6 text-center">
+                            <div className="p-3 rounded-lg bg-green-100 dark:bg-green-900/30">
+                                <p className="text-2xl font-bold text-green-600 dark:text-green-400">{stats.correct}</p>
+                                <p className="text-xs font-medium text-muted-foreground">Correct</p>
                             </div>
-                            <div className="flex items-center gap-2 text-red-600 dark:text-red-500">
-                                <XCircle className="h-5 w-5" />
-                                <div>Incorrect</div>
-                                <div className="ml-auto font-bold">{stats.incorrect}</div>
+                            <div className="p-3 rounded-lg bg-red-100 dark:bg-red-900/30">
+                                <p className="text-2xl font-bold text-red-600 dark:text-red-400">{stats.incorrect}</p>
+                                <p className="text-xs font-medium text-muted-foreground">Incorrect</p>
                             </div>
-                            <div className="flex items-center gap-2 text-yellow-500 dark:text-yellow-400">
-                                <Star className="h-5 w-5 fill-current" />
-                                <div>Marked</div>
-                                <div className="ml-auto font-bold">{stats.marked}</div>
+                            <div className="p-3 rounded-lg bg-yellow-100 dark:bg-yellow-900/30">
+                                <p className="text-2xl font-bold text-yellow-500 dark:text-yellow-400">{stats.marked}</p>
+                                <p className="text-xs font-medium text-muted-foreground">Marked</p>
                             </div>
-                            <div className="flex items-center gap-2 text-muted-foreground">
-                                <Circle className="h-5 w-5" />
-                                <div>Unanswered</div>
-                                <div className="ml-auto font-bold">{stats.unanswered}</div>
+                            <div className="p-3 rounded-lg bg-muted/60">
+                                <p className="text-2xl font-bold">{stats.unanswered}</p>
+                                <p className="text-xs font-medium text-muted-foreground">Unanswered</p>
                             </div>
                         </div>
 
@@ -237,6 +234,7 @@ const Quiz: React.FC<QuizProps> = ({ onFinish }) => {
                                 let extraClasses = "";
                                 if (isCurrent) {
                                     variant = "default";
+                                    extraClasses += ' ring-2 ring-primary ring-offset-background ring-offset-2';
                                 } else if (isAnswered) {
                                     extraClasses += isCorrect ? ' navigator-correct' : ' navigator-incorrect';
                                 }
