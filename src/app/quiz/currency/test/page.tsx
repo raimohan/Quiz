@@ -6,7 +6,7 @@ import Quiz from '@/components/quiz/Quiz';
 import Results from '@/components/quiz/Results';
 import type { User } from 'firebase/auth';
 import { currencyQuestions } from '@/lib/currency-questions';
-import { firestore, isFirebaseConfigured } from '@/lib/firebase';
+import { firestore } from '@/lib/firebase';
 import { doc, setDoc } from 'firebase/firestore';
 
 interface ResultData {
@@ -21,7 +21,7 @@ export default function CurrencyTestPage() {
   const [results, setResults] = useState<ResultData | null>(null);
 
   const saveResultsToFirestore = async (user: User | null, finalResults: ResultData) => {
-    if (isFirebaseConfigured && user) {
+    if (user) {
       try {
         const testResultRef = doc(firestore, 'quizResults', user.uid, 'tests', 'Currency');
         await setDoc(testResultRef, {

@@ -8,8 +8,9 @@ import { getFirestore } from "firebase/firestore";
 // STEP 4: After registration, Firebase will give you a `firebaseConfig` object.
 // STEP 5: Copy that object and paste it here, completely replacing the object below.
 const firebaseConfig = {
-  // This is a placeholder configuration. AI features and result saving will
-  // be disabled until you replace this with your own project's credentials.
+  // This is a placeholder configuration. Result saving will be disabled until
+  // you replace this with your own project's credentials. If you publish
+  // without replacing this, users will see an error.
   apiKey: "AIzaSyDbQMZJWwIXApuSwtz3kI6msUojdpAh4YU",
   authDomain: "agniveer-ascent-app.firebaseapp.com",
   projectId: "agniveer-ascent-app",
@@ -18,9 +19,8 @@ const firebaseConfig = {
   appId: "1:789950458081:web:b83ddac438af7851c22fa0"
 };
 
-// This flag is used to enable Firebase-dependent features.
-// It is set based on whether you have replaced the placeholder credentials.
-export const isFirebaseConfigured = !firebaseConfig.apiKey.includes("PLACEHOLDER");
+// This flag is used to check if you have replaced the placeholder credentials.
+export const isFirebaseConfigured = !firebaseConfig.apiKey.startsWith("AIzaSy");
 
 // Initialize Firebase
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();

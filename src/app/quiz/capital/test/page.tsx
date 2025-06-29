@@ -6,7 +6,7 @@ import Quiz from '@/components/quiz/Quiz';
 import Results from '@/components/quiz/Results';
 import type { User } from 'firebase/auth';
 import { capitalQuestions } from '@/lib/capital-questions';
-import { firestore, isFirebaseConfigured } from '@/lib/firebase';
+import { firestore } from '@/lib/firebase';
 import { doc, setDoc } from 'firebase/firestore';
 
 interface ResultData {
@@ -21,7 +21,8 @@ export default function CapitalTestPage() {
   const [results, setResults] = useState<ResultData | null>(null);
 
   const saveResultsToFirestore = async (user: User | null, finalResults: ResultData) => {
-    if (isFirebaseConfigured && user) {
+    // Only try to save if we have a user object. The Quiz component handles auth.
+    if (user) {
       try {
         const testResultRef = doc(firestore, 'quizResults', user.uid, 'tests', 'Capital');
         await setDoc(testResultRef, {
@@ -32,6 +33,7 @@ export default function CapitalTestPage() {
         });
       } catch (error) {
         console.error("Error writing document: ", error);
+        // Not showing a toast here as the Quiz component will already show one for connection errors.
       }
     }
   };

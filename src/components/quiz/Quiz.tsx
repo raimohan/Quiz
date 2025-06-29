@@ -48,31 +48,24 @@ const Quiz: React.FC<QuizProps> = ({ questions, onFinish }) => {
     
     useEffect(() => {
         const initAuth = async () => {
-            if (isFirebaseConfigured) {
-                try {
-                    const userCredential = await signInAnonymously(auth);
-                    setUser(userCredential.user);
-                } catch (error: any) {
-                    console.error("Anonymous authentication failed:", error);
-                    
-                    let description = "An unknown Firebase error occurred. Quiz results will not be saved.";
-                    if (error.code === 'auth/api-key-not-valid') {
-                        description = "Your Firebase API Key seems invalid. Please verify your credentials in src/lib/firebase.ts.";
-                    } else if (error.code === 'auth/configuration-not-found') {
-                        description = "Enable Anonymous Sign-In in your Firebase Console. Go to Authentication > Sign-in method, and enable 'Anonymous' to save results.";
-                    }
-                    
-                    toast({
-                        title: "Firebase Connection Error",
-                        description: description,
-                        variant: "destructive",
-                        duration: 9000,
-                    });
+            // No need to check for isFirebaseConfigured. We'll try to connect
+            // and let the catch block handle any errors gracefully.
+            try {
+                const userCredential = await signInAnonymously(auth);
+                setUser(userCredential.user);
+            } catch (error: any) {
+                console.error("Anonymous authentication failed:", error);
+                
+                let description = "An unknown Firebase error occurred. Quiz results will not be saved.";
+                if (error.code === 'auth/invalid-api-key') {
+                    description = "Your Firebase API Key is invalid. Please get credentials from your Firebase project and add them to src/lib/firebase.ts.";
+                } else if (error.code === 'auth/configuration-not-found') {
+                    description = "Enable Anonymous Sign-In in your Firebase Console. Go to Authentication > Sign-in method, and enable 'Anonymous' to save results.";
                 }
-            } else {
-                 toast({
-                    title: "Firebase Not Configured",
-                    description: "Result saving is disabled. Please add your credentials to src/lib/firebase.ts.",
+                
+                toast({
+                    title: "Firebase Connection Error",
+                    description: description,
                     variant: "destructive",
                     duration: 9000,
                 });
