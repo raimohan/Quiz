@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { User, signInAnonymously } from 'firebase/auth';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
-import { auth, firestore } from '@/lib/firebase';
+import { auth, firestore, isFirebaseConfigured } from '@/lib/firebase';
 import { allQuestions, Question } from '@/lib/questions';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -33,6 +33,11 @@ const Quiz: React.FC = () => {
     }, [answers]);
 
     useEffect(() => {
+        if (!isFirebaseConfigured) {
+            console.warn("Firebase not configured. Authentication and results saving are disabled. Please update src/lib/firebase.ts");
+            return;
+        }
+
         const authenticate = async () => {
             try {
                 await signInAnonymously(auth);
@@ -91,6 +96,11 @@ const Quiz: React.FC = () => {
 
     const finishQuiz = async () => {
         setQuizState('finished');
+        
+        if (!isFirebaseConfigured) {
+            return;
+        }
+
         if (!user) {
             console.error("User not authenticated, cannot save results.");
             return;
