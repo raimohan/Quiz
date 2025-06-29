@@ -1,17 +1,13 @@
 
 "use client";
 
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
-import type { User } from 'firebase/auth';
-import { signInAnonymously } from 'firebase/auth';
-import { auth } from '@/lib/firebase';
 import type { Question } from '@/lib/questions';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { ArrowLeft, ArrowRight, Star, CheckCircle, XCircle, ChevronLeft } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -27,7 +23,7 @@ import {
 
 interface QuizProps {
   questions: Question[];
-  onFinish: (user: User | null, results: {
+  onFinish: (results: {
     score: number;
     correctAnswers: number;
     incorrectAnswers: number;
@@ -37,8 +33,6 @@ interface QuizProps {
 
 const Quiz: React.FC<QuizProps> = ({ questions, onFinish }) => {
     const router = useRouter();
-    const { toast } = useToast();
-    const [user, setUser] = useState<User | null>(null);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [answers, setAnswers] = useState<(number | null)[]>(Array(questions.length).fill(null));
     const [markedForReview, setMarkedForReview] = useState<boolean[]>(Array(questions.length).fill(false));
@@ -46,34 +40,6 @@ const Quiz: React.FC<QuizProps> = ({ questions, onFinish }) => {
     const totalQuestions = questions.length;
     const currentQuestion: Question = useMemo(() => questions[currentQuestionIndex], [currentQuestionIndex, questions]);
     
-    useEffect(() => {
-        const initAuth = async () => {
-            // No need to check for isFirebaseConfigured. We'll try to connect
-            // and let the catch block handle any errors gracefully.
-            try {
-                const userCredential = await signInAnonymously(auth);
-                setUser(userCredential.user);
-            } catch (error: any) {
-                console.error("Anonymous authentication failed:", error);
-                
-                let description = "An unknown Firebase error occurred. Quiz results will not be saved.";
-                if (error.code === 'auth/invalid-api-key') {
-                    description = "Your Firebase API Key is invalid. Please get credentials from your Firebase project and add them to src/lib/firebase.ts.";
-                } else if (error.code === 'auth/configuration-not-found') {
-                    description = "Enable Anonymous Sign-In in your Firebase Console. Go to Authentication > Sign-in method, and enable 'Anonymous' to save results.";
-                }
-                
-                toast({
-                    title: "Firebase Connection Error",
-                    description: description,
-                    variant: "destructive",
-                    duration: 9000,
-                });
-            }
-        };
-        initAuth();
-    }, [toast]);
-
     const handleNextQuestion = () => {
         if (currentQuestionIndex < totalQuestions - 1) {
             setCurrentQuestionIndex(prev => prev + 1);
@@ -82,7 +48,7 @@ const Quiz: React.FC<QuizProps> = ({ questions, onFinish }) => {
 
     const handlePreviousQuestion = () => {
         if (currentQuestionIndex > 0) {
-            setCurrentQuestionIndex(prev => prev - 1);
+            setCurrentQuestionIndex(prev => prev + 1);
         }
     };
     
@@ -120,7 +86,7 @@ const Quiz: React.FC<QuizProps> = ({ questions, onFinish }) => {
             }
         }
         
-        onFinish(user, {
+        onFinish({
             score: parseFloat(score.toFixed(2)),
             correctAnswers,
             incorrectAnswers,
