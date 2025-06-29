@@ -316,3 +316,5 @@ const Quiz: React.FC<QuizProps> = ({ onFinish }) => {
 };
 
 export default Quiz;
+
+    
