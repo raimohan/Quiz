@@ -2,6 +2,7 @@
 "use client";
 
 import React, { useState, useMemo, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import type { User } from 'firebase/auth';
 import { signInAnonymously } from 'firebase/auth';
 import { auth, isFirebaseConfigured } from '@/lib/firebase';
@@ -9,8 +10,20 @@ import type { Question } from '@/lib/questions';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import { ArrowLeft, ArrowRight, Star, CheckCircle, XCircle } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Star, CheckCircle, XCircle, ChevronLeft } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
+
 
 interface QuizProps {
   questions: Question[];
@@ -23,6 +36,7 @@ interface QuizProps {
 }
 
 const Quiz: React.FC<QuizProps> = ({ questions, onFinish }) => {
+    const router = useRouter();
     const { toast } = useToast();
     const [user, setUser] = useState<User | null>(null);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -136,19 +150,26 @@ const Quiz: React.FC<QuizProps> = ({ questions, onFinish }) => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 w-full max-w-screen-2xl mx-auto p-4 md:p-8">
             <Card className="lg:col-span-8 shadow-xl">
                 <CardHeader>
-                    <div className="flex justify-between items-start">
-                        <div>
-                            <p className="text-sm font-medium text-primary">Question {currentQuestionIndex + 1}/{totalQuestions}</p>
-                            <p className="text-xs text-muted-foreground mt-1">
-                                <span className="font-semibold text-green-600 dark:text-green-400">+1</span> for correct | <span className="font-semibold text-red-600 dark:text-red-400">-0.25</span> for incorrect
-                            </p>
+                    <div className="flex justify-between items-center">
+                       <div className="flex items-center">
+                            <Button variant="outline" size="icon" className="mr-4" onClick={() => router.back()}>
+                                <ChevronLeft className="h-6 w-6" />
+                            </Button>
+                            <div>
+                                <p className="text-sm font-medium text-primary">Question {currentQuestionIndex + 1}/{totalQuestions}</p>
+                                <p className="text-xs text-muted-foreground mt-1">
+                                    <span className="font-semibold text-green-600 dark:text-green-400">+1</span> for correct | <span className="font-semibold text-red-600 dark:text-red-400">-0.25</span> for incorrect
+                                </p>
+                            </div>
                         </div>
                     </div>
                     <Progress value={((answers.filter(a => a !== null).length) / totalQuestions) * 100} className="mt-4" />
                 </CardHeader>
                 <CardContent className="space-y-6 px-6 pb-6">
                     <div key={currentQuestionIndex} className="animate-fade-in-up space-y-6">
-                        <p className="text-xl font-semibold min-h-[5rem]">{currentQuestion.question}</p>
+                        <div className="bg-muted/50 p-6 rounded-lg border">
+                           <p className="text-xl font-semibold">{currentQuestion.question}</p>
+                        </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                             {currentQuestion.options.map((option, i) => {
                                 const isSelected = selectedAnswerIndex === i;
@@ -258,9 +279,25 @@ const Quiz: React.FC<QuizProps> = ({ questions, onFinish }) => {
                             })}
                         </div>
                     </div>
-                    <Button size="lg" className="w-full mt-6" onClick={handleSubmitTest}>
-                        Submit Test
-                    </Button>
+                    <AlertDialog>
+                      <AlertDialogTrigger asChild>
+                        <Button size="lg" className="w-full mt-6">
+                          Submit Test
+                        </Button>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                          <AlertDialogDescription>
+                            This will end your test and calculate your final score. This action cannot be undone.
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>Cancel</AlertDialogCancel>
+                          <AlertDialogAction onClick={handleSubmitTest}>Submit</AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
                 </CardContent>
             </Card>
         </div>

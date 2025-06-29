@@ -63,7 +63,6 @@ const Results: React.FC<ResultsProps> = ({ results, totalQuestions }) => {
                 </div>
              </div>
           </div>
-           <p className="text-muted-foreground mt-6 text-lg">i love you 😅❤️</p>
         </CardContent>
         <CardFooter className="p-8">
             <Link href="/" passHref className="w-full">
