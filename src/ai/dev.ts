@@ -1,2 +1,1 @@
-// Flows will be imported for their side effects in this file.
-import './flows/explain-question-flow';
+// AI features have been removed to ensure the app can be deployed on a free plan.

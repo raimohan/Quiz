@@ -1,7 +1,7 @@
 import {genkit} from 'genkit';
-import {googleAI} from '@genkit-ai/googleai';
 
+// The Google AI plugin has been removed to allow for free deployment.
+// Result saving via Firebase will still work.
 export const ai = genkit({
-  plugins: [googleAI()],
-  model: 'googleai/gemini-2.0-flash',
+  plugins: [],
 });

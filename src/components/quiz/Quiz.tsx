@@ -8,8 +8,7 @@ import { Question, allQuestions } from '@/lib/questions';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import { ArrowLeft, ArrowRight, Star, Sparkles, Loader2, CheckCircle, XCircle, CheckCircle2, Circle } from 'lucide-react';
-import { explainQuestion, ExplainQuestionOutput } from '@/ai/flows/explain-question-flow';
+import { ArrowLeft, ArrowRight, Star, CheckCircle, XCircle, CheckCircle2, Circle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 interface QuizProps {
@@ -27,8 +26,6 @@ const Quiz: React.FC<QuizProps> = ({ onFinish }) => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [answers, setAnswers] = useState<(number | null)[]>(Array(allQuestions.length).fill(null));
     const [markedForReview, setMarkedForReview] = useState<boolean[]>(Array(allQuestions.length).fill(false));
-    const [aiExplanation, setAiExplanation] = useState<string | null>(null);
-    const [isAiExplanationLoading, setIsAiExplanationLoading] = useState(false);
 
     const totalQuestions = allQuestions.length;
     const currentQuestion: Question = useMemo(() => allQuestions[currentQuestionIndex], [currentQuestionIndex]);
@@ -42,7 +39,7 @@ const Quiz: React.FC<QuizProps> = ({ onFinish }) => {
                 } catch (error: any) {
                     console.error("Anonymous authentication failed:", error);
                     
-                    let description = "An unknown Firebase error occurred. AI features may not work.";
+                    let description = "An unknown Firebase error occurred. Quiz results will not be saved.";
                     if (error.code === 'auth/api-key-not-valid') {
                         description = "Your Firebase API Key seems invalid. Please verify your credentials in src/lib/firebase.ts.";
                     } else if (error.code === 'auth/configuration-not-found') {
@@ -59,7 +56,7 @@ const Quiz: React.FC<QuizProps> = ({ onFinish }) => {
             } else {
                  toast({
                     title: "Firebase Not Configured",
-                    description: "AI features and result saving are disabled. Please add your credentials to src/lib/firebase.ts.",
+                    description: "Result saving is disabled. Please add your credentials to src/lib/firebase.ts.",
                     variant: "destructive",
                     duration: 9000,
                 });
@@ -68,51 +65,20 @@ const Quiz: React.FC<QuizProps> = ({ onFinish }) => {
         initAuth();
     }, [toast]);
 
-    const resetQuestionState = useCallback(() => {
-        setAiExplanation(null);
-        setIsAiExplanationLoading(false);
-    }, []);
-
     const handleNextQuestion = () => {
         if (currentQuestionIndex < totalQuestions - 1) {
             setCurrentQuestionIndex(prev => prev + 1);
-            resetQuestionState();
         }
     };
 
     const handlePreviousQuestion = () => {
         if (currentQuestionIndex > 0) {
             setCurrentQuestionIndex(prev => prev - 1);
-            resetQuestionState();
         }
     };
     
     const handleNavigateToQuestion = (index: number) => {
         setCurrentQuestionIndex(index);
-        resetQuestionState();
-    };
-
-    const handleAiExplain = async () => {
-        if (!isFirebaseConfigured || !user) {
-            setAiExplanation("AI features are disabled because Firebase is not configured correctly.");
-            return;
-        }
-        setIsAiExplanationLoading(true);
-        setAiExplanation(null);
-        try {
-            const result: ExplainQuestionOutput = await explainQuestion({
-                question: currentQuestion.question,
-                options: currentQuestion.options,
-                answer: currentQuestion.options[currentQuestion.answer],
-                explanation: currentQuestion.explanation,
-            });
-            setAiExplanation(result.detailedExplanation);
-        } catch (error) {
-            console.error("Error fetching AI explanation:", error);
-            setAiExplanation("Sorry, I couldn't generate an explanation right now. Please try again.");
-        } finally {
-            setIsAiExplanationLoading(false);
-        }
     };
 
     const handleAnswerSelect = (selectedIndex: number) => {
@@ -120,7 +86,6 @@ const Quiz: React.FC<QuizProps> = ({ onFinish }) => {
         const newAnswers = [...answers];
         newAnswers[currentQuestionIndex] = selectedIndex;
         setAnswers(newAnswers);
-        handleAiExplain();
     };
 
     const handleMarkForReview = () => {
@@ -205,8 +170,8 @@ const Quiz: React.FC<QuizProps> = ({ onFinish }) => {
                             })}
                         </div>
                     </div>
-                    {(selectedAnswerIndex !== null || aiExplanation) && (
-                        <div className="p-4 bg-muted/50 rounded-lg border animate-fade-in space-y-4">
+                    {selectedAnswerIndex !== null && (
+                        <div className="p-4 bg-muted/50 rounded-lg border animate-fade-in-up space-y-4">
                              <div>
                                 <h4 className="font-bold text-primary flex items-center gap-2">
                                   {selectedAnswerIndex === currentQuestion.answer ? <CheckCircle className="text-green-500 h-5 w-5"/> : <XCircle className="text-red-500 h-5 w-5" />}
@@ -214,19 +179,6 @@ const Quiz: React.FC<QuizProps> = ({ onFinish }) => {
                                 </h4>
                                 <p className="text-muted-foreground mt-1">{currentQuestion.explanation}</p>
                             </div>
-                            
-                            {(isAiExplanationLoading || aiExplanation) && (
-                                <div className="pt-4 border-t">
-                                    <h4 className="font-bold text-primary flex items-center gap-2">
-                                        <Sparkles className="h-5 w-5 text-yellow-500" />
-                                        AI Explanation
-                                    </h4>
-                                    {isAiExplanationLoading && !aiExplanation && <div className="flex items-center gap-2 mt-1"><Loader2 className="h-4 w-4 animate-spin" /><p className="text-sm text-muted-foreground">Generating detailed explanation...</p></div>}
-                                    {aiExplanation && (
-                                        <p className="text-muted-foreground mt-1 whitespace-pre-wrap">{aiExplanation}</p>
-                                    )}
-                                </div>
-                            )}
                         </div>
                     )}
                     <div className="flex justify-between items-center pt-4 border-t">
@@ -316,5 +268,3 @@ const Quiz: React.FC<QuizProps> = ({ onFinish }) => {
 };
 
 export default Quiz;
-
-    
