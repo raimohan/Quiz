@@ -98,11 +98,6 @@ html {
     scroll-behavior: smooth;
 }
 
-body {
-    font-family: 'Lato', sans-serif;
-    background-color: #f8fafc; /* Fallback background */
-}
-
 .hero-section {
     background: linear-gradient(170deg, #f0f5fb 0%, #ffffff 70%);
     position: relative;
