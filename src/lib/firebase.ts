@@ -13,9 +13,8 @@ const firebaseConfig = {
 };
 
 // This flag is used to enable Firebase-dependent features.
-// It is set to true to allow development, but features will not work
-// until you replace the placeholder credentials above.
-export const isFirebaseConfigured = true;
+// It is set based on whether you have replaced the placeholder credentials.
+export const isFirebaseConfigured = !firebaseConfig.apiKey.includes("PLACEHOLDER");
 
 // Initialize Firebase
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();

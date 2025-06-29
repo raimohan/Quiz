@@ -10,6 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { ArrowLeft, ArrowRight, Star, Sparkles, Loader2, CheckCircle, XCircle, CheckCircle2, Circle } from 'lucide-react';
 import { explainQuestion, ExplainQuestionOutput } from '@/ai/flows/explain-question-flow';
+import { useToast } from '@/hooks/use-toast';
 
 interface QuizProps {
   onFinish: (user: User | null, results: {
@@ -21,6 +22,7 @@ interface QuizProps {
 }
 
 const Quiz: React.FC<QuizProps> = ({ onFinish }) => {
+    const { toast } = useToast();
     const [user, setUser] = useState<User | null>(null);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [answers, setAnswers] = useState<(number | null)[]>(Array(allQuestions.length).fill(null));
@@ -39,13 +41,24 @@ const Quiz: React.FC<QuizProps> = ({ onFinish }) => {
                     setUser(userCredential.user);
                 } catch (error) {
                     console.error("Anonymous authentication failed:", error);
+                    toast({
+                        title: "Firebase Connection Error",
+                        description: "AI features and result saving are disabled. Please verify your Firebase credentials in src/lib/firebase.ts.",
+                        variant: "destructive",
+                        duration: 9000,
+                    });
                 }
             } else {
-                console.warn("Firebase not configured. AI explanations and results saving are disabled.");
+                 toast({
+                    title: "Firebase Not Configured",
+                    description: "AI features and result saving are disabled. Please add your credentials to src/lib/firebase.ts.",
+                    variant: "destructive",
+                    duration: 9000,
+                });
             }
         };
         initAuth();
-    }, []);
+    }, [toast]);
 
     const resetQuestionState = useCallback(() => {
         setAiExplanation(null);
@@ -73,7 +86,7 @@ const Quiz: React.FC<QuizProps> = ({ onFinish }) => {
 
     const handleAiExplain = async () => {
         if (!isFirebaseConfigured) {
-            setAiExplanation("AI features are disabled. Please configure Firebase credentials to enable them.");
+            setAiExplanation("AI features are disabled because Firebase is not configured.");
             return;
         }
         setIsAiExplanationLoading(true);
