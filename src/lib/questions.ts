@@ -107,30 +107,4 @@ const rawQuestions = [
     { question: "Which of the following is the longest river that flows entirely within India?", options: ["Ganga", "Narmada", "Godavari", "Brahmaputra"], answer: 2, explanation: "While the Ganga is longer overall, a significant portion of it flows through Bangladesh. The Godavari is the longest river with its entire course within the borders of India." },
     { question: "The Deccan Plateau is primarily made of what type of rock?", options: ["Sandstone", "Limestone", "Granite", "Basalt"], answer: 3, explanation: "The Deccan Plateau is a large igneous province, meaning it is composed of solidified volcanic lava, which is basaltic rock." },
     { question: "Which Indian state is known as the 'Spice Garden of India'?", options: ["Karnataka", "Kerala", "Tamil Nadu", "Assam"], answer: 1, explanation: "Kerala's unique climate and geography make it ideal for growing a wide variety of spices like pepper, cardamom, cloves, and nutmeg, earning it this title." }
-];
 
-const processedQuestions: Question[] = rawQuestions.map(q => ({
-  question: q.question,
-  options: q.options,
-  answer: q.options[q.answer],
-  explanation: q.explanation,
-}));
-
-export let allQuestions: Question[] = [...processedQuestions];
-
-const sampleQuestion: Question = {
-  question: "This is a sample question number X. What is the correct option?",
-  options: ["Sample Option A", "Sample Option B", "This is the Correct Answer", "Sample Option D"],
-  answer: "This is the Correct Answer",
-  explanation: "This is the detailed explanation for why the chosen option is the correct answer for sample question X."
-};
-
-for (let i = allQuestions.length + 1; i <= 175; i++) {
-    allQuestions.push({
-        ...sampleQuestion,
-        question: `This is a sample question number ${i}. What is the correct option?`,
-        explanation: `This is the detailed explanation for why the chosen option is the correct answer for sample question ${i}.`
-    });
-}
-
-    
