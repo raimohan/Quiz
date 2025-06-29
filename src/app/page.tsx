@@ -8,7 +8,8 @@ const testCategories = [
     title: 'General Knowledge',
     description: 'A wide range of topics to test your worldly wisdom.',
     href: '/quiz/gk',
-    imageUrl: 'https://i.postimg.cc/kDkZDYkf/Cool-Photoshop-background.jpg' border='0' alt='Cool-Photoshop-background',
+    imageUrl: 'https://i.postimg.cc/kDkZDYkf/Cool-Photoshop-background.jpg',
+    altText: 'Cool Photoshop background',
     dataAiHint: 'books library',
     disabled: false,
   },
@@ -17,6 +18,7 @@ const testCategories = [
     description: 'Dive into physics, chemistry, and biology.',
     href: '#',
     imageUrl: 'https://i.postimg.cc/qN50bxNY/Trapped-in-a-bubble-Scientists-shed-light-on-the-Earth-s-galactic-neighbourhood.jpg',
+    altText: 'Science background image',
     dataAiHint: 'science laboratory',
     disabled: true,
   },
@@ -25,6 +27,7 @@ const testCategories = [
     description: 'Sharpen your mind with numerical challenges.',
     href: '#',
     imageUrl: 'https://placehold.co/600x400.png',
+    altText: 'Math concept image',
     dataAiHint: 'math blackboard',
     disabled: true,
   },
@@ -33,6 +36,7 @@ const testCategories = [
     description: "How well do you know the world's currencies?",
     href: '/quiz/currency',
     imageUrl: 'https://placehold.co/600x400.png',
+    altText: 'Currency image',
     dataAiHint: 'currency money',
     disabled: false,
   },
@@ -41,6 +45,7 @@ const testCategories = [
     description: 'Match countries to their capital cities.',
     href: '/quiz/capital',
     imageUrl: 'https://placehold.co/600x400.png',
+    altText: 'World capital image',
     dataAiHint: 'world map',
     disabled: false,
   },
@@ -72,7 +77,7 @@ export default function Home() {
                   <div className="relative aspect-video w-full overflow-hidden">
                     <Image
                       src={category.imageUrl}
-                      alt={category.title}
+                      alt={category.altText || category.title}
                       fill
                       className="object-cover transition-transform duration-300 group-hover:scale-105"
                       data-ai-hint={category.dataAiHint}
@@ -95,7 +100,7 @@ export default function Home() {
               </Card>
             </Link>
           ))}
-           {/* Adding a placeholder card to make the layout more balanced for 5 items on larger screens */}
+           {/* Placeholder card for layout symmetry */}
            <Card className="hidden lg:flex flex-col items-center justify-center rounded-xl border-2 border-dashed bg-card/50 animate-fade-in-up" style={{ animationDelay: '500ms' }}>
              <div className="text-center p-6">
                 <p className="font-semibold text-muted-foreground">More Tests</p>
