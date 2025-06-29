@@ -8,7 +8,7 @@ import { Question, allQuestions } from '@/lib/questions';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import { ArrowLeft, ArrowRight, Bookmark, Sparkles, Loader2, CheckCircle, XCircle } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Star, Sparkles, Loader2, CheckCircle, XCircle, CheckCircle2, Circle } from 'lucide-react';
 import { explainQuestion, ExplainQuestionOutput } from '@/ai/flows/explain-question-flow';
 
 interface QuizProps {
@@ -134,6 +134,14 @@ const Quiz: React.FC<QuizProps> = ({ onFinish }) => {
     };
 
     const selectedAnswerIndex = answers[currentQuestionIndex];
+    
+    const stats = useMemo(() => {
+        const correct = answers.reduce((count, ans, i) => count + (ans !== null && ans === allQuestions[i].answer ? 1 : 0), 0);
+        const incorrect = answers.reduce((count, ans, i) => count + (ans !== null && ans !== allQuestions[i].answer ? 1 : 0), 0);
+        const marked = markedForReview.filter(m => m).length;
+        const unanswered = totalQuestions - (correct + incorrect);
+        return { correct, incorrect, marked, unanswered };
+    }, [answers, markedForReview, totalQuestions]);
 
     return (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 w-full max-w-screen-2xl mx-auto p-4 md:p-8">
@@ -142,35 +150,39 @@ const Quiz: React.FC<QuizProps> = ({ onFinish }) => {
                     <div className="flex justify-between items-start">
                         <div>
                             <p className="text-sm font-medium text-primary">Question {currentQuestionIndex + 1}/{totalQuestions}</p>
-                             <p className="text-xs text-muted-foreground mt-1">Correct: +1 | Incorrect: -0.25</p>
+                            <p className="text-xs text-muted-foreground mt-1">
+                                <span className="font-semibold text-green-600 dark:text-green-400">+1</span> for correct | <span className="font-semibold text-red-600 dark:text-red-400">-0.25</span> for incorrect
+                            </p>
                         </div>
                     </div>
                     <Progress value={((currentQuestionIndex + 1) / totalQuestions) * 100} className="mt-4" />
                 </CardHeader>
                 <CardContent className="space-y-6 px-6 pb-6">
-                    <p className="text-xl font-semibold min-h-[5rem]">{currentQuestion.question}</p>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                        {currentQuestion.options.map((option, i) => {
-                            const isSelected = selectedAnswerIndex === i;
-                            const isCorrect = currentQuestion.answer === i;
-                            let buttonClass = 'hover:bg-accent/10';
-                            if (selectedAnswerIndex !== null) {
-                                if (isCorrect) buttonClass = 'correct-answer';
-                                else if (isSelected) buttonClass = 'incorrect-answer';
-                                else buttonClass = 'other-option';
-                            }
-                            return (
-                                <Button
-                                    key={i}
-                                    onClick={() => handleAnswerSelect(i)}
-                                    disabled={selectedAnswerIndex !== null}
-                                    variant="outline"
-                                    className={`justify-start h-auto p-4 text-base text-left whitespace-normal leading-snug ${buttonClass}`}
-                                >
-                                    {option}
-                                </Button>
-                            );
-                        })}
+                    <div key={currentQuestionIndex} className="animate-fade-in-up space-y-6">
+                        <p className="text-xl font-semibold min-h-[5rem]">{currentQuestion.question}</p>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            {currentQuestion.options.map((option, i) => {
+                                const isSelected = selectedAnswerIndex === i;
+                                const isCorrect = currentQuestion.answer === i;
+                                let buttonClass = 'hover:bg-accent/10';
+                                if (selectedAnswerIndex !== null) {
+                                    if (isCorrect) buttonClass = 'correct-answer';
+                                    else if (isSelected) buttonClass = 'incorrect-answer';
+                                    else buttonClass = 'other-option';
+                                }
+                                return (
+                                    <Button
+                                        key={i}
+                                        onClick={() => handleAnswerSelect(i)}
+                                        disabled={selectedAnswerIndex !== null}
+                                        variant="outline"
+                                        className={`justify-start h-auto p-4 text-base text-left whitespace-normal leading-snug ${buttonClass}`}
+                                    >
+                                        {option}
+                                    </Button>
+                                );
+                            })}
+                        </div>
                     </div>
                     {(selectedAnswerIndex !== null || aiExplanation) && (
                         <div className="p-4 bg-muted/50 rounded-lg border animate-fade-in space-y-4">
@@ -201,7 +213,7 @@ const Quiz: React.FC<QuizProps> = ({ onFinish }) => {
                             <ArrowLeft className="mr-2 h-4 w-4" /> Previous
                         </Button>
                         <Button variant="outline" onClick={handleMarkForReview} className={markedForReview[currentQuestionIndex] ? 'navigator-marked' : ''}>
-                           <Bookmark className={`mr-2 h-4 w-4 transition-colors ${markedForReview[currentQuestionIndex] ? 'fill-yellow-400 text-yellow-500' : ''}`} />
+                           <Star className={`mr-2 h-4 w-4 transition-colors ${markedForReview[currentQuestionIndex] ? 'fill-yellow-400 text-yellow-500' : ''}`} />
                             Mark
                         </Button>
                         <Button onClick={handleNextQuestion} disabled={currentQuestionIndex === totalQuestions - 1}>
@@ -216,37 +228,62 @@ const Quiz: React.FC<QuizProps> = ({ onFinish }) => {
                     <CardTitle>Question Navigator</CardTitle>
                 </CardHeader>
                 <CardContent className="flex flex-col justify-between h-[calc(100%-4rem)]">
-                    <div className="grid grid-cols-5 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-6 gap-2">
-                        {allQuestions.map((_, index) => {
-                            const isCurrent = index === currentQuestionIndex;
-                            const answeredIndex = answers[index];
-                            const isAnswered = answeredIndex !== null;
-                            const isCorrect = isAnswered && answeredIndex === allQuestions[index].answer;
-                            const isMarked = markedForReview[index];
+                    <div>
+                        <div className="grid grid-cols-2 gap-4 mb-6 text-sm font-medium">
+                            <div className="flex items-center gap-2 text-green-600 dark:text-green-500">
+                                <CheckCircle2 className="h-5 w-5" />
+                                <div>Correct</div>
+                                <div className="ml-auto font-bold">{stats.correct}</div>
+                            </div>
+                            <div className="flex items-center gap-2 text-red-600 dark:text-red-500">
+                                <XCircle className="h-5 w-5" />
+                                <div>Incorrect</div>
+                                <div className="ml-auto font-bold">{stats.incorrect}</div>
+                            </div>
+                            <div className="flex items-center gap-2 text-yellow-500 dark:text-yellow-400">
+                                <Star className="h-5 w-5 fill-current" />
+                                <div>Marked</div>
+                                <div className="ml-auto font-bold">{stats.marked}</div>
+                            </div>
+                            <div className="flex items-center gap-2 text-muted-foreground">
+                                <Circle className="h-5 w-5" />
+                                <div>Unanswered</div>
+                                <div className="ml-auto font-bold">{stats.unanswered}</div>
+                            </div>
+                        </div>
 
-                            let variant: "default" | "secondary" | "outline" = "outline";
-                            let extraClasses = "";
-                            if (isCurrent) {
-                                variant = "default";
-                            } else if (isAnswered) {
-                                extraClasses += isCorrect ? ' navigator-correct' : ' navigator-incorrect';
-                            }
-                            if (isMarked) {
-                                extraClasses += ' navigator-marked';
-                            }
-                            
-                            return (
-                                <Button
-                                    key={index}
-                                    variant={variant}
-                                    size="icon"
-                                    className={`h-10 w-10 font-bold ${extraClasses}`}
-                                    onClick={() => handleNavigateToQuestion(index)}
-                                >
-                                    {index + 1}
-                                </Button>
-                            );
-                        })}
+                        <div className="grid grid-cols-5 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-6 gap-2">
+                            {allQuestions.map((_, index) => {
+                                const isCurrent = index === currentQuestionIndex;
+                                const answeredIndex = answers[index];
+                                const isAnswered = answeredIndex !== null;
+                                const isCorrect = isAnswered && answeredIndex === allQuestions[index].answer;
+                                const isMarked = markedForReview[index];
+
+                                let variant: "default" | "secondary" | "outline" = "outline";
+                                let extraClasses = "";
+                                if (isCurrent) {
+                                    variant = "default";
+                                } else if (isAnswered) {
+                                    extraClasses += isCorrect ? ' navigator-correct' : ' navigator-incorrect';
+                                }
+                                if (isMarked) {
+                                    extraClasses += ' navigator-marked';
+                                }
+                                
+                                return (
+                                    <Button
+                                        key={index}
+                                        variant={variant}
+                                        size="icon"
+                                        className={`h-10 w-10 font-bold transition-all duration-200 ${extraClasses}`}
+                                        onClick={() => handleNavigateToQuestion(index)}
+                                    >
+                                        {index + 1}
+                                    </Button>
+                                );
+                            })}
+                        </div>
                     </div>
                     <Button size="lg" className="w-full mt-6" onClick={handleSubmitTest}>
                         Submit Test
