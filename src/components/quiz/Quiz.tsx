@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
@@ -11,7 +12,7 @@ import { ArrowLeft, ArrowRight, Bookmark, Sparkles, Loader2, CheckCircle, XCircl
 import { explainQuestion, ExplainQuestionOutput } from '@/ai/flows/explain-question-flow';
 
 interface QuizProps {
-  onFinish: (results: {
+  onFinish: (user: User | null, results: {
     score: number;
     correctAnswers: number;
     incorrectAnswers: number;
@@ -124,7 +125,7 @@ const Quiz: React.FC<QuizProps> = ({ onFinish }) => {
             }
         }
         
-        onFinish({
+        onFinish(user, {
             score: parseFloat(score.toFixed(2)),
             correctAnswers,
             incorrectAnswers,
@@ -251,4 +252,9 @@ const Quiz: React.FC<QuizProps> = ({ onFinish }) => {
                         Submit Test
                     </Button>
                 </CardContent>
-            
+            </Card>
+        </div>
+    );
+};
+
+export default Quiz;
