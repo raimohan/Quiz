@@ -4,7 +4,7 @@
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Quiz from '@/components/quiz/Quiz';
-import Results from '@/components/quiz/Results';
+import dynamic from 'next/dynamic';
 import { 
   gkTest1Questions, 
   gkTest2Questions, 
@@ -15,6 +15,11 @@ import {
   type Question 
 } from '@/lib/questions';
 import LoadingAnimation from '@/components/ui/LoadingAnimation';
+
+const Results = dynamic(() => import('@/components/quiz/Results'), { 
+  ssr: false,
+  loading: () => <LoadingAnimation />,
+});
 
 interface ResultData {
   score: number;
