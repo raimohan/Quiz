@@ -1,9 +1,21 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
-import { Inter } from 'next/font/google';
+import { Inter, Staatliches } from 'next/font/google';
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+});
+
+const staatliches = Staatliches({
+  subsets: ['latin'],
+  weight: '400',
+  display: 'swap',
+  variable: '--font-staatliches',
+});
 
 export const metadata: Metadata = {
   title: 'Agniveer Ascent',
@@ -17,7 +29,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className} text-slate-800 antialiased`}>
+      <body className={`${inter.variable} ${staatliches.variable} ${inter.className} text-slate-800 antialiased`}>
+        <Script
+          id="adsbygoogle-script"
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8903229174184358"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
         {children}
         <Toaster />
       </body>
