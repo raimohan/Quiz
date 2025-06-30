@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Award, CheckCircle, XCircle, HelpCircle, Repeat } from 'lucide-react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import Confetti from 'react-confetti';
+import LoadingAnimation from '@/components/ui/LoadingAnimation';
 
 interface ResultsProps {
   results: {
@@ -39,6 +40,11 @@ const Results: React.FC<ResultsProps> = ({ results, totalQuestions }) => {
     return () => clearTimeout(timer);
   }, []);
   
+  // This prevents browser-specific libraries from running during the static build
+  if (!isClient) {
+    return <LoadingAnimation />;
+  }
+
   const percentage = totalQuestions > 0 ? Math.max(0, (results.correctAnswers / totalQuestions) * 100) : 0;
   
   const pieData = [
@@ -55,7 +61,7 @@ const Results: React.FC<ResultsProps> = ({ results, totalQuestions }) => {
 
   return (
     <>
-      {isClient && showConfetti && percentage >= 50 && <Confetti recycle={false} numberOfPieces={400} />}
+      {showConfetti && percentage >= 50 && <Confetti recycle={false} numberOfPieces={400} />}
       <main className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100 p-4">
         <Card className="w-full max-w-4xl shadow-2xl animate-fade-in-up border-0 overflow-hidden">
           <CardHeader className="text-center bg-slate-900 text-white p-8">
