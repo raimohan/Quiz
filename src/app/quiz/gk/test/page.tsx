@@ -3,7 +3,6 @@
 
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
-import Quiz from '@/components/quiz/Quiz';
 import dynamic from 'next/dynamic';
 import { 
   gkTest1Questions, 
@@ -17,6 +16,11 @@ import {
 import LoadingAnimation from '@/components/ui/LoadingAnimation';
 
 const Results = dynamic(() => import('@/components/quiz/Results'), { 
+  ssr: false,
+  loading: () => <LoadingAnimation />,
+});
+
+const Quiz = dynamic(() => import('@/components/quiz/Quiz'), {
   ssr: false,
   loading: () => <LoadingAnimation />,
 });
