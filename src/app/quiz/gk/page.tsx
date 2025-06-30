@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from 'next/link';
@@ -39,10 +38,16 @@ const gkTests = [
   },
    {
     title: 'General Knowledge - Test 6',
-    description: 'A final set of questions covering diverse topics including defence, international affairs, and Indian culture.',
+    description: 'A diverse set of 50 questions covering topics from awards and honours to international organizations.',
     href: '/quiz/gk/test?set=6',
     questionCount: 50,
   },
+  {
+    title: 'General Knowledge - Test 7',
+    description: 'A final set of 30 questions to round out your knowledge on defence, history, and polity.',
+    href: '/quiz/gk/test?set=7',
+    questionCount: 30,
+  }
 ];
 
 export default function GkTestSelectionPage() {
@@ -94,5 +99,3 @@ export default function GkTestSelectionPage() {
     </main>
   );
 }
-
-    
