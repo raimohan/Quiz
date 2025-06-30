@@ -3,8 +3,14 @@
 
 import { useState } from 'react';
 import Quiz from '@/components/quiz/Quiz';
-import Results from '@/components/quiz/Results';
 import { capitalQuestions } from '@/lib/capital-questions';
+import dynamic from 'next/dynamic';
+import LoadingAnimation from '@/components/ui/LoadingAnimation';
+
+const Results = dynamic(() => import('@/components/quiz/Results'), { 
+  ssr: false,
+  loading: () => <LoadingAnimation />,
+});
 
 interface ResultData {
   score: number;
