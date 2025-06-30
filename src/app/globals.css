@@ -1,28 +1,29 @@
-/* === Custom Fonts === */
+/* 🌸 Custom Fonts */
 @font-face {
   font-family: 'SF Pro Display';
   src: url('/fonts/SFPRODISPLAYREGULAR.OTF') format('opentype');
+  font-weight: normal;
+  font-style: normal;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'Akira Expanded';
   src: url('/fonts/Akira-Expanded.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
   font-display: swap;
 }
 
-/* === Tailwind Base === */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* === Apply fonts === */
-body {
-  font-family: 'SF Pro Display', sans-serif;
-}
-
 @layer base {
   :root {
+    --font-sans: 'SF Pro Display', sans-serif;
+    --font-heading: 'Akira Expanded', sans-serif;
+
     --background: 240 10% 99%;
     --foreground: 224 71.4% 4.1%;
     --card: 240 10% 99%;
@@ -111,4 +112,163 @@ body {
   }
 }
 
-/* Optional hero, animation, button styles – keep as you had */
+/* Hero Section Decorations */
+html {
+  scroll-behavior: smooth;
+}
+
+.hero-section {
+  background: linear-gradient(170deg, #f0f5fb 0%, #ffffff 70%);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-section::before,
+.hero-section::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  z-index: 0;
+  filter: blur(80px);
+}
+
+.hero-section::before {
+  width: 300px;
+  height: 300px;
+  background-color: rgba(59, 130, 246, 0.15);
+  top: -50px;
+  left: -100px;
+  animation: float-blob-1 15s infinite ease-in-out;
+}
+
+.hero-section::after {
+  width: 250px;
+  height: 250px;
+  background-color: rgba(147, 197, 253, 0.15);
+  bottom: -80px;
+  right: -80px;
+  animation: float-blob-2 18s infinite ease-in-out -5s;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+}
+
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(229, 231, 235, 0.5);
+  transition: all 0.3s ease;
+}
+
+.challenge-card {
+  background-color: #ffffff;
+  border-radius: 1.25rem;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 4px 10px -2px rgba(0, 0, 0, 0.04);
+  border: 1px solid #e5e7eb;
+}
+
+.challenge-card:not(.disabled):hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}
+
+.card-icon {
+  height: 64px;
+  width: 64px;
+  background: linear-gradient(135deg, #38bdf8, #3b82f6);
+  color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
+}
+
+.solid-button {
+  background-color: #2563eb;
+  color: #ffffff;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -2px rgba(0, 0, 0, 0.06);
+}
+
+.solid-button:hover {
+  background-color: #1d4ed8;
+  transform: translateY(-2px);
+  box-shadow: 0 7px 10px -3px rgba(29, 78, 216, 0.3);
+}
+
+.challenge-card.disabled {
+  background-color: #f8fafc;
+}
+.challenge-card.disabled .card-icon {
+  background: #e2e8f0;
+  color: #64748b;
+  box-shadow: none;
+}
+
+/* Hero Animation Styles */
+@keyframes float-blob-1 {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(40px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 30px) scale(0.9);
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+@keyframes float-blob-2 {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(-30px, 40px) scale(0.9);
+  }
+  66% {
+    transform: translate(50px, -20px) scale(1.1);
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+@keyframes hero-fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.fade-in-stagger > * {
+  opacity: 0;
+  animation: hero-fade-in-up 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
+.fade-in-stagger > *:nth-child(1) {
+  animation-delay: 0.2s;
+}
+.fade-in-stagger > *:nth-child(2) {
+  animation-delay: 0.3s;
+}
+.fade-in-stagger > *:nth-child(3) {
+  animation-delay: 0.4s;
+}
