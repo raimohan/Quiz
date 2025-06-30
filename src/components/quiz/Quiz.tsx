@@ -7,7 +7,7 @@ import type { Question } from '@/lib/questions';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import { ArrowLeft, ArrowRight, Star, CheckCircle, XCircle, ChevronLeft, Flag } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Star, CheckCircle, XCircle, ChevronLeft, Flag, Languages } from 'lucide-react';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -19,6 +19,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
+import { useQuizLanguage } from '@/context/QuizLanguageContext';
 
 interface QuizProps {
   questions: Question[];
@@ -42,6 +43,7 @@ const Quiz: React.FC<QuizProps> = ({ questions, onFinish }) => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [answers, setAnswers] = useState<(number | null)[]>(Array(questions.length).fill(null));
     const [markedForReview, setMarkedForReview] = useState<boolean[]>(Array(questions.length).fill(false));
+    const { language, toggleLanguage } = useQuizLanguage();
 
     const totalQuestions = questions.length;
     const currentQuestion: Question = useMemo(() => questions[currentQuestionIndex], [currentQuestionIndex, questions]);
@@ -129,16 +131,22 @@ const Quiz: React.FC<QuizProps> = ({ questions, onFinish }) => {
                                         <CardDescription>Question {currentQuestionIndex + 1} of {totalQuestions}</CardDescription>
                                     </div>
                                 </div>
-                                <div className="text-sm font-medium text-muted-foreground">
-                                    <span className="font-semibold text-green-600">+1</span> Correct | <span className="font-semibold text-red-600">-0.25</span> Incorrect
-                                </div>
+                               <div className="flex items-center gap-4">
+                                   <Button variant="outline" size="sm" onClick={toggleLanguage}>
+                                        <Languages className="mr-2 h-4 w-4" />
+                                        {language === 'en' ? 'हिन्दी' : 'English'}
+                                   </Button>
+                                    <div className="text-sm font-medium text-muted-foreground hidden sm:block">
+                                        <span className="font-semibold text-green-600">+1</span> Correct | <span className="font-semibold text-red-600">-0.25</span> Incorrect
+                                    </div>
+                               </div>
                             </div>
                         </CardHeader>
                         <CardContent className="p-6 md:p-8 space-y-8">
                             <div key={currentQuestionIndex}>
-                                <p className="text-xl md:text-2xl font-bold leading-tight text-slate-800">{currentQuestion.question}</p>
+                                <p className="text-xl md:text-2xl font-bold leading-tight text-slate-800">{currentQuestion.question[language]}</p>
                                 <div className="mt-6 space-y-4">
-                                    {currentQuestion.options.map((option, i) => {
+                                    {currentQuestion.options[language].map((option, i) => {
                                         const isSelected = selectedAnswerIndex === i;
                                         const isCorrect = currentQuestion.answer === i;
                                         
@@ -170,9 +178,9 @@ const Quiz: React.FC<QuizProps> = ({ questions, onFinish }) => {
                                     <div>
                                         <h4 className="font-bold text-lg text-foreground flex items-center gap-2">
                                         {selectedAnswerIndex === currentQuestion.answer ? <CheckCircle className="text-green-500 h-6 w-6"/> : <XCircle className="text-red-500 h-6 w-6" />}
-                                        Explanation
+                                        {language === 'en' ? 'Explanation' : 'स्पष्टीकरण'}
                                         </h4>
-                                        <p className="text-muted-foreground mt-2 text-base">{currentQuestion.explanation}</p>
+                                        <p className="text-muted-foreground mt-2 text-base">{currentQuestion.explanation[language]}</p>
                                     </div>
                                 </div>
                             )}
@@ -181,14 +189,14 @@ const Quiz: React.FC<QuizProps> = ({ questions, onFinish }) => {
                     </Card>
                      <div className="flex justify-between items-center mt-6">
                         <Button variant="outline" size="lg" onClick={handlePreviousQuestion} disabled={currentQuestionIndex === 0}>
-                            <ArrowLeft className="mr-2 h-5 w-5" /> Previous
+                            <ArrowLeft className="mr-2 h-5 w-5" /> {language === 'en' ? 'Previous' : 'पिछला'}
                         </Button>
                         <Button variant="outline" size="lg" onClick={handleMarkForReview} className={markedForReview[currentQuestionIndex] ? 'ring-2 ring-yellow-400' : ''}>
                            <Star className={`mr-2 h-5 w-5 transition-colors ${markedForReview[currentQuestionIndex] ? 'fill-yellow-400 text-yellow-500' : ''}`} />
-                            {markedForReview[currentQuestionIndex] ? 'Unmark' : 'Mark for Review'}
+                            {markedForReview[currentQuestionIndex] ? (language === 'en' ? 'Unmark' : 'अनमार्क करें') : (language === 'en' ? 'Mark for Review' : 'समीक्षा के लिए चिह्नित करें')}
                         </Button>
                         <Button size="lg" onClick={handleNextQuestion} disabled={currentQuestionIndex === totalQuestions - 1}>
-                           Next <ArrowRight className="ml-2 h-5 w-5" />
+                           {language === 'en' ? 'Next' : 'अगला'} <ArrowRight className="ml-2 h-5 w-5" />
                         </Button>
                     </div>
                 </div>
