@@ -2,12 +2,16 @@
 "use client";
 
 import { useState } from 'react';
-import Quiz from '@/components/quiz/Quiz';
 import { capitalQuestions } from '@/lib/capital-questions';
 import dynamic from 'next/dynamic';
 import LoadingAnimation from '@/components/ui/LoadingAnimation';
 
 const Results = dynamic(() => import('@/components/quiz/Results'), { 
+  ssr: false,
+  loading: () => <LoadingAnimation />,
+});
+
+const Quiz = dynamic(() => import('@/components/quiz/Quiz'), {
   ssr: false,
   loading: () => <LoadingAnimation />,
 });
