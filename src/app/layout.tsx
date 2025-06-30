@@ -2,19 +2,6 @@ import type { Metadata } from 'next';
 import Script from 'next/script';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
-import localFont from 'next/font/local';
-
-const sfPro = localFont({
-  src: '../Fonts/SFPRODISPLAYREGULAR.OTF',
-  display: 'swap',
-  variable: '--font-sans',
-});
-
-const akira = localFont({
-  src: '../Fonts/Akira-Expanded.otf',
-  display: 'swap',
-  variable: '--font-heading',
-});
 
 export const metadata: Metadata = {
   title: 'Agniveer Ascent',
@@ -31,7 +18,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${sfPro.variable} ${akira.variable} font-sans text-slate-800 antialiased`}>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+      </head>
+      <body className="font-sans text-slate-800 antialiased">
+        {/* Google AdSense Script */}
         <Script
           id="adsbygoogle-script"
           async
