@@ -20,6 +20,9 @@ const staatliches = Staatliches({
 export const metadata: Metadata = {
   title: 'Agniveer Ascent',
   description: 'The Agniveer Knowledge Challenge',
+  other: {
+    'google-adsense-account': 'ca-pub-8903229174184358',
+  },
 };
 
 export default function RootLayout({
