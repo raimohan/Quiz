@@ -6,7 +6,9 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { ListChecks, Target, AlertTriangle, Clock, Flag, Palette, CheckCircle, BookOpen } from 'lucide-react';
+import { useQuizLanguage } from '@/context/QuizLanguageContext';
 
 interface QuizRulesProps {
   onStartTest: () => void;
@@ -43,6 +45,7 @@ const rules = [
 
 const QuizRules: React.FC<QuizRulesProps> = ({ onStartTest, quizTitle }) => {
   const [isAccepted, setIsAccepted] = useState(false);
+  const { language, setLanguage } = useQuizLanguage();
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-slate-50 to-blue-100 p-4">
@@ -58,6 +61,20 @@ const QuizRules: React.FC<QuizRulesProps> = ({ onStartTest, quizTitle }) => {
         </CardHeader>
         <CardContent className="px-8 md:px-12 py-8 bg-slate-50/50">
           <div className="space-y-8">
+             <div>
+                <h3 className="font-semibold text-lg text-foreground mb-3">Select Test Language</h3>
+                <RadioGroup defaultValue={language} onValueChange={(value) => setLanguage(value as 'en' | 'hi')} className="flex gap-4">
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="en" id="en" />
+                    <Label htmlFor="en" className="text-base cursor-pointer">English</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="hi" id="hi" />
+                    <Label htmlFor="hi" className="text-base cursor-pointer">हिन्दी</Label>
+                  </div>
+                </RadioGroup>
+              </div>
+
             {rules.map((rule, index) => {
               const Icon = rule.icon;
               return (
