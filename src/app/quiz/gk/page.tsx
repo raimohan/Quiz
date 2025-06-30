@@ -38,16 +38,10 @@ const gkTests = [
   },
    {
     title: 'General Knowledge - Test 6',
-    description: 'A diverse set of 50 questions covering topics from awards and honours to international organizations.',
+    description: 'A diverse set of 25 questions covering topics from awards and honours to international organizations.',
     href: '/quiz/gk/test?set=6',
-    questionCount: 50,
+    questionCount: 25,
   },
-  {
-    title: 'General Knowledge - Test 7',
-    description: 'A final set of 30 questions to round out your knowledge on defence, history, and polity.',
-    href: '/quiz/gk/test?set=7',
-    questionCount: 30,
-  }
 ];
 
 export default function GkTestSelectionPage() {
