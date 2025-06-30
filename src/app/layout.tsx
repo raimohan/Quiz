@@ -2,19 +2,18 @@ import type { Metadata } from 'next';
 import Script from 'next/script';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
-import { Inter, Staatliches } from 'next/font/google';
+import localFont from 'next/font/local';
 
-const inter = Inter({
-  subsets: ['latin'],
+const sfPro = localFont({
+  src: '../Fonts/SFPRODISPLAYREGULAR.OTF',
   display: 'swap',
-  variable: '--font-inter',
+  variable: '--font-sans',
 });
 
-const staatliches = Staatliches({
-  subsets: ['latin'],
+const akira = localFont({
+  src: '../Fonts/Akira-Expanded.otf',
   display: 'swap',
-  variable: '--font-staatliches',
-  weight: '400',
+  variable: '--font-heading',
 });
 
 export const metadata: Metadata = {
@@ -32,7 +31,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${staatliches.variable} font-sans text-slate-800 antialiased`}>
+      <body className={`${sfPro.variable} ${akira.variable} font-sans text-slate-800 antialiased`}>
         <Script
           id="adsbygoogle-script"
           async
