@@ -1,3 +1,4 @@
+
 export type Question = {
     question: string;
     options: string[];
@@ -5,7 +6,7 @@ export type Question = {
     explanation: string;
 };
 
-const allGkQuestions: Question[] = [
+const allRawQuestions: Question[] = [
     {
         "question": "India observes National Sports Day on whose birth anniversary?",
         "options": ["Milkha Singh", "Mansoor Ali Khan Pataudi", "Dhyan Chand", "Michael Ferreira"],
@@ -179,12 +180,6 @@ const allGkQuestions: Question[] = [
         "options": ["Agra", "Mumbai", "Pune", "Nagpur"],
         "answer": 0,
         "explanation": "The Indian Army's Airborne Training School (AATS), which trains paratroopers, is located in Agra, Uttar Pradesh."
-    },
-    {
-        "question": "Which country will become the 32nd NATO member?",
-        "options": ["Qatar", "Oman", "Hungary", "Sweden"],
-        "answer": 3,
-        "explanation": "Sweden officially joined the North Atlantic Treaty Organization (NATO) in March 2024, becoming its 32nd member."
     },
     {
         "question": "What does INTERPOL stand for?",
@@ -463,96 +458,6 @@ const allGkQuestions: Question[] = [
         "explanation": "Justice M. Fathima Beevi became the first female judge to be appointed to the Supreme Court of India in 1989. Leila Seth was the first female chief justice of a state high court."
     },
     {
-        "question": "Who is often called the 'Napoleon of India' for his extensive military conquests?",
-        "options": ["Chandragupta Maurya", "Ashoka", "Samudragupta", "Harshavardhana"],
-        "answer": 2,
-        "explanation": "Samudragupta of the Gupta dynasty is renowned for his vast military campaigns, which are detailed in the Prayag Prashasti (Allahabad Pillar Inscription)."
-    },
-    {
-        "question": "The 'Doctrine of Lapse' policy was most famously associated with which Governor-General?",
-        "options": ["Lord Curzon", "Lord Dalhousie", "Lord Canning", "Lord William Bentinck"],
-        "answer": 1,
-        "explanation": "Lord Dalhousie widely implemented the Doctrine of Lapse, an annexation policy, to expand British territories in India."
-    },
-    {
-        "question": "The famous slogan \"Swaraj is my birthright, and I shall have it!\" was given by whom?",
-        "options": ["Mahatma Gandhi", "Jawaharlal Nehru", "Bal Gangadhar Tilak", "Subhas Chandra Bose"],
-        "answer": 2,
-        "explanation": "This powerful slogan was coined by Bal Gangadhar Tilak, a key figure in India's independence movement, to inspire a sense of self-rule among Indians."
-    },
-    {
-        "question": "Who was the first Indian to be elected to the British Parliament?",
-        "options": ["W.C. Bonnerjee", "Dadabhai Naoroji", "Pherozeshah Mehta", "Surendranath Banerjee"],
-        "answer": 1,
-        "explanation": "Dadabhai Naoroji, known as the \"Grand Old Man of India,\" was the first Indian to be elected as a Member of Parliament in the British House of Commons in 1892."
-    },
-    {
-        "question": "The Battle of Plassey in 1757 was fought between the British East India Company and whom?",
-        "options": ["Mir Qasim", "Tipu Sultan", "Siraj-ud-Daulah", "The Marathas"],
-        "answer": 2,
-        "explanation": "The Battle of Plassey, a decisive victory for the British, was fought against Siraj-ud-Daulah, the Nawab of Bengal."
-    },
-    {
-        "question": "Who founded the 'Forward Bloc' party after resigning from the Indian National Congress?",
-        "options": ["Sardar Vallabhbhai Patel", "Dr. Rajendra Prasad", "Subhas Chandra Bose", "C. Rajagopalachari"],
-        "answer": 2,
-        "explanation": "After resigning as the President of the Indian National Congress in 1939, Subhas Chandra Bose formed his own party, the All India Forward Bloc."
-    },
-    {
-        "question": "Who was the first Indian Governor-General of independent India?",
-        "options": ["Lord Mountbatten", "Dr. Rajendra Prasad", "C. Rajagopalachari", "Jawaharlal Nehru"],
-        "answer": 2,
-        "explanation": "While Lord Mountbatten was the last Viceroy and first Governor-General of a newly independent India, C. Rajagopalachari was the first (and only) Indian to hold the position."
-    },
-    {
-        "question": "The ancient city of 'Pataliputra' is the modern-day equivalent of which city?",
-        "options": ["Varanasi", "Lucknow", "Patna", "Allahabad (Prayagraj)"],
-        "answer": 2,
-        "explanation": "Pataliputra, the capital of major empires like the Mauryan and Gupta, was located at the confluence of the Son and Ganges rivers, where modern-day Patna stands."
-    },
-    {
-        "question": "Who was the author of the famous book 'Geet Govinda'?",
-        "options": ["Kalidasa", "Tulsidas", "Jayadeva", "Valmiki"],
-        "answer": 2,
-        "explanation": "The 'Geet Govinda' is a celebrated 12th-century Sanskrit poem composed by Jayadeva, focusing on the relationship between Krishna and the gopis of Vrindavan, particularly Radha."
-    },
-    {
-        "question": "The Jallianwala Bagh massacre took place in which city?",
-        "options": ["Lahore", "Delhi", "Amritsar", "Jalandhar"],
-        "answer": 2,
-        "explanation": "The infamous Jallianwala Bagh massacre occurred on April 13, 1919, in Amritsar, Punjab, where British troops fired on a large crowd of unarmed Indians."
-    },
-    {
-        "question": "Which Indian state has the longest coastline?",
-        "options": ["Andhra Pradesh", "Tamil Nadu", "Maharashtra", "Gujarat"],
-        "answer": 3,
-        "explanation": "With a coastline of about 1,600 kilometers, Gujarat has the longest mainland coastline in India."
-    },
-    {
-        "question": "The Sundarbans, the world's largest mangrove forest, is located in the delta of which two rivers?",
-        "options": ["Godavari and Krishna", "Ganga and Brahmaputra", "Narmada and Tapti", "Mahanadi and Godavari"],
-        "answer": 1,
-        "explanation": "The Sundarbans delta is formed by the confluence of the Ganga, Brahmaputra, and Meghna Rivers in the Bay of Bengal."
-    },
-    {
-        "question": "Which of the following is the longest river that flows entirely within India?",
-        "options": ["Ganga", "Narmada", "Godavari", "Brahmaputra"],
-        "answer": 2,
-        "explanation": "While the Ganga is longer overall, a significant portion of it flows through Bangladesh. The Godavari is the longest river with its entire course within the borders of India."
-    },
-    {
-        "question": "The Deccan Plateau is primarily made of what type of rock?",
-        "options": ["Sandstone", "Limestone", "Granite", "Basalt"],
-        "answer": 3,
-        "explanation": "The Deccan Plateau is a large igneous province, meaning it is composed of solidified volcanic lava, which is basaltic rock."
-    },
-    {
-        "question": "Which Indian state is known as the 'Spice Garden of India'?",
-        "options": ["Karnataka", "Kerala", "Tamil Nadu", "Assam"],
-        "answer": 1,
-        "explanation": "Kerala's unique climate and geography make it ideal for growing a wide variety of spices like pepper, cardamom, cloves, and nutmeg, earning it this title."
-    },
-    {
         "question": "The Booker Prize is awarded in the field of:",
         "options": ["Science", "Fiction Literature", "Journalism", "Social Service"],
         "answer": 1,
@@ -583,97 +488,277 @@ const allGkQuestions: Question[] = [
         "explanation": "It is an annual award for outstanding literary work in any of the 22 languages of India listed in Schedule VIII of the Constitution."
     },
     {
-        "question": "Who is known as the father of Economics?",
-        "options": ["John Maynard Keynes", "Karl Marx", "Adam Smith", "Amartya Sen"],
+        "question": "What is the term length for a member of the Rajya Sabha?",
+        "options": ["4 years", "5 years", "6 years", "No fixed term"],
         "answer": 2,
-        "explanation": "Adam Smith, a Scottish economist and philosopher, is widely regarded as the father of modern economics for his work \"The Wealth of Nations\"."
+        "explanation": "Members of the Rajya Sabha are elected for a term of six years, with one-third of the members retiring every two years."
     },
     {
-        "question": "The Goods and Services Tax (GST) in India was introduced by which constitutional amendment?",
-        "options": ["100th Amendment Act", "101st Amendment Act", "102nd Amendment Act", "99th Amendment Act"],
-        "answer": 1,
-        "explanation": "The 101st Constitutional Amendment Act, 2016, paved the way for the introduction of the Goods and Services Tax in India."
-    },
-    {
-        "question": "Which body is responsible for regulating the insurance sector in India?",
-        "options": ["RBI (Reserve Bank of India)", "SEBI (Securities and Exchange Board of India)", "IRDAI (Insurance Regulatory and Development Authority of India)", "PFRDA (Pension Fund Regulatory and Development Authority)"],
+        "question": "Who appoints the Chief Election Commissioner of India?",
+        "options": ["The Prime Minister", "The Chief Justice of India", "The President of India", "The Parliament"],
         "answer": 2,
-        "explanation": "IRDAI is the autonomous, statutory body tasked with regulating and promoting the insurance and re-insurance industries in India."
+        "explanation": "The President of India appoints the Chief Election Commissioner, who heads the Election Commission of India."
     },
     {
-        "question": "The power of the President of India to grant pardons is specified under which Article?",
-        "options": ["Article 61", "Article 72", "Article 76", "Article 123"],
+        "question": "The 'Zero Hour' in the Indian Parliament refers to:",
+        "options": ["The last hour of the session", "The first hour of the session", "The time immediately following the Question Hour", "The time when the budget is presented"],
+        "answer": 2,
+        "explanation": "Zero Hour is the time when Members of Parliament can raise issues of urgent public importance without any prior notice."
+    },
+    {
+        "question": "Which of the following is not a fundamental right in the Indian Constitution?",
+        "options": ["Right to Equality", "Right to Freedom of Religion", "Right to Property", "Right against Exploitation"],
+        "answer": 2,
+        "explanation": "The Right to Property was removed from the list of Fundamental Rights by the 44th Amendment Act in 1978 and is now a legal right under Article 300-A."
+    },
+    {
+        "question": "The first session of the Indian Constituent Assembly was held on:",
+        "options": ["August 15, 1947", "January 26, 1950", "December 9, 1946", "August 9, 1942"],
+        "answer": 2,
+        "explanation": "The Constituent Assembly met for the first time in New Delhi on 9 December 1946 in the Constitution Hall which is now known as the Central Hall of Parliament House."
+    },
+    {
+        "question": "On which date is the National Youth Day celebrated in India, marking the birth anniversary of Swami Vivekananda?",
+        "options": ["January 23", "January 12", "January 26", "January 30"],
         "answer": 1,
-        "explanation": "Article 72 of the Indian Constitution empowers the President to grant pardons, reprieves, respites, or remissions of punishment."
+        "explanation": "National Youth Day is celebrated on 12th January to honor the birth anniversary of Swami Vivekananda."
     },
     {
-        "question": "Who was the first Finance Minister of Independent India?",
-        "options": ["C.D. Deshmukh", "John Mathai", "Liaquat Ali Khan", "R. K. Shanmukham Chetty"],
+        "question": "World Environment Day is observed globally on:",
+        "options": ["April 22", "June 5", "September 16", "October 24"],
+        "answer": 1,
+        "explanation": "World Environment Day, established by the UN, is celebrated on June 5th each year to encourage awareness and action for the protection of our environment."
+    },
+    {
+        "question": "National Science Day in India is celebrated to commemorate:",
+        "options": ["The launch of Aryabhata satellite", "The discovery of the 'Raman Effect' by C.V. Raman", "The birth anniversary of Homi J. Bhabha", "The Pokhran nuclear test"],
+        "answer": 1,
+        "explanation": "It is celebrated on 28th February each year to mark the discovery of the Raman Effect by Indian physicist Sir C. V. Raman."
+    },
+    {
+        "question": "International Yoga Day is celebrated on:",
+        "options": ["May 21", "June 21", "July 21", "August 21"],
+        "answer": 1,
+        "explanation": "International Yoga Day is celebrated annually on June 21 since its inception in 2015."
+    },
+    {
+        "question": "Pravasi Bharatiya Divas (Non-Resident Indian Day) is celebrated on:",
+        "options": ["January 9", "February 9", "March 9", "April 9"],
+        "answer": 0,
+        "explanation": "It is celebrated on 9 January to mark the contribution of the overseas Indian community towards the development of India."
+    },
+    {
+        "question": "Where is the headquarters of the International Monetary Fund (IMF) located?",
+        "options": ["Geneva, Switzerland", "New York, USA", "Washington D.C., USA", "Paris, France"],
+        "answer": 2,
+        "explanation": "The IMF is headquartered in Washington, D.C., United States."
+    },
+    {
+        "question": "Which of the following is NOT a member of SAARC?",
+        "options": ["Bhutan", "Nepal", "Myanmar", "Afghanistan"],
+        "answer": 2,
+        "explanation": "The members of SAARC are Afghanistan, Bangladesh, Bhutan, India, Maldives, Nepal, Pakistan, and Sri Lanka. Myanmar is a member of ASEAN."
+    },
+    {
+        "question": "The headquarters of the World Trade Organization (WTO) is located in:",
+        "options": ["Vienna, Austria", "Brussels, Belgium", "Geneva, Switzerland", "London, UK"],
+        "answer": 2,
+        "explanation": "The WTO is headquartered in Geneva, Switzerland."
+    },
+    {
+        "question": "ASEAN (Association of Southeast Asian Nations) was established in which year?",
+        "options": ["1957", "1967", "1977", "1987"],
+        "answer": 1,
+        "explanation": "ASEAN was established on 8 August 1967 in Bangkok, Thailand."
+    },
+    {
+        "question": "The headquarters of UNESCO is located in:",
+        "options": ["Rome, Italy", "Paris, France", "New York, USA", "Berlin, Germany"],
+        "answer": 1,
+        "explanation": "The United Nations Educational, Scientific and Cultural Organization (UNESCO) is headquartered in Paris, France."
+    },
+    {
+        "question": "The term 'Ashes' is associated with which sport?",
+        "options": ["Football", "Hockey", "Cricket", "Tennis"],
+        "answer": 2,
+        "explanation": "The Ashes is a Test cricket series played between England and Australia."
+    },
+    {
+        "question": "The Ryder Cup is a famous tournament in which sport?",
+        "options": ["Golf", "Tennis", "Badminton", "Table Tennis"],
+        "answer": 0,
+        "explanation": "The Ryder Cup is a biennial men's golf competition between teams from Europe and the United States."
+    },
+    {
+        "question": "How many players are there on each side in a game of basketball?",
+        "options": ["4", "5", "6", "7"],
+        "answer": 1,
+        "explanation": "A standard basketball team has five players on the court at any one time."
+    },
+    {
+        "question": "The term 'Grand Slam' is associated with:",
+        "options": ["Billiards", "Chess", "Bridge", "Tennis"],
         "answer": 3,
-        "explanation": "R. K. Shanmukham Chetty presented the first budget of independent India on November 26, 1947."
+        "explanation": "In tennis, the Grand Slam refers to the accomplishment of winning all four major championships in the same calendar year."
     },
     {
-        "question": "The concept of 'Concurrent List' in the Indian Constitution was borrowed from which country?",
-        "options": ["Canada", "Australia", "Germany", "Ireland"],
+        "question": "Neeraj Chopra is associated with which sport?",
+        "options": ["Shooting", "Wrestling", "Javelin Throw", "Boxing"],
+        "answer": 2,
+        "explanation": "Neeraj Chopra is an Indian track and field athlete who competes in the javelin throw and is an Olympic gold medalist."
+    },
+    {
+        "question": "The 'Green Revolution' in India was primarily focused on increasing the production of:",
+        "options": ["Milk", "Pulses", "Wheat and Rice", "Oilseeds"],
+        "answer": 2,
+        "explanation": "The Green Revolution led to a significant increase in the production of food grains, particularly wheat and rice."
+    },
+    {
+        "question": "What is the name of the oldest mountain range in India?",
+        "options": ["Himalayas", "Vindhyas", "Aravalli Range", "Satpuras"],
+        "answer": 2,
+        "explanation": "The Aravalli Range in Northwestern India is one of the oldest fold mountain ranges in the world."
+    },
+    {
+        "question": "The famous 'Dilwara Temples' are located in which state?",
+        "options": ["Gujarat", "Rajasthan", "Madhya Pradesh", "Maharashtra"],
         "answer": 1,
-        "explanation": "The provision for the 'Concurrent List', where both Union and State governments can make laws, was adopted from the Constitution of Australia."
+        "explanation": "The Dilwara Temples are a group of Svetambara Jain temples located near the hill station of Mount Abu in Rajasthan."
     },
     {
-        "question": "What is the main objective of the 'UDAN' scheme launched by the Government of India?",
-        "options": ["To provide electricity to all villages", "To make air travel affordable for the common citizen", "To provide digital literacy", "To build national highways"],
+        "question": "Which river is known as the 'Sorrow of Bengal'?",
+        "options": ["Ganga", "Hooghly", "Damodar", "Brahmaputra"],
+        "answer": 2,
+        "explanation": "The Damodar River was known as the 'Sorrow of Bengal' because of its devastating floods in the plains of West Bengal."
+    },
+    {
+        "question": "'Kuchipudi' is a classical dance form that originated in which state?",
+        "options": ["Tamil Nadu", "Kerala", "Andhra Pradesh", "Karnataka"],
+        "answer": 2,
+        "explanation": "Kuchipudi is one of the eleven major Indian classical dances, originating from a village named Kuchipudi in Andhra Pradesh."
+    },
+    {
+        "question": "The first Five-Year Plan in India was launched in which year?",
+        "options": ["1947", "1950", "1951", "1956"],
+        "answer": 2,
+        "explanation": "The first Five-Year Plan was launched in 1951, focusing primarily on the development of the primary sector."
+    },
+    {
+        "question": "The 'Gobi Desert' is located primarily in:",
+        "options": ["India and Pakistan", "China and Mongolia", "Russia and Kazakhstan", "Iran and Iraq"],
         "answer": 1,
-        "explanation": "UDAN (Ude Desh ka Aam Naagrik) is a regional connectivity scheme aimed at developing regional airports and making air travel accessible."
+        "explanation": "The Gobi Desert is a large desert region in Northern China and Southern Mongolia."
     },
     {
-        "question": "Who administers the oath of office to the Governor of a state?",
-        "options": ["The President of India", "The Chief Minister of the state", "The Chief Justice of the concerned State High Court", "The Vice President of India"],
+        "question": "Who is known as the 'Father of the Indian Constitution'?",
+        "options": ["Mahatma Gandhi", "Dr. Rajendra Prasad", "Jawaharlal Nehru", "Dr. B.R. Ambedkar"],
+        "answer": 3,
+        "explanation": "Dr. B.R. Ambedkar was the chairman of the drafting committee of the Constitution and is widely revered as its chief architect."
+    },
+    {
+        "question": "The 'Tattvabodhini Sabha' was founded by:",
+        "options": ["Raja Ram Mohan Roy", "Keshab Chandra Sen", "Debendranath Tagore", "Swami Vivekananda"],
         "answer": 2,
-        "explanation": "The oath to the Governor is administered by the Chief Justice of the High Court of that state, or in their absence, the senior-most judge available."
+        "explanation": "The Tattvabodhini Sabha was founded by Debendranath Tagore in 1839 as a splinter group of the Brahmo Samaj."
     },
     {
-        "question": "The term 'Fiscal Deficit' means:",
-        "options": ["Total revenue minus total expenditure", "The government's total borrowings", "Revenue deficit plus capital expenditure", "The difference between what the government earns and its total expenditure"],
+        "question": "The currency of Japan is:",
+        "options": ["Yuan", "Won", "Yen", "Ringgit"],
+        "answer": 2,
+        "explanation": "The Japanese Yen is the official currency of Japan."
+    },
+    {
+        "question": "Which of the following is the largest gland in the human body?",
+        "options": ["Pancreas", "Liver", "Thyroid", "Pituitary"],
         "answer": 1,
-        "explanation": "Fiscal deficit is the difference between the government's total expenditure and its total receipts (excluding borrowings), indicating the total amount of borrowing required."
+        "explanation": "The liver is the largest internal organ and the largest gland in the human body."
     },
     {
-        "question": "The National Flag of India was adopted by the Constituent Assembly on:",
-        "options": ["August 15, 1947", "January 26, 1950", "July 22, 1947", "August 9, 1946"],
+        "question": "The 'Kyoto Protocol' is an international treaty related to:",
+        "options": ["Nuclear disarmament", "Protection of the ozone layer", "Climate change and greenhouse gas emissions", "Conservation of biodiversity"],
         "answer": 2,
-        "explanation": "The design of the National Flag of India was adopted by the Constituent Assembly of India on 22 July 1947."
+        "explanation": "The Kyoto Protocol commits state parties to reduce greenhouse gas emissions, based on the scientific consensus that global warming is occurring."
     },
     {
-        "question": "Who built the famous 'Hawa Mahal' in Jaipur?",
-        "options": ["Maharaja Jai Singh", "Maharaja Man Singh", "Maharaja Sawai Pratap Singh", "Maharaja Ram Singh"],
+        "question": "The instrument used to measure atmospheric pressure is the:",
+        "options": ["Altimeter", "Hydrometer", "Barometer", "Manometer"],
         "answer": 2,
-        "explanation": "The Hawa Mahal was built in 1799 by Maharaja Sawai Pratap Singh to enable the royal women to observe street festivities unseen."
+        "explanation": "A barometer is a scientific instrument that is used to measure air pressure in a certain environment."
     },
     {
-        "question": "The Battle of Haldighati was fought between Maharana Pratap and the forces of which Mughal emperor?",
-        "options": ["Babur", "Humayun", "Akbar", "Jahangir"],
-        "answer": 2,
-        "explanation": "The Battle of Haldighati was fought on 18 June 1576 between the cavalry and archers supporting the Rana of Mewar, Maharana Pratap, and the Mughal emperor Akbar's forces."
-    },
-    {
-        "question": "The 'Sun Temple' at Konark is located in which state?",
-        "options": ["Tamil Nadu", "Odisha", "Andhra Pradesh", "Karnataka"],
+        "question": "The 'Sanchi Stupa' was built by which emperor?",
+        "options": ["Chandragupta Maurya", "Ashoka", "Kanishka", "Harshavardhana"],
         "answer": 1,
-        "explanation": "The Konark Sun Temple is a 13th-century CE Sun temple at Konark about 35 kilometres northeast from Puri on the coastline of Odisha, India."
+        "explanation": "The Great Stupa at Sanchi was originally commissioned by the Mauryan emperor Ashoka in the 3rd century BCE."
     },
     {
-        "question": "Who was the founder of the 'Saka Era' which is used in the Indian national calendar?",
-        "options": ["Ashoka", "Vikramaditya", "Kanishka", "Chandragupta I"],
+        "question": "Who was the first woman President of the Indian National Congress?",
+        "options": ["Sarojini Naidu", "Annie Besant", "Nellie Sengupta", "Indira Gandhi"],
+        "answer": 1,
+        "explanation": "Annie Besant was the first woman President of the Indian National Congress, presiding over the 1917 Calcutta session."
+    },
+    {
+        "question": "The 'Valley of Flowers' National Park is located in:",
+        "options": ["Himachal Pradesh", "Uttarakhand", "Jammu & Kashmir", "Sikkim"],
+        "answer": 1,
+        "explanation": "The Valley of Flowers National Park is an Indian national park, located in North Chamoli, in the state of Uttarakhand."
+    },
+    {
+        "question": "The \"Make in India\" initiative was launched in which year?",
+        "options": ["2012", "2014", "2016", "2018"],
+        "answer": 1,
+        "explanation": "The 'Make in India' initiative was launched by the Government of India in September 2014 to encourage companies to manufacture their products in India."
+    },
+    {
+        "question": "Which country is known as the 'Land of the Rising Sun'?",
+        "options": ["China", "South Korea", "Japan", "Thailand"],
         "answer": 2,
-        "explanation": "The Saka era is believed to have been founded by King Kanishka of the Kushan dynasty in 78 AD."
+        "explanation": "Japan is often called the 'Land of the Rising Sun' because its name in Japanese translates to 'sun-origin'."
     },
     {
-        "question": "The famous classical dance form 'Mohiniyattam' originated from which state?",
-        "options": ["Tamil Nadu", "Karnataka", "Kerala", "Andhra Pradesh"],
+        "question": "The Ajanta and Ellora caves are located in which state?",
+        "options": ["Karnataka", "Madhya Pradesh", "Maharashtra", "Gujarat"],
         "answer": 2,
-        "explanation": "Mohiniyattam is a graceful classical dance form from Kerala, traditionally performed by women."
+        "explanation": "The Ajanta and Ellora caves are UNESCO World Heritage sites located in the Aurangabad district of Maharashtra."
     },
     {
-        "question": "Who wrote the famous Sanskrit play 'Shakuntala'?",
+        "question": "What is the name of the operation launched by India to evacuate its citizens from Ukraine in 2022?",
+        "options": ["Operation Ganga", "Operation Devi Shakti", "Operation Vande Bharat", "Operation Samudra Setu"],
+        "answer": 0,
+        "explanation": "Operation Ganga was an evacuation mission by the Indian government to rescue its citizens stranded in neighboring countries of Ukraine."
+    },
+    {
+        "question": "The Durand Cup is associated with which sport?",
+        "options": ["Cricket", "Hockey", "Football", "Tennis"],
+        "answer": 2,
+        "explanation": "The Durand Cup is the oldest football tournament in Asia, held annually in India."
+    },
+    {
+        "question": "Who was the first Indian to go into space?",
+        "options": ["Kalpana Chawla", "Sunita Williams", "Rakesh Sharma", "Ravish Malhotra"],
+        "answer": 2,
+        "explanation": "Rakesh Sharma, a former Indian Air Force pilot, flew aboard Soyuz T-11 in 1984, becoming the first Indian citizen to travel to space."
+    },
+    {
+        "question": "The 'Ghadar Party' was founded in which city?",
+        "options": ["London", "Berlin", "San Francisco", "Tokyo"],
+        "answer": 2,
+        "explanation": "The Ghadar Party was an international political movement founded by expatriate Indians in San Francisco, USA, in 1913."
+    },
+    {
+        "question": "The 'Beti Bachao, Beti Padhao' scheme was launched from which state?",
+        "options": ["Uttar Pradesh", "Rajasthan", "Haryana", "Bihar"],
+        "answer": 2,
+        "explanation": "The scheme was launched by the Prime Minister on 22 January 2015 at Panipat, Haryana."
+    },
+    {
+        "question": "Which is the largest river basin in India?",
+        "options": ["Godavari Basin", "Narmada Basin", "Ganga Basin", "Krishna Basin"],
+        "answer": 2,
+        "explanation": "The Ganga basin is the largest river basin in India, covering about a quarter of the country's total area."
+    },
+    {
+        "question": "Who authored the famous Sanskrit play 'Shakuntala'?",
         "options": ["Tulsidas", "Valmiki", "Kalidasa", "Vishakhadatta"],
         "answer": 2,
         "explanation": "'Abhijnanasakuntalam', popularly known as 'Shakuntala', is a renowned Sanskrit play by the ancient Indian poet Kalidasa."
@@ -883,589 +968,453 @@ const allGkQuestions: Question[] = [
         "explanation": "Veteran actress Waheeda Rehman was honored with the Dadasaheb Phalke Award for her immense contribution to Indian cinema."
     },
     {
-        question: "What is the term length for a member of the Rajya Sabha?",
-        options: ["4 years", "5 years", "6 years", "No fixed term"],
-        answer: 2,
-        explanation: "Members of the Rajya Sabha are elected for a term of six years, with one-third of the members retiring every two years."
-    },
-    {
-        question: "Who appoints the Chief Election Commissioner of India?",
-        options: ["The Prime Minister", "The Chief Justice of India", "The President of India", "The Parliament"],
-        answer: 2,
-        explanation: "The President of India appoints the Chief Election Commissioner, who heads the Election Commission of India."
-    },
-    {
-        question: "The 'Zero Hour' in the Indian Parliament refers to:",
-        options: ["The last hour of the session", "The first hour of the session", "The time immediately following the Question Hour", "The time when the budget is presented"],
-        answer: 2,
-        explanation: "Zero Hour is the time when Members of Parliament can raise issues of urgent public importance without any prior notice."
-    },
-    {
-        question: "Which of the following is not a fundamental right in the Indian Constitution?",
-        options: ["Right to Equality", "Right to Freedom of Religion", "Right to Property", "Right against Exploitation"],
-        answer: 2,
-        explanation: "The Right to Property was removed from the list of Fundamental Rights by the 44th Amendment Act in 1978 and is now a legal right under Article 300-A."
-    },
-    {
-        question: "The first session of the Indian Constituent Assembly was held on:",
-        options: ["August 15, 1947", "January 26, 1950", "December 9, 1946", "August 9, 1942"],
-        answer: 2,
-        explanation: "The Constituent Assembly met for the first time in New Delhi on 9 December 1946 in the Constitution Hall which is now known as the Central Hall of Parliament House."
-    },
-    {
-        question: "On which date is the National Youth Day celebrated in India, marking the birth anniversary of Swami Vivekananda?",
-        options: ["January 23", "January 12", "January 26", "January 30"],
-        answer: 1,
-        explanation: "National Youth Day is celebrated on 12th January to honor the birth anniversary of Swami Vivekananda."
-    },
-    {
-        question: "World Environment Day is observed globally on:",
-        options: ["April 22", "June 5", "September 16", "October 24"],
-        answer: 1,
-        explanation: "World Environment Day, established by the UN, is celebrated on June 5th each year to encourage awareness and action for the protection of our environment."
-    },
-    {
-        question: "National Science Day in India is celebrated to commemorate:",
-        options: ["The launch of Aryabhata satellite", "The discovery of the 'Raman Effect' by C.V. Raman", "The birth anniversary of Homi J. Bhabha", "The Pokhran nuclear test"],
-        answer: 1,
-        explanation: "It is celebrated on 28th February each year to mark the discovery of the Raman Effect by Indian physicist Sir C. V. Raman."
-    },
-    {
-        question: "International Yoga Day is celebrated on:",
-        options: ["May 21", "June 21", "July 21", "August 21"],
-        answer: 1,
-        explanation: "International Yoga Day is celebrated annually on June 21 since its inception in 2015."
-    },
-    {
-        question: "Pravasi Bharatiya Divas (Non-Resident Indian Day) is celebrated on:",
-        options: ["January 9", "February 9", "March 9", "April 9"],
-        answer: 0,
-        explanation: "It is celebrated on 9 January to mark the contribution of the overseas Indian community towards the development of India."
-    },
-    {
-        question: "Where is the headquarters of the International Monetary Fund (IMF) located?",
-        options: ["Geneva, Switzerland", "New York, USA", "Washington D.C., USA", "Paris, France"],
-        answer: 2,
-        explanation: "The IMF is headquartered in Washington, D.C., United States."
-    },
-    {
-        question: "Which of the following is NOT a member of SAARC?",
-        options: ["Bhutan", "Nepal", "Myanmar", "Afghanistan"],
-        answer: 2,
-        explanation: "The members of SAARC are Afghanistan, Bangladesh, Bhutan, India, Maldives, Nepal, Pakistan, and Sri Lanka. Myanmar is a member of ASEAN."
-    },
-    {
-        question: "The headquarters of the World Trade Organization (WTO) is located in:",
-        options: ["Vienna, Austria", "Brussels, Belgium", "Geneva, Switzerland", "London, UK"],
-        answer: 2,
-        explanation: "The WTO is headquartered in Geneva, Switzerland."
-    },
-    {
-        question: "ASEAN (Association of Southeast Asian Nations) was established in which year?",
-        options: ["1957", "1967", "1977", "1987"],
-        answer: 1,
-        explanation: "ASEAN was established on 8 August 1967 in Bangkok, Thailand."
-    },
-    {
-        question: "The headquarters of UNESCO is located in:",
-        options: ["Rome, Italy", "Paris, France", "New York, USA", "Berlin, Germany"],
-        answer: 1,
-        explanation: "The United Nations Educational, Scientific and Cultural Organization (UNESCO) is headquartered in Paris, France."
-    },
-    {
-        question: "The term 'Ashes' is associated with which sport?",
-        options: ["Football", "Hockey", "Cricket", "Tennis"],
-        answer: 2,
-        explanation: "The Ashes is a Test cricket series played between England and Australia."
-    },
-    {
-        question: "The Ryder Cup is a famous tournament in which sport?",
-        options: ["Golf", "Tennis", "Badminton", "Table Tennis"],
-        answer: 0,
-        explanation: "The Ryder Cup is a biennial men's golf competition between teams from Europe and the United States."
-    },
-    {
-        question: "How many players are there on each side in a game of basketball?",
-        options: ["4", "5", "6", "7"],
-        answer: 1,
-        explanation: "A standard basketball team has five players on the court at any one time."
-    },
-    {
-        question: "The term 'Grand Slam' is associated with:",
-        options: ["Billiards", "Chess", "Bridge", "Tennis"],
-        answer: 3,
-        explanation: "In tennis, the Grand Slam refers to the accomplishment of winning all four major championships in the same calendar year."
-    },
-    {
-        question: "Neeraj Chopra is associated with which sport?",
-        options: ["Shooting", "Wrestling", "Javelin Throw", "Boxing"],
-        answer: 2,
-        explanation: "Neeraj Chopra is an Indian track and field athlete who competes in the javelin throw and is an Olympic gold medalist."
-    },
-    {
-        question: "The 'Green Revolution' in India was primarily focused on increasing the production of:",
-        options: ["Milk", "Pulses", "Wheat and Rice", "Oilseeds"],
-        answer: 2,
-        explanation: "The Green Revolution led to a significant increase in the production of food grains, particularly wheat and rice."
-    },
-    {
-        question: "What is the name of the oldest mountain range in India?",
-        options: ["Himalayas", "Vindhyas", "Aravalli Range", "Satpuras"],
-        answer: 2,
-        explanation: "The Aravalli Range in Northwestern India is one of the oldest fold mountain ranges in the world."
-    },
-    {
-        question: "The famous 'Dilwara Temples' are located in which state?",
-        options: ["Gujarat", "Rajasthan", "Madhya Pradesh", "Maharashtra"],
-        answer: 1,
-        explanation: "The Dilwara Temples are a group of Svetambara Jain temples located near the hill station of Mount Abu in Rajasthan."
-    },
-    {
-        question: "Which river is known as the 'Sorrow of Bengal'?",
-        options: ["Ganga", "Hooghly", "Damodar", "Brahmaputra"],
-        answer: 2,
-        explanation: "The Damodar River was known as the 'Sorrow of Bengal' because of its devastating floods in the plains of West Bengal."
-    },
-    {
-        question: "'Kuchipudi' is a classical dance form that originated in which state?",
-        options: ["Tamil Nadu", "Kerala", "Andhra Pradesh", "Karnataka"],
-        answer: 2,
-        explanation: "Kuchipudi is one of the eleven major Indian classical dances, originating from a village named Kuchipudi in Andhra Pradesh."
-    },
-    {
-        question: "The first Five-Year Plan in India was launched in which year?",
-        options: ["1947", "1950", "1951", "1956"],
-        answer: 2,
-        explanation: "The first Five-Year Plan was launched in 1951, focusing primarily on the development of the primary sector."
-    },
-    {
-        question: "The 'Gobi Desert' is located primarily in:",
-        options: ["India and Pakistan", "China and Mongolia", "Russia and Kazakhstan", "Iran and Iraq"],
-        answer: 1,
-        explanation: "The Gobi Desert is a large desert region in Northern China and Southern Mongolia."
-    },
-    {
-        question: "Who is known as the 'Father of the Indian Constitution'?",
-        options: ["Mahatma Gandhi", "Dr. Rajendra Prasad", "Jawaharlal Nehru", "Dr. B.R. Ambedkar"],
-        answer: 3,
-        explanation: "Dr. B.R. Ambedkar was the chairman of the drafting committee of the Constitution and is widely revered as its chief architect."
-    },
-    {
-        question: "The 'Tattvabodhini Sabha' was founded by:",
-        options: ["Raja Ram Mohan Roy", "Keshab Chandra Sen", "Debendranath Tagore", "Swami Vivekananda"],
-        answer: 2,
-        "explanation": "The Tattvabodhini Sabha was founded by Debendranath Tagore in 1839 as a splinter group of the Brahmo Samaj."
-    },
-    {
-        "question": "The currency of Japan is:",
-        "options": ["Yuan", "Won", "Yen", "Ringgit"],
+        "question": "Who was the first Indian Governor-General of independent India?",
+        "options": ["Lord Mountbatten", "Dr. Rajendra Prasad", "C. Rajagopalachari", "Jawaharlal Nehru"],
         "answer": 2,
-        "explanation": "The Japanese Yen is the official currency of Japan."
+        "explanation": "While Lord Mountbatten was the last Viceroy and first Governor-General of a newly independent India, C. Rajagopalachari was the first (and only) Indian to hold the position."
     },
     {
-        "question": "Which of the following is the largest gland in the human body?",
-        "options": ["Pancreas", "Liver", "Thyroid", "Pituitary"],
-        "answer": 1,
-        "explanation": "The liver is the largest internal organ and the largest gland in the human body."
-    },
-    {
-        "question": "The 'Kyoto Protocol' is an international treaty related to:",
-        "options": ["Nuclear disarmament", "Protection of the ozone layer", "Climate change and greenhouse gas emissions", "Conservation of biodiversity"],
+        "question": "The ancient city of 'Pataliputra' is the modern-day equivalent of which city?",
+        "options": ["Varanasi", "Lucknow", "Patna", "Allahabad (Prayagraj)"],
         "answer": 2,
-        "explanation": "The Kyoto Protocol commits state parties to reduce greenhouse gas emissions, based on the scientific consensus that global warming is occurring."
+        "explanation": "Pataliputra, the capital of major empires like the Mauryan and Gupta, was located at the confluence of the Son and Ganges rivers, where modern-day Patna stands."
     },
     {
-        "question": "The instrument used to measure atmospheric pressure is the:",
-        "options": ["Altimeter", "Hydrometer", "Barometer", "Manometer"],
+        "question": "The Jallianwala Bagh massacre took place in which city?",
+        "options": ["Lahore", "Delhi", "Amritsar", "Jalandhar"],
         "answer": 2,
-        "explanation": "A barometer is a scientific instrument that is used to measure air pressure in a certain environment."
+        "explanation": "The infamous Jallianwala Bagh massacre occurred on April 13, 1919, in Amritsar, Punjab, where British troops fired on a large crowd of unarmed Indians."
     },
     {
-        "question": "The 'Sanchi Stupa' was built by which emperor?",
-        "options": ["Chandragupta Maurya", "Ashoka", "Kanishka", "Harshavardhana"],
+        "question": "Which Indian state has the longest coastline?",
+        "options": ["Andhra Pradesh", "Tamil Nadu", "Maharashtra", "Gujarat"],
+        "answer": 3,
+        "explanation": "With a coastline of about 1,600 kilometers, Gujarat has the longest mainland coastline in India."
+    },
+    {
+        "question": "The Sundarbans, the world's largest mangrove forest, is located in the delta of which two rivers?",
+        "options": ["Godavari and Krishna", "Ganga and Brahmaputra", "Narmada and Tapti", "Mahanadi and Godavari"],
         "answer": 1,
-        "explanation": "The Great Stupa at Sanchi was originally commissioned by the Mauryan emperor Ashoka in the 3rd century BCE."
+        "explanation": "The Sundarbans delta is formed by the confluence of the Ganga, Brahmaputra, and Meghna Rivers in the Bay of Bengal."
     },
     {
-        "question": "Who was the first woman President of the Indian National Congress?",
-        "options": ["Sarojini Naidu", "Annie Besant", "Nellie Sengupta", "Indira Gandhi"],
-        "answer": 1,
-        "explanation": "Annie Besant was the first woman President of the Indian National Congress, presiding over the 1917 Calcutta session."
-    },
-    {
-        "question": "The 'Valley of Flowers' National Park is located in:",
-        "options": ["Himachal Pradesh", "Uttarakhand", "Jammu & Kashmir", "Sikkim"],
-        "answer": 1,
-        "explanation": "The Valley of Flowers National Park is an Indian national park, located in North Chamoli, in the state of Uttarakhand."
-    },
-    {
-        "question": "The \"Make in India\" initiative was launched in which year?",
-        "options": ["2012", "2014", "2016", "2018"],
-        "answer": 1,
-        "explanation": "The 'Make in India' initiative was launched by the Government of India in September 2014 to encourage companies to manufacture their products in India."
-    },
-    {
-        "question": "Which country is known as the 'Land of the Rising Sun'?",
-        "options": ["China", "South Korea", "Japan", "Thailand"],
+        "question": "Which of the following is the longest river that flows entirely within India?",
+        "options": ["Ganga", "Narmada", "Godavari", "Brahmaputra"],
         "answer": 2,
-        "explanation": "Japan is often called the 'Land of the Rising Sun' because its name in Japanese translates to 'sun-origin'."
+        "explanation": "While the Ganga is longer overall, a significant portion of it flows through Bangladesh. The Godavari is the longest river with its entire course within the borders of India."
     },
     {
-        "question": "The Ajanta and Ellora caves are located in which state?",
-        "options": ["Karnataka", "Madhya Pradesh", "Maharashtra", "Gujarat"],
+        "question": "The Deccan Plateau is primarily made of what type of rock?",
+        "options": ["Sandstone", "Limestone", "Granite", "Basalt"],
+        "answer": 3,
+        "explanation": "The Deccan Plateau is a large igneous province, meaning it is composed of solidified volcanic lava, which is basaltic rock."
+    },
+    {
+        "question": "Which Indian state is known as the 'Spice Garden of India'?",
+        "options": ["Karnataka", "Kerala", "Tamil Nadu", "Assam"],
+        "answer": 1,
+        "explanation": "Kerala's unique climate and geography make it ideal for growing a wide variety of spices like pepper, cardamom, cloves, and nutmeg, earning it this title."
+    },
+    {
+        "question": "The highest peak in the Western Ghats is:",
+        "options": ["Doddabetta", "Anamudi", "Kalsubai", "Mullayanagiri"],
+        "answer": 1,
+        "explanation": "Anamudi, located in Kerala, is the highest peak in the Western Ghats and in South India, with an elevation of 2,695 meters."
+    },
+    {
+        "question": "Which line passes through India, affecting its climate?",
+        "options": ["Equator", "Tropic of Capricorn", "Tropic of Cancer", "Arctic Circle"],
         "answer": 2,
-        "explanation": "The Ajanta and Ellora caves are UNESCO World Heritage sites located in the Aurangabad district of Maharashtra."
+        "explanation": "The Tropic of Cancer (23.5°N latitude) passes through the middle of India, dividing the country into tropical and subtropical climate zones."
     },
     {
-        "question": "What is the name of the operation launched by India to evacuate its citizens from Ukraine in 2022?",
-        "options": ["Operation Ganga", "Operation Devi Shakti", "Operation Vande Bharat", "Operation Samudra Setu"],
+        "question": "Majuli, the world's largest river island, is located in which river?",
+        "options": ["Ganga", "Yamuna", "Godavari", "Brahmaputra"],
+        "answer": 3,
+        "explanation": "Majuli is a large river island located in the Brahmaputra River in the state of Assam."
+    },
+    {
+        "question": "The 'Palk Strait' separates India from which country?",
+        "options": ["Maldives", "Sri Lanka", "Indonesia", "Myanmar"],
+        "answer": 1,
+        "explanation": "The Palk Strait is a strait between the Tamil Nadu state of India and the Mannar District of the Northern Province of Sri Lanka."
+    },
+    {
+        "question": "Which state is the largest producer of bauxite in India?",
+        "options": ["Jharkhand", "Chhattisgarh", "Odisha", "Gujarat"],
+        "answer": 2,
+        "explanation": "Odisha is the leading producer of bauxite, the primary ore of aluminum, accounting for over half of India's total production."
+    },
+    {
+        "question": "Who served as the Chairman of the Drafting Committee of the Indian Constitution?",
+        "options": ["Dr. Rajendra Prasad", "Sardar Vallabhbhai Patel", "Dr. B.R. Ambedkar", "Jawaharlal Nehru"],
+        "answer": 2,
+        "explanation": "Dr. B.R. Ambedkar, as the Chairman of the Drafting Committee, is widely regarded as the chief architect of the Indian Constitution."
+    },
+    {
+        "question": "The power to create a new state in India rests with the:",
+        "options": ["President", "Prime Minister", "Parliament", "Supreme Court"],
+        "answer": 2,
+        "explanation": "According to Article 3 of the Constitution, the Parliament of India has the exclusive power to form new states and alter the areas, boundaries, or names of existing states."
+    },
+    {
+        "question": "The concept of 'Judicial Review' in the Indian Constitution has been adopted from which country?",
+        "options": ["United Kingdom", "United States", "Canada", "Australia"],
+        "answer": 1,
+        "explanation": "The power of the judiciary to examine the constitutionality of legislative enactments and executive orders is a concept borrowed from the U.S. Constitution."
+    },
+    {
+        "question": "How many fundamental duties are mentioned in the Indian Constitution?",
+        "options": ["9", "10", "11", "12"],
+        "answer": 2,
+        "explanation": "Initially there were 10 fundamental duties. The 11th was added by the 86th Amendment in 2002."
+    },
+    {
+        "question": "The President of India can nominate how many members to the Rajya Sabha?",
+        "options": ["2", "10", "12", "14"],
+        "answer": 2,
+        "explanation": "The President can nominate 12 members to the Rajya Sabha who have special knowledge or practical experience in fields like literature, science, art, and social service."
+    },
+    {
+        "question": "Which amendment of the Constitution is known as the 'Mini-Constitution'?",
+        "options": ["44th Amendment", "42nd Amendment", "73rd Amendment", "74th Amendment"],
+        "answer": 1,
+        "explanation": "The 42nd Amendment Act, 1976, is called the 'Mini-Constitution' because it made widespread and significant changes to the Constitution."
+    },
+    {
+        "question": "What is the minimum age to be appointed as the Governor of a state in India?",
+        "options": ["25 years", "30 years", "35 years", "40 years"],
+        "answer": 2,
+        "explanation": "According to Article 157 of the Constitution, a person must have completed the age of 35 years to be eligible for appointment as a Governor."
+    },
+    {
+        "question": "The idea of a 'Welfare State' is included in which part of the Indian Constitution?",
+        "options": ["Preamble", "Fundamental Rights", "Directive Principles of State Policy (DPSP)", "Fundamental Duties"],
+        "answer": 2,
+        "explanation": "The DPSP in Part IV of the Constitution contains the ideals that the state should follow to establish a social and economic democracy, i.e., a welfare state."
+    },
+    {
+        "question": "Who administers the oath of office to the President of India?",
+        "options": ["The Prime Minister", "The Vice President", "The Speaker of Lok Sabha", "The Chief Justice of India"],
+        "answer": 3,
+        "explanation": "The oath of office to the President is administered by the Chief Justice of India, and in their absence, by the senior-most judge of the Supreme Court available."
+    },
+    {
+        "question": "Panchayati Raj was first introduced in India in which state?",
+        "options": ["Andhra Pradesh", "Rajasthan", "Uttar Pradesh", "Gujarat"],
+        "answer": 1,
+        "explanation": "The Panchayati Raj system was first adopted by the state of Rajasthan in Nagaur district on October 2, 1959."
+    },
+    {
+        "question": "Who was the first Commander-in-Chief of the Indian Army after independence?",
+        "options": ["Field Marshal Sam Manekshaw", "General K. M. Cariappa", "General Bipin Rawat", "General Rajendrasinhji Jadeja"],
+        "answer": 1,
+        "explanation": "General K. M. Cariappa took over as the first Commander-in-Chief of the Indian Army from General Sir Roy Bucher, the last British C-in-C, on January 15, 1949."
+    },
+    {
+        "question": "In which year did the Indian Army achieve victory in the Kargil War?",
+        "options": ["1995", "1998", "1999", "2001"],
+        "answer": 2,
+        "explanation": "The Kargil War was fought between India and Pakistan from May to July 1999, culminating in an Indian victory."
+    },
+    {
+        "question": "Which Article of the Constitution grants special status to Jammu & Kashmir (now abrogated)?",
+        "options": ["Article 352", "Article 370", "Article 356", "Article 244"],
+        "answer": 1,
+        "explanation": "Article 370 of the Indian constitution gave special status to the region of Jammu and Kashmir, which was abrogated in 2019."
+    },
+    {
+        "question": "The Comptroller and Auditor General (CAG) of India is appointed by the:",
+        "options": ["Prime Minister", "Parliament", "President", "Finance Minister"],
+        "answer": 2,
+        "explanation": "The CAG is appointed by the President of India following a recommendation by the Prime Minister."
+    },
+    {
+        "question": "The first linguistic state to be created in India was:",
+        "options": ["Kerala", "Tamil Nadu", "Andhra Pradesh", "Karnataka"],
+        "answer": 2,
+        "explanation": "Andhra State was the first state in India to be formed on a linguistic basis on 1 October 1953."
+    },
+    {
+        "question": "The 'Contingency Fund of India' is placed at the disposal of:",
+        "options": ["The Parliament", "The Prime Minister", "The Finance Minister", "The President"],
+        "answer": 3,
+        "explanation": "The Contingency Fund of India is held by the Finance Secretary on behalf of the President of India and is used for urgent unforeseen expenditure."
+    },
+    {
+        "question": "Which part of the Indian Constitution deals with 'Citizenship'?",
+        "options": ["Part I", "Part II", "Part III", "Part IV"],
+        "answer": 1,
+        "explanation": "Part II of the Constitution of India (Articles 5-11) deals with the Citizenship of India."
+    },
+    {
+        "question": "The famous 'Brihadeshwara Temple' at Thanjavur was built by which Chola ruler?",
+        "options": ["Rajendra Chola I", "Karikala Chola", "Rajaraja Chola I", "Vijayalaya Chola"],
+        "answer": 2,
+        "explanation": "The Brihadeshwara Temple was built by the great Chola king Rajaraja Chola I in the 11th century."
+    },
+    {
+        "question": "Who was the court poet of Emperor Samudragupta?",
+        "options": ["Banabhatta", "Harisena", "Kalidasa", "Asvaghosa"],
+        "answer": 1,
+        "explanation": "Harisena was the court poet of the Gupta emperor, Samudragupta, and he composed the famous Allahabad Pillar Inscription (Prayag Prashasti)."
+    },
+    {
+        "question": "The 'Third Battle of Panipat' was fought in 1761 between:",
+        "options": ["The Marathas and the British", "The Mughals and the Sikhs", "The Marathas and Ahmad Shah Abdali", "The British and the French"],
+        "answer": 2,
+        "explanation": "It was fought between the Maratha Empire and the invading Afghan army of Ahmad Shah Abdali."
+    },
+    {
+        "question": "'Bihu' is a traditional folk dance of which state?",
+        "options": ["West Bengal", "Odisha", "Bihar", "Assam"],
+        "answer": 3,
+        "explanation": "Bihu is a set of three important Assamese festivals, and the Bihu dance is a joyous folk dance from Assam."
+    },
+    {
+        "question": "The ancient text 'Arthashastra' is attributed to:",
+        "options": ["Patanjali", "Kautilya (Chanakya)", "Manu", "Panini"],
+        "answer": 1,
+        "explanation": "The Arthashastra is an ancient Indian treatise on statecraft, economic policy and military strategy, written by Kautilya (also known as Chanakya)."
+    },
+    {
+        "question": "Which state is the largest producer of tea in India?",
+        "options": ["West Bengal", "Assam", "Karnataka", "Kerala"],
+        "answer": 1,
+        "explanation": "Assam is the world's largest tea-growing region by production and the leading producer in India."
+    },
+    {
+        "question": "The 'Jog Falls', one of the highest waterfalls in India, is located on which river?",
+        "options": ["Kaveri", "Sharavathi", "Krishna", "Godavari"],
+        "answer": 1,
+        "explanation": "Jog Falls is a major tourist attraction located on the Sharavathi River in the state of Karnataka."
+    },
+    {
+        "question": "Which is the largest Union Territory of India by area?",
+        "options": ["Puducherry", "Ladakh", "Andaman & Nicobar Islands", "Jammu & Kashmir"],
+        "answer": 1,
+        "explanation": "After the reorganisation of Jammu & Kashmir in 2019, Ladakh became the largest Union Territory in India in terms of area."
+    },
+    {
+        "question": "The 'Cardamom Hills' are located in which part of India?",
+        "options": ["Eastern Ghats", "Western Ghats", "Aravalli Range", "Himalayas"],
+        "answer": 1,
+        "explanation": "The Cardamom Hills are a mountain range of southern India and part of the southern Western Ghats mountain range."
+    },
+    {
+        "question": "Which is the only active volcano in India?",
+        "options": ["Narcondam Island", "Barren Island", "Baratang Island", "Deccan Traps"],
+        "answer": 1,
+        "explanation": "Barren Island, located in the Andaman Sea, is the only confirmed active volcano in the Indian subcontinent."
+    },
+    {
+        "question": "The 'High Altitude Warfare School' (HAWS) of the Indian Army is located in:",
+        "options": ["Siachen", "Leh", "Gulmarg", "Dehradun"],
+        "answer": 2,
+        "explanation": "HAWS is a premier training establishment of the Indian Army located in Gulmarg, Jammu & Kashmir, specializing in high-altitude warfare."
+    },
+    {
+        "question": "What is 'INS Kalvari', which was recently in the news?",
+        "options": ["An aircraft carrier", "A destroyer", "A submarine", "A frigate"],
+        "answer": 2,
+        "explanation": "INS Kalvari is the first of the six Scorpène-class submarines built for the Indian Navy under Project 75."
+    },
+    {
+        "question": "The rank of 'Field Marshal' in the Indian Army is a:",
+        "options": ["Two-star rank", "Three-star rank", "Four-star rank", "Five-star rank"],
+        "answer": 3,
+        "explanation": "Field Marshal is a five-star general officer rank and the highest attainable rank in the Indian Army, awarded for exceptional service."
+    },
+    {
+        "question": "The 'College of Military Engineering' is located in:",
+        "options": ["Mumbai", "Pune", "Dehradun", "Secunderabad"],
+        "answer": 1,
+        "explanation": "The College of Military Engineering (CME) is a premier technical and tactical training institution of the Indian Army Corps of Engineers located in Pune."
+    },
+    {
+        "question": "The joint military exercise 'Dharma Guardian' is conducted between India and:",
+        "options": ["Thailand", "Vietnam", "South Korea", "Japan"],
+        "answer": 3,
+        "explanation": "'Dharma Guardian' is an annual joint military exercise between the Indian Army and the Japanese Ground Self-Defense Force."
+    },
+    {
+        "question": "The 'Brexit' movement was associated with which country leaving the European Union?",
+        "options": ["France", "Germany", "Italy", "United Kingdom"],
+        "answer": 3,
+        "explanation": "Brexit was the withdrawal of the United Kingdom from the European Union and the European Atomic Energy Community."
+    },
+    {
+        "question": "The headquarters of the 'International Atomic Energy Agency' (IAEA) is in:",
+        "options": ["Vienna, Austria", "Geneva, Switzerland", "Paris, France", "New York, USA"],
         "answer": 0,
-        "explanation": "Operation Ganga was an evacuation mission by the Indian government to rescue its citizens stranded in neighboring countries of Ukraine."
+        "explanation": "The IAEA is an international organization that seeks to promote the peaceful use of nuclear energy and is headquartered in Vienna, Austria."
     },
     {
-        "question": "The Durand Cup is associated with which sport?",
-        "options": ["Cricket", "Hockey", "Football", "Tennis"],
+        "question": "Which country is the newest member of the United Nations?",
+        "options": ["Kosovo", "Taiwan", "Palestine", "South Sudan"],
+        "answer": 3,
+        "explanation": "South Sudan became the 193rd member state of the United Nations in 2011."
+    },
+    {
+        "question": "The 'World Economic Forum' holds its annual meeting in which city?",
+        "options": ["Zurich", "Geneva", "Davos", "Bern"],
         "answer": 2,
-        "explanation": "The Durand Cup is the oldest football tournament in Asia, held annually in India."
+        "explanation": "The World Economic Forum is famous for its annual meeting at the end of January in Davos, a mountain resort in Switzerland."
     },
     {
-        "question": "Who was the first Indian to go into space?",
-        "options": ["Kalpana Chawla", "Sunita Williams", "Rakesh Sharma", "Ravish Malhotra"],
+        "question": "The 'International Day of Non-Violence' is observed on the birth anniversary of:",
+        "options": ["Nelson Mandela", "Martin Luther King Jr.", "Mahatma Gandhi", "Dalai Lama"],
         "answer": 2,
-        "explanation": "Rakesh Sharma, a former Indian Air Force pilot, flew aboard Soyuz T-11 in 1984, becoming the first Indian citizen to travel to space."
+        "explanation": "The International Day of Non-Violence is observed on 2 October, the birthday of Mahatma Gandhi."
     },
     {
-        "question": "The 'Ghadar Party' was founded in which city?",
-        "options": ["London", "Berlin", "San Francisco", "Tokyo"],
+        "question": "The 'Jnanpith Award' is given for outstanding contribution to:",
+        "options": ["Science", "Music", "Literature", "Journalism"],
         "answer": 2,
-        "explanation": "The Ghadar Party was an international political movement founded by expatriate Indians in San Francisco, USA, in 1913."
+        "explanation": "The Jnanpith Award is India's highest literary honour, awarded annually for outstanding contributions to literature."
     },
     {
-        "question": "The 'Beti Bachao, Beti Padhao' scheme was launched from which state?",
-        "options": ["Uttar Pradesh", "Rajasthan", "Haryana", "Bihar"],
+        "question": "Who was the first musician to be awarded the Bharat Ratna?",
+        "options": ["Lata Mangeshkar", "Bismillah Khan", "M.S. Subbulakshmi", "Ravi Shankar"],
         "answer": 2,
-        "explanation": "The scheme was launched by the Prime Minister on 22 January 2015 at Panipat, Haryana."
+        "explanation": "Carnatic classical vocalist M. S. Subbulakshmi was the first musician ever to be awarded the Bharat Ratna, in 1998."
     },
     {
-        "question": "Which is the largest river basin in India?",
-        "options": ["Godavari Basin", "Narmada Basin", "Ganga Basin", "Krishna Basin"],
+        "question": "The 'Dronacharya Award' is given to:",
+        "options": ["Outstanding sportspersons", "Outstanding coaches in sports", "Umpires and referees", "Sports journalists"],
+        "answer": 1,
+        "explanation": "The Dronacharya Award is presented for outstanding coaching in sports and games."
+    },
+    {
+        "question": "The 'Ramon Magsaysay Award' is named after the former president of which country?",
+        "options": ["Indonesia", "Malaysia", "Philippines", "Thailand"],
         "answer": 2,
-        "explanation": "The Ganga basin is the largest river basin in India, covering about a quarter of the country's total area."
+        "explanation": "The award is named after Ramon Magsaysay, the seventh president of the Philippines, and is often considered Asia's Nobel Prize."
     },
     {
-        question: "Which Article of the Constitution grants special status to Jammu & Kashmir (now abrogated)?",
-        options: ["Article 352", "Article 370", "Article 356", "Article 244"],
-        answer: 1,
-        explanation: "Article 370 of the Indian Constitution gave special status to Jammu and Kashmir, a provision that was abrogated in 2019."
+        "question": "Who was the first posthumous recipient of the Bharat Ratna?",
+        "options": ["Sardar Patel", "Lal Bahadur Shastri", "K. Kamaraj", "M.G. Ramachandran"],
+        "answer": 1,
+        "explanation": "Former Prime Minister Lal Bahadur Shastri was the first individual to be honoured with the Bharat Ratna posthumously in 1966."
     },
     {
-        question: "The Comptroller and Auditor General (CAG) of India is appointed by the:",
-        options: ["Prime Minister", "Parliament", "President", "Finance Minister"],
-        answer: 2,
-        explanation: "The CAG of India is appointed by the President of India and holds a rank equivalent to a judge of the Supreme Court."
+        "question": "The 'Ajrakh' block printing is a traditional art form from which state?",
+        "options": ["Rajasthan", "Gujarat", "Uttar Pradesh", "Madhya Pradesh"],
+        "answer": 1,
+        "explanation": "Ajrakh is a unique form of block-printing found mostly in the Kutch region of Gujarat."
     },
     {
-        question: "The first linguistic state to be created in India was:",
-        options: ["Kerala", "Tamil Nadu", "Andhra Pradesh", "Karnataka"],
-        answer: 2,
-        explanation: "Andhra Pradesh was the first state to be formed on a linguistic basis in 1953, for the Telugu-speaking population."
+        "question": "What is the name of the boundary line between India and Pakistan?",
+        "options": ["Durand Line", "McMahon Line", "Radcliffe Line", "Line of Control"],
+        "answer": 2,
+        "explanation": "The Radcliffe Line was the boundary demarcation line between the Indian and Pakistani portions of the Punjab and Bengal provinces."
     },
     {
-        question: "The 'Contingency Fund of India' is placed at the disposal of:",
-        options: ["The Parliament", "The Prime Minister", "The Finance Minister", "The President"],
-        answer: 3,
-        explanation: "The Contingency Fund of India is held by the President on behalf of the nation to meet unforeseen expenditure."
+        "question": "The 'Buland Darwaza' is located in which city?",
+        "options": ["Delhi", "Agra", "Fatehpur Sikri", "Jaipur"],
+        "answer": 2,
+        "explanation": "The Buland Darwaza (Gate of Victory) was built by Mughal emperor Akbar to commemorate his victory over Gujarat and is located in Fatehpur Sikri."
     },
     {
-        question: "Which part of the Indian Constitution deals with 'Citizenship'?",
-        options: ["Part I", "Part II", "Part III", "Part IV"],
-        answer: 1,
-        explanation: "Part II of the Indian Constitution, from Articles 5 to 11, deals with the subject of citizenship."
+        "question": "Which state is the leading producer of coffee in India?",
+        "options": ["Tamil Nadu", "Kerala", "Karnataka", "Andhra Pradesh"],
+        "answer": 2,
+        "explanation": "Karnataka is the largest producer of coffee in India, accounting for a majority of the country's total coffee production."
     },
     {
-        question: "The famous 'Brihadeshwara Temple' at Thanjavur was built by which Chola ruler?",
-        options: ["Rajendra Chola I", "Karikala Chola", "Rajaraja Chola I", "Vijayalaya Chola"],
-        answer: 2,
-        explanation: "The Brihadeshwara Temple, a UNESCO World Heritage Site, was built by the great Chola emperor Rajaraja Chola I."
+        "question": "The first Indian Institute of Technology (IIT) was established in:",
+        "options": ["Delhi", "Bombay (Mumbai)", "Madras (Chennai)", "Kharagpur"],
+        "answer": 3,
+        "explanation": "The first IIT was founded in May 1950 at Kharagpur, West Bengal."
     },
     {
-        question: "Who was the court poet of Emperor Samudragupta?",
-        options: ["Banabhatta", "Harisena", "Kalidasa", "Asvaghosa"],
-        answer: 1,
-        explanation: "Harisena was the court poet of Samudragupta, and his famous Allahabad Pillar inscription (Prayag Prashasti) details the emperor's conquests."
+        "question": "The 'Indravati National Park' is located in which state?",
+        "options": ["Odisha", "Chhattisgarh", "Jharkhand", "Telangana"],
+        "answer": 1,
+        "explanation": "Indravati National Park is a national park located in the Bijapur district of Chhattisgarh state."
     },
     {
-        question: "The 'Third Battle of Panipat' was fought in 1761 between:",
-        options: ["The Marathas and the British", "The Mughals and the Sikhs", "The Marathas and Ahmad Shah Abdali", "The British and the French"],
-        answer: 2,
-        explanation: "The Third Battle of Panipat was fought between the Maratha Empire and the invading Afghan army of Ahmad Shah Abdali."
+        "question": "The 'Official Secrets Act' was first enacted in India in which year?",
+        "options": ["1905", "1919", "1923", "1935"],
+        "answer": 2,
+        "explanation": "The Indian Official Secrets Act, 1923, is India's anti-espionage act derived from the British version."
     },
     {
-        question: "'Bihu' is a traditional folk dance of which state?",
-        options: ["West Bengal", "Odisha", "Bihar", "Assam"],
-        answer: 3,
-        explanation: "Bihu is a set of three important festivals and a vibrant folk dance from the state of Assam."
+        "question": "Who is the author of the book 'The God of Small Things'?",
+        "options": ["Jhumpa Lahiri", "Kiran Desai", "Arundhati Roy", "Anita Desai"],
+        "answer": 2,
+        "explanation": "The God of Small Things is the debut novel of Indian writer Arundhati Roy, which won the Booker Prize in 1997."
     },
     {
-        question: "The ancient text 'Arthashastra' is attributed to:",
-        options: ["Patanjali", "Kautilya (Chanakya)", "Manu", "Panini"],
-        answer: 1,
-        explanation: "The Arthashastra, an ancient Indian treatise on statecraft and economic policy, is traditionally credited to Kautilya, also known as Chanakya."
+        "question": "The 'Bandipur National Park' is located in which state?",
+        "options": ["Tamil Nadu", "Andhra Pradesh", "Kerala", "Karnataka"],
+        "answer": 3,
+        "explanation": "Bandipur National Park is a tiger reserve located in the state of Karnataka."
     },
     {
-        question: "Which state is the largest producer of tea in India?",
-        options: ["West Bengal", "Assam", "Karnataka", "Kerala"],
-        answer: 1,
-        explanation: "Assam is the largest tea-producing state in India, famous for its strong, malty black teas."
+        "question": "The 'Tehri Dam' is built on which river?",
+        "options": ["Alaknanda", "Bhagirathi", "Yamuna", "Ramganga"],
+        "answer": 1,
+        "explanation": "The Tehri Dam is the tallest dam in India, built on the Bhagirathi River near Tehri in Uttarakhand."
     },
     {
-        question: "The 'Jog Falls', one of the highest waterfalls in India, is located on which river?",
-        options: ["Kaveri", "Sharavathi", "Krishna", "Godavari"],
-        answer: 1,
-        explanation: "Jog Falls is created by the Sharavathi River in the Shivamogga district of Karnataka."
+        "question": "Which city is known as the 'Electronic City of India'?",
+        "options": ["Hyderabad", "Pune", "Bengaluru", "Chennai"],
+        "answer": 2,
+        "explanation": "Bengaluru (Bangalore) is widely regarded as the 'Silicon Valley of India' or 'Electronic City of India' because of its role as the nation's leading information technology exporter."
     },
     {
-        question: "Which is the largest Union Territory of India by area?",
-        options: ["Puducherry", "Ladakh", "Andaman & Nicobar Islands", "Jammu & Kashmir"],
-        answer: 1,
-        explanation: "After the reorganization of Jammu & Kashmir in 2019, Ladakh became the largest Union Territory of India in terms of area."
+        "question": "The famous 'Charminar' is located in which city?",
+        "options": ["Delhi", "Agra", "Hyderabad", "Aurangabad"],
+        "answer": 2,
+        "explanation": "The Charminar is a monument and mosque located in Hyderabad, Telangana, India."
     },
     {
-        question: "The 'Cardamom Hills' are located in which part of India?",
-        options: ["Eastern Ghats", "Western Ghats", "Aravalli Range", "Himalayas"],
-        answer: 1,
-        explanation: "The Cardamom Hills are part of the southern Western Ghats mountain range in southeast Kerala and southwest Tamil Nadu."
+        "question": "The 'National Stock Exchange' (NSE) of India is located in:",
+        "options": ["New Delhi", "Kolkata", "Mumbai", "Ahmedabad"],
+        "answer": 2,
+        "explanation": "The NSE is the leading stock exchange of India, located in Mumbai, Maharashtra."
     },
     {
-        question: "Which is the only active volcano in India?",
-        options: ["Narcondam Island", "Barren Island", "Baratang Island", "Deccan Traps"],
-        answer: 1,
-        explanation: "Barren Island, located in the Andaman Sea, is the only confirmed active volcano in the Indian subcontinent."
+        "question": "'Kathakali' is a classical dance form that originated from which state?",
+        "options": ["Karnataka", "Tamil Nadu", "Kerala", "Andhra Pradesh"],
+        "answer": 2,
+        "explanation": "Kathakali is a major form of classical Indian dance. It is a 'story play' genre of art, but one distinguished by its elaborately colorful make-up, costumes and face masks."
     },
     {
-        question: "The 'High Altitude Warfare School' (HAWS) of the Indian Army is located in:",
-        options: ["Siachen", "Leh", "Gulmarg", "Dehradun"],
-        answer: 2,
-        explanation: "HAWS, a premier training establishment of the Indian Army, is located in Gulmarg, Jammu and Kashmir."
+        "question": "Who was the first woman Chief Minister of an Indian state?",
+        "options": ["Sarojini Naidu", "Sucheta Kripalani", "Jayalalithaa", "Mamata Banerjee"],
+        "answer": 1,
+        "explanation": "Sucheta Kripalani was the first woman to become the Chief Minister of an Indian state, serving as the head of the Uttar Pradesh government."
     },
     {
-        question: "What is 'INS Kalvari', which was recently in the news?",
-        options: ["An aircraft carrier", "A destroyer", "A submarine", "A frigate"],
-        answer: 2,
-        explanation: "INS Kalvari is the first of the six Scorpène-class submarines built for the Indian Navy under Project 75."
+        "question": "The 'Chilika Lake', Asia's largest brackish water lagoon, is in which state?",
+        "options": ["Andhra Pradesh", "West Bengal", "Odisha", "Tamil Nadu"],
+        "answer": 2,
+        "explanation": "Chilika Lake is a brackish water lagoon, spread over the Puri, Khurda and Ganjam districts of Odisha state."
     },
     {
-        question: "The rank of 'Field Marshal' in the Indian Army is a:",
-        options: ["Two-star rank", "Three-star rank", "Four-star rank", "Five-star rank"],
-        answer: 3,
-        explanation: "Field Marshal is a five-star rank, the highest attainable rank in the Indian Army. It is a ceremonial/wartime rank."
+        "question": "The 'Indian Institute of Science' (IISc) is located in:",
+        "options": ["Chennai", "Mumbai", "Delhi", "Bengaluru"],
+        "answer": 3,
+        "explanation": "IISc is a public, deemed, research university for higher education and research in science, engineering, design, and management, located in Bengaluru."
     },
     {
-        question: "The 'College of Military Engineering' is located in:",
-        options: ["Mumbai", "Pune", "Dehradun", "Secunderabad"],
-        answer: 1,
-        explanation: "The College of Military Engineering (CME) is located at Dapodi, Pune, and trains officers of the Corps of Engineers."
+        "question": "'Bhoodan Movement' was initiated by:",
+        "options": ["Mahatma Gandhi", "Jayaprakash Narayan", "Vinoba Bhave", "Sardar Patel"],
+        "answer": 2,
+        "explanation": "The Bhoodan Movement (Land Gift Movement) was a voluntary land reform movement in India, started by Acharya Vinoba Bhave in 1951."
     },
     {
-        question: "The joint military exercise 'Dharma Guardian' is conducted between India and:",
-        options: ["Thailand", "Vietnam", "South Korea", "Japan"],
-        answer: 3,
-        explanation: "'Dharma Guardian' is an annual joint military exercise between the Indian Army and the Japan Ground Self-Defense Force."
+        "question": "The 'Salal Project' is constructed on which river?",
+        "options": ["Jhelum", "Ravi", "Sutlej", "Chenab"],
+        "answer": 3,
+        "explanation": "The Salal Hydroelectric Project is a run-of-the-river power project on the Chenab River in the Reasi district of Jammu and Kashmir."
     },
     {
-        question: "'Brexit' movement was associated with which country leaving the European Union?",
-        options: ["France", "Germany", "Italy", "United Kingdom"],
-        answer: 3,
-        explanation: "Brexit was the withdrawal of the United Kingdom (UK) from the European Union (EU)."
-    },
-    {
-        question: "The headquarters of the 'International Atomic Energy Agency' (IAEA) is in:",
-        options: ["Vienna, Austria", "Geneva, Switzerland", "Paris, France", "New York, USA"],
-        answer: 0,
-        explanation: "The IAEA is headquartered in Vienna, Austria, and is the world's central intergovernmental forum for scientific and technical co-operation in the nuclear field."
-    },
-    {
-        question: "Which country is the newest member of the United Nations?",
-        options: ["Kosovo", "Taiwan", "Palestine", "South Sudan"],
-        answer: 3,
-        explanation: "South Sudan joined the United Nations on July 14, 2011, becoming its 193rd and newest member state."
-    },
-    {
-        question: "The 'World Economic Forum' holds its annual meeting in which city?",
-        options: ["Zurich", "Geneva", "Davos", "Bern"],
-        answer: 2,
-        explanation: "The World Economic Forum's annual meeting of global leaders in business, politics, and academia is held in Davos, Switzerland."
-    },
-    {
-        question: "The 'International Day of Non-Violence' is observed on the birth anniversary of:",
-        options: ["Nelson Mandela", "Martin Luther King Jr.", "Mahatma Gandhi", "Dalai Lama"],
-        answer: 2,
-        explanation: "The International Day of Non-Violence is observed on October 2nd, the birthday of Mahatma Gandhi, leader of the Indian independence movement."
-    },
-    {
-        question: "The 'Jnanpith Award' is given for outstanding contribution to:",
-        options: ["Science", "Music", "Literature", "Journalism"],
-        answer: 2,
-        explanation: "The Jnanpith Award is India's highest literary award, presented annually by the Bharatiya Jnanpith to an author for their outstanding contribution towards literature."
-    },
-    {
-        question: "Who was the first musician to be awarded the Bharat Ratna?",
-        options: ["Lata Mangeshkar", "Bismillah Khan", "M.S. Subbulakshmi", "Ravi Shankar"],
-        answer: 2,
-        explanation: "Carnatic vocalist M. S. Subbulakshmi was the first musician ever to be awarded the Bharat Ratna, India's highest civilian honour, in 1998."
-    },
-    {
-        question: "The 'Dronacharya Award' is given to:",
-        options: ["Outstanding sportspersons", "Outstanding coaches in sports", "Umpires and referees", "Sports journalists"],
-        answer: 1,
-        explanation: "The Dronacharya Award is presented by the Indian government for excellence in sports coaching."
-    },
-    {
-        question: "The 'Ramon Magsaysay Award' is named after the former president of which country?",
-        options: ["Indonesia", "Malaysia", "Philippines", "Thailand"],
-        answer: 2,
-        explanation: "Often called the 'Nobel Prize of Asia', the Ramon Magsaysay Award is named after the seventh president of the Philippines."
-    },
-    {
-        question: "Who was the first posthumous recipient of the Bharat Ratna?",
-        options: ["Sardar Patel", "Lal Bahadur Shastri", "K. Kamaraj", "M.G. Ramachandran"],
-        answer: 1,
-        explanation: "Lal Bahadur Shastri, India's second Prime Minister, was the first individual to be posthumously awarded the Bharat Ratna in 1966."
-    },
-    {
-        question: "The 'Ajrakh' block printing is a traditional art form from which state?",
-        options: ["Rajasthan", "Gujarat", "Uttar Pradesh", "Madhya Pradesh"],
-        answer: 1,
-        explanation: "Ajrakh is a unique form of block printing found in Sindh, Pakistan; and Ajrakhpur, Kutch district, Gujarat in India."
-    },
-    {
-        question: "What is the name of the boundary line between India and Pakistan?",
-        options: ["Durand Line", "McMahon Line", "Radcliffe Line", "Line of Control"],
-        answer: 2,
-        explanation: "The Radcliffe Line was the boundary demarcation line between the Indian and Pakistani portions of the Punjab and Bengal provinces of British India."
-    },
-    {
-        question: "The 'Buland Darwaza' is located in which city?",
-        options: ["Delhi", "Agra", "Fatehpur Sikri", "Jaipur"],
-        answer: 2,
-        explanation: "The Buland Darwaza, or the 'Gate of Magnificence', was built by Mughal emperor Akbar to commemorate his victory over Gujarat. It is located in Fatehpur Sikri."
-    },
-    {
-        question: "Which state is the leading producer of coffee in India?",
-        options: ["Tamil Nadu", "Kerala", "Karnataka", "Andhra Pradesh"],
-        answer: 2,
-        explanation: "Karnataka is the largest coffee-producing state in India, accounting for a majority of the country's total coffee production."
-    },
-    {
-        question: "The first Indian Institute of Technology (IIT) was established in:",
-        options: ["Delhi", "Bombay (Mumbai)", "Madras (Chennai)", "Kharagpur"],
-        answer: 3,
-        explanation: "The first IIT was founded in Kharagpur in 1951, followed by IIT Bombay, Madras, Kanpur, and Delhi."
-    },
-    {
-        question: "The 'Indravati National Park' is located in which state?",
-        options: ["Odisha", "Chhattisgarh", "Jharkhand", "Telangana"],
-        answer: 1,
-        explanation: "Indravati National Park, a famous tiger reserve, is located in the Bijapur district of Chhattisgarh state."
-    },
-    {
-        question: "The 'Official Secrets Act' was first enacted in India in which year?",
-        options: ["1905", "1919", "1923", "1935"],
-        answer: 2,
-        explanation: "The Indian Official Secrets Act of 1923 replaced an earlier act and was enacted to counter espionage and unauthorized disclosure of official information."
-    },
-    {
-        question: "Who is the author of the book 'The God of Small Things'?",
-        options: ["Jhumpa Lahiri", "Kiran Desai", "Arundhati Roy", "Anita Desai"],
-        answer: 2,
-        explanation: "Arundhati Roy won the Booker Prize in 1997 for her debut novel, 'The God of Small Things'."
-    },
-    {
-        question: "The 'Bandipur National Park' is located in which state?",
-        options: ["Tamil Nadu", "Andhra Pradesh", "Kerala", "Karnataka"],
-        answer: 3,
-        explanation: "Bandipur National Park, a prominent tiger reserve, is located in the state of Karnataka."
-    },
-    {
-        question: "The 'Tehri Dam' is built on which river?",
-        options: ["Alaknanda", "Bhagirathi", "Yamuna", "Ramganga"],
-        answer: 1,
-        explanation: "The Tehri Dam is the tallest dam in India, built on the Bhagirathi River near Tehri in Uttarakhand."
-    },
-    {
-        question: "Which city is known as the 'Electronic City of India'?",
-        options: ["Hyderabad", "Pune", "Bengaluru", "Chennai"],
-        answer: 2,
-        explanation: "Bengaluru (Bangalore) is known as the 'Electronic City' or 'Silicon Valley of India' due to its role as the nation's leading information technology exporter."
-    },
-    {
-        question: "The famous 'Charminar' is located in which city?",
-        options: ["Delhi", "Agra", "Hyderabad", "Aurangabad"],
-        answer: 2,
-        explanation: "The Charminar is a monumental mosque located in Hyderabad, Telangana, India. It was built in 1591 by Muhammad Quli Qutb Shah."
-    },
-    {
-        question: "The 'National Stock Exchange' (NSE) of India is located in:",
-        options: ["New Delhi", "Kolkata", "Mumbai", "Ahmedabad"],
-        answer: 2,
-        explanation: "The NSE, India's leading stock exchange, is headquartered in Mumbai, Maharashtra."
-    },
-    {
-        question: "'Kathakali' is a classical dance form that originated from which state?",
-        options: ["Karnataka", "Tamil Nadu", "Kerala", "Andhra Pradesh"],
-        answer: 2,
-        explanation: "Kathakali is a major form of classical Indian dance characterized by its elaborate makeup, costumes, and intricate gestures, originating from Kerala."
-    },
-    {
-        question: "Who was the first woman Chief Minister of an Indian state?",
-        options: ["Sarojini Naidu", "Sucheta Kripalani", "Jayalalithaa", "Mamata Banerjee"],
-        answer: 1,
-        explanation: "Sucheta Kripalani of the Indian National Congress became the first woman to hold the position of Chief Minister in India, serving Uttar Pradesh."
-    },
-    {
-        question: "The 'Chilika Lake', Asia's largest brackish water lagoon, is in which state?",
-        options: ["Andhra Pradesh", "West Bengal", "Odisha", "Tamil Nadu"],
-        answer: 2,
-        explanation: "Chilika Lake is a brackish water lagoon, spread over the Puri, Khurda and Ganjam districts of Odisha state."
-    },
-    {
-        question: "The 'Indian Institute of Science' (IISc) is located in:",
-        options: ["Chennai", "Mumbai", "Delhi", "Bengaluru"],
-        answer: 3,
-        explanation: "The prestigious Indian Institute of Science (IISc) is a public university for scientific research and higher education located in Bengaluru."
-    },
-    {
-        question: "'Bhoodan Movement' was initiated by:",
-        options: ["Mahatma Gandhi", "Jayaprakash Narayan", "Vinoba Bhave", "Sardar Patel"],
-        answer: 2,
-        explanation: "The Bhoodan Movement, or the Land Gift Movement, was a voluntary land reform movement in India initiated by Acharya Vinoba Bhave in 1951."
-    },
-    {
-        question: "The 'Salal Project' is constructed on which river?",
-        options: ["Jhelum", "Ravi", "Sutlej", "Chenab"],
-        answer: 3,
-        explanation: "The Salal Hydroelectric Power Station is a run-of-the-river power project on the Chenab River in the Reasi district of Jammu and Kashmir."
-    },
-    {
-        question: "The first metro rail service in India was started in which city?",
-        options: ["Delhi", "Mumbai", "Chennai", "Kolkata"],
-        answer: 3,
-        explanation: "The Kolkata Metro is the first planned and operational rapid transit system in India. It started operations in 1984."
+        "question": "The first metro rail service in India was started in which city?",
+        "options": ["Delhi", "Mumbai", "Chennai", "Kolkata"],
+        "answer": 3,
+        "explanation": "The Kolkata Metro is the first planned and operational rapid transit system in India. It started operations in 1984."
     }
-];
-
-const uniqueQuestionsMap = new Map<string, Question>();
-allGkQuestions.forEach(q => {
-    uniqueQuestionsMap.set(q.question.trim(), q);
-});
-
-const uniqueQuestions = Array.from(uniqueQuestionsMap.values());
-
-export const gkTest1Questions = uniqueQuestions.slice(0, 50);
-export const gkTest2Questions = uniqueQuestions.slice(50, 100);
-export const gkTest3Questions = uniqueQuestions.slice(100, 150);
-export const gkTest4Questions = uniqueQuestions.slice(150, 200);
-export const gkTest5Questions = uniqueQuestions.slice(200, 250);
-export const gkTest6Questions = uniqueQuestions.slice(250);
-
-    
+]
