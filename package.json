@@ -10,7 +10,7 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "deploy": "npm run build && npm run export"
+    "deploy": "npm run build"
   },
   "dependencies": {
     "@hookform/resolvers": "^4.1.3",
