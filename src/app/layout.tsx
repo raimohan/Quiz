@@ -12,9 +12,9 @@ const inter = Inter({
 
 const staatliches = Staatliches({
   subsets: ['latin'],
-  weight: '400',
   display: 'swap',
   variable: '--font-staatliches',
+  weight: '400',
 });
 
 export const metadata: Metadata = {
@@ -32,7 +32,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${staatliches.variable} ${inter.className} text-slate-800 antialiased`}>
+      <body className={`${inter.variable} ${staatliches.variable} font-sans text-slate-800 antialiased`}>
         <Script
           id="adsbygoogle-script"
           async
