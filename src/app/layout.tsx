@@ -2,6 +2,21 @@ import type { Metadata } from 'next';
 import Script from 'next/script';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
+import { Inter, Staatliches } from 'next/font/google';
+
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-sans',
+});
+
+const staatliches = Staatliches({
+  subsets: ['latin'],
+  weight: '400',
+  display: 'swap',
+  variable: '--font-heading',
+});
+
 
 export const metadata: Metadata = {
   title: 'Agniveer Ascent',
@@ -18,11 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-      </head>
-      <body className="font-sans text-slate-800 antialiased">
-        {/* Google AdSense Script */}
+      <body className={`${inter.variable} ${staatliches.variable} font-sans text-slate-800 antialiased`}>
         <Script
           id="adsbygoogle-script"
           async
