@@ -2,7 +2,6 @@
 "use client";
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -10,16 +9,11 @@ import { Label } from '@/components/ui/label';
 import { ListChecks, Target, AlertTriangle, Clock, Flag, Palette, CheckCircle, BookOpen } from 'lucide-react';
 
 interface QuizRulesProps {
-  quizPath: string;
+  onStartTest: () => void;
   quizTitle: string;
 }
 
 const rules = [
-    {
-        icon: Clock,
-        title: "Time Limit per Question",
-        description: "Each question has a 60-second timer. If the timer runs out, you will be automatically moved to the next question without your current question being answered.",
-    },
     {
         icon: Target,
         title: "Scoring System",
@@ -47,15 +41,8 @@ const rules = [
     },
 ];
 
-const QuizRules: React.FC<QuizRulesProps> = ({ quizPath, quizTitle }) => {
+const QuizRules: React.FC<QuizRulesProps> = ({ onStartTest, quizTitle }) => {
   const [isAccepted, setIsAccepted] = useState(false);
-  const router = useRouter();
-
-  const handleStartTest = () => {
-    if (isAccepted) {
-      router.push(quizPath);
-    }
-  };
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-slate-50 to-blue-100 p-4">
@@ -98,7 +85,7 @@ const QuizRules: React.FC<QuizRulesProps> = ({ quizPath, quizTitle }) => {
             size="lg"
             className="w-full max-w-sm font-bold text-lg"
             disabled={!isAccepted}
-            onClick={handleStartTest}
+            onClick={onStartTest}
           >
             Start The Challenge
           </Button>
