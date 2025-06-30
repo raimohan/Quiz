@@ -46,7 +46,7 @@ export default function Home() {
         {/* Header / Navigation Bar */}
         <header className="sticky-header">
             <nav className="container mx-auto px-4 py-4 flex justify-between items-center">
-                <Link href="/" className="font-bold uppercase tracking-wider text-2xl text-slate-800">Agniveer Ascent</Link>
+                <Link href="/" className="font-heading uppercase tracking-wider text-2xl text-slate-800">Agniveer Ascent</Link>
                 <div className="hidden md:flex items-center space-x-8">
                     <Link href="#challenges" className="text-slate-600 hover:text-blue-600 transition-colors font-semibold">Challenges</Link>
                     <Link href="#" className="text-slate-600 hover:text-blue-600 transition-colors font-semibold">About</Link>
@@ -58,7 +58,7 @@ export default function Home() {
         {/* Hero Section */}
         <section>
             <div className="hero-content container mx-auto px-4 pt-24 pb-28 text-center fade-in-stagger">
-                <h1 className="font-bold uppercase text-5xl sm:text-6xl md:text-7xl mb-4 text-slate-900 tracking-wider">
+                <h1 className="font-heading text-5xl sm:text-6xl md:text-7xl mb-4 text-slate-900">
                     Master Your Knowledge
                 </h1>
                 <p className="text-lg text-slate-600 max-w-2xl mx-auto mb-8">
@@ -74,7 +74,7 @@ export default function Home() {
         <div id="challenges">
             <div className="container mx-auto px-4 py-16 sm:py-24">
                 <header className="text-center mb-16">
-                    <h2 className="font-bold uppercase text-4xl text-slate-900 tracking-wider">Choose Your Challenge</h2>
+                    <h2 className="font-heading uppercase text-4xl text-slate-900 tracking-wider">Choose Your Challenge</h2>
                 </header>
 
                 <main className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto">
@@ -87,7 +87,7 @@ export default function Home() {
                                     <Icon />
                                 </div>
                             </div>
-                            <h3 className="font-bold uppercase tracking-wider text-2xl mb-2 text-slate-900">{category.title}</h3>
+                            <h3 className="font-heading uppercase tracking-wider text-2xl mb-2 text-slate-900">{category.title}</h3>
                             <p className="text-slate-600 mb-6 flex-grow">{category.description}</p>
                             
                             {category.disabled ? (
@@ -110,7 +110,7 @@ export default function Home() {
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                     {/* About Column */}
                     <div>
-                        <h3 className="text-lg font-bold mb-4">Agniveer Ascent</h3>
+                        <h3 className="text-lg font-bold mb-4 font-heading">Agniveer Ascent</h3>
                         <p className="text-slate-400">The ultimate platform to test and prove your knowledge.</p>
                     </div>
                     {/* Links Column */}
