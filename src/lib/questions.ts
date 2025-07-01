@@ -741,8 +741,758 @@ export const gkTest1Questions: Question[] = [
             "en": "The Prime Minister of India is the ex-officio Chairman of NITI Aayog (National Institution for Transforming India), which is the premier policy think tank of the Indian government.",
             "hi": "भारत के प्रधान मंत्री नीति आयोग (नेशनल इंस्टीट्यूशन फॉर ट्रांसफॉर्मिंग इंडिया) के पदेन अध्यक्ष हैं, जो भारत सरकार का प्रमुख नीति थिंक टैंक है।"
         }
+    },
+    {
+        "question": {
+            "en": "The 'Servants of India Society' was founded in 1905 by:",
+            "hi": "'सर्वेन्ट्स ऑफ इंडिया सोसाइटी' की स्थापना 1905 में किसके द्वारा की गई थी?"
+        },
+        "options": {
+            "en": [ "Bal Gangadhar Tilak", "Gopal Krishna Gokhale", "Lala Lajpat Rai", "Mahatma Gandhi" ],
+            "hi": [ "बाल गंगाधर तिलक", "गोपाल कृष्ण गोखले", "लाला लाजपत राय", "महात्मा गांधी" ]
+        },
+        "answer": 1,
+        "explanation": {
+            "en": "The Servants of India Society was a secular organization founded by Gopal Krishna Gokhale in Pune, Maharashtra, to unite and train Indians of different ethnicities and religions in welfare work.",
+            "hi": "सर्वेन्ट्स ऑफ इंडिया सोसाइटी पुणे, महाराष्ट्र में गोपाल कृष्ण गोखले द्वारा स्थापित एक धर्मनिरपेक्ष संगठन था, जिसका उद्देश्य विभिन्न जातियों और धर्मों के भारतीयों को कल्याणकारी कार्यों में एकजुट और प्रशिक्षित करना था।"
+        }
+    },
+    {
+        "question": {
+            "en": "Who was the first Sultan of Delhi to introduce the system of 'Dagh' (branding of horses) and 'Chehra' (descriptive roll of soldiers)?",
+            "hi": "'दाग' (घोड़ों को दागना) और 'चेहरा' (सैनिकों का वर्णनात्मक ब्योरा) की प्रणाली शुरू करने वाला दिल्ली का पहला सुल्तान कौन था?"
+        },
+        "options": {
+            "en": [ "Iltutmish", "Balban", "Alauddin Khilji", "Firoz Shah Tughlaq" ],
+            "hi": [ "इल्तुतमिश", "बलबन", "अलाउद्दीन खिलजी", "फिरोज शाह तुगलक" ]
+        },
+        "answer": 2,
+        "explanation": {
+            "en": "Alauddin Khilji introduced the Dagh (branding) and Chehra (descriptive roll) systems as part of his military reforms to maintain a strong and efficient army and prevent corruption.",
+            "hi": "अलाउद्दीन खिलजी ने एक मजबूत और कुशल सेना बनाए रखने और भ्रष्टाचार को रोकने के लिए अपने सैन्य सुधारों के हिस्से के रूप में दाग (ब्रांडिंग) और चेहरा (वर्णनात्मक ब्योरा) प्रणाली की शुरुआत की।"
+        }
+    },
+    {
+        "question": {
+            "en": "The famous 'Kailasa Temple' at Ellora, a monolithic structure carved from a single rock, was built by which dynasty?",
+            "hi": "एलोरा में प्रसिद्ध 'कैलाश मंदिर', जो एक ही चट्टान से उकेरी गई एक अखंड संरचना है, किस राजवंश द्वारा बनाया गया था?"
+        },
+        "options": {
+            "en": [ "Chalukyas", "Pallavas", "Rashtrakutas", "Cholas" ],
+            "hi": [ "चालुक्य", "पल्लव", "राष्ट्रकूट", "चोल" ]
+        },
+        "answer": 2,
+        "explanation": {
+            "en": "The Kailasa Temple, an extraordinary architectural feat, was built by the Rashtrakuta king Krishna I in the 8th century.",
+            "hi": "कैलाश मंदिर, एक असाधारण वास्तुशिल्प उपलब्धि, 8वीं शताब्दी में राष्ट्रकूट राजा कृष्ण प्रथम द्वारा बनाया गया था।"
+        }
+    },
+    {
+        "question": {
+            "en": "The 'Battle of Buxar' in 1764 was significant because it:",
+            "hi": "'बक्सर की लड़ाई' 1764 में महत्वपूर्ण थी क्योंकि इसने:"
+        },
+        "options": {
+            "en": [ "Ended the Maratha dominance", "Established British supremacy over Bengal", "Led to the First Carnatic War", "Marked the end of the Mughal Empire" ],
+            "hi": [ "मराठा प्रभुत्व समाप्त कर दिया", "बंगाल पर ब्रिटिश वर्चस्व स्थापित किया", "प्रथम कर्नाटक युद्ध का कारण बना", "मुगल साम्राज्य के अंत को चिह्नित किया" ]
+        },
+        "answer": 1,
+        "explanation": {
+            "en": "The victory at the Battle of Buxar granted the British East India Company the diwani, or the right to collect revenue, in Bengal, Bihar, and Orissa, firmly establishing their rule.",
+            "hi": "बक्सर की लड़ाई में जीत ने ब्रिटिश ईस्ट इंडिया कंपनी को बंगाल, बिहार और उड़ीसा में दीवानी, या राजस्व एकत्र करने का अधिकार प्रदान किया, जिससे उनका शासन मजबूती से स्थापित हो गया।"
+        }
+    },
+    {
+        "question": {
+            "en": "'Theyyam' is a famous ritualistic dance form originating from which state?",
+            "hi": "'थेय्यम' किस राज्य से उत्पन्न एक प्रसिद्ध अनुष्ठानिक नृत्य शैली है?"
+        },
+        "options": {
+            "en": [ "Karnataka", "Tamil Nadu", "Andhra Pradesh", "Kerala" ],
+            "hi": [ "कर्नाटक", "तमिलनाडु", "आंध्र प्रदेश", "केरल" ]
+        },
+        "answer": 3,
+        "explanation": {
+            "en": "Theyyam is a popular ritual form of worship in the North Malabar region of Kerala, incorporating dance, mime, and music.",
+            "hi": "थेय्यम केरल के उत्तरी मालाबार क्षेत्र में पूजा का एक लोकप्रिय अनुष्ठान है, जिसमें नृत्य, अभिनय और संगीत शामिल है।"
+        }
+    },
+    {
+        "question": {
+            "en": "Who was the author of 'Ain-i-Akbari' and 'Akbarnama'?",
+            "hi": "'आइन-ए-अकबरी' और 'अकबरनामा' के लेखक कौन थे?"
+        },
+        "options": {
+            "en": [ "Faizi", "Abul Fazl", "Todar Mal", "Birbal" ],
+            "hi": [ "फैजी", "अबुल फजल", "टोडरमल", "बीरबल" ]
+        },
+        "answer": 1,
+        "explanation": {
+            "en": "Abul Fazl, one of the Nine Jewels in Akbar's court, was the author of Akbarnama, the official chronicle of Akbar's reign, with its third volume being the Ain-i-Akbari.",
+            "hi": "अकबर के दरबार के नौ रत्नों में से एक, अबुल फजल, अकबर के शासनकाल के आधिकारिक वृत्तांत, अकबरनामा के लेखक थे, जिसका तीसरा खंड आइन-ए-अकबरी है।"
+        }
+    },
+    {
+        "question": {
+            "en": "The 'Treaty of Amritsar' in 1809 was signed between the British East India Company and:",
+            "hi": "'अमृतसर की संधि' 1809 में ब्रिटिश ईस्ट इंडिया कंपनी और किसके बीच हुई थी:"
+        },
+        "options": {
+            "en": [ "Tipu Sultan", "The Nizam of Hyderabad", "Maharaja Ranjit Singh", "The Nawab of Awadh" ],
+            "hi": [ "टीपू सुल्तान", "हैदराबाद का निज़ाम", "महाराजा रणजीत सिंह", "अवध का नवाब" ]
+        },
+        "answer": 2,
+        "explanation": {
+            "en": "The treaty fixed the Sutlej River as the boundary between the Sikh Empire under Maharaja Ranjit Singh and the British territories.",
+            "hi": "इस संधि ने महाराजा रणजीत सिंह के अधीन सिख साम्राज्य और ब्रिटिश क्षेत्रों के बीच सतलुज नदी को सीमा के रूप में तय किया।"
+        }
+    },
+    {
+        "question": {
+            "en": "The ancient port city of 'Muziris' was located in which present-day state?",
+            "hi": "प्राचीन बंदरगाह शहर 'मुज़िरिस' आज के किस राज्य में स्थित था?"
+        },
+        "options": {
+            "en": [ "Tamil Nadu", "Kerala", "Gujarat", "Maharashtra" ],
+            "hi": [ "तमिलनाडु", "केरल", "गुजरात", "महाराष्ट्र" ]
+        },
+        "answer": 1,
+        "explanation": {
+            "en": "Muziris was a bustling ancient seaport and urban center on the Malabar Coast, which corresponds to modern-day Kerala.",
+            "hi": "मुज़िरिस मालाबार तट पर एक व्यस्त प्राचीन बंदरगाह और शहरी केंद्र था, जो आधुनिक केरल से मेल खाता है।"
+        }
+    },
+    {
+        "question": {
+            "en": "Who founded the Vikramshila University, an ancient center of learning?",
+            "hi": "एक प्राचीन शिक्षा केंद्र, विक्रमशिला विश्वविद्यालय की स्थापना किसने की?"
+        },
+        "options": {
+            "en": [ "Kumaragupta I", "Gopala", "Dharmapala", "Devapala" ],
+            "hi": [ "कुमारगुप्त प्रथम", "गोपाल", "धर्मपाल", "देवपाल" ]
+        },
+        "answer": 2,
+        "explanation": {
+            "en": "Vikramshila University was one of the two most important centres of Buddhist learning in India during the Pala Empire, established by King Dharmapala.",
+            "hi": "विक्रमशिला विश्वविद्यालय पाल साम्राज्य के दौरान भारत में बौद्ध शिक्षा के दो सबसे महत्वपूर्ण केंद्रों में से एक था, जिसकी स्थापना राजा धर्मपाल ने की थी।"
+        }
+    },
+    {
+        "question": {
+            "en": "The 'Tanjore painting' style flourished in which part of India?",
+            "hi": "'तंजौर पेंटिंग' शैली भारत के किस हिस्से में फली-फूली?"
+        },
+        "options": {
+            "en": [ "Rajasthan", "Southern India (Tamil Nadu)", "Bengal", "Gujarat" ],
+            "hi": [ "राजस्थान", "दक्षिणी भारत (तमिलनाडु)", "बंगाल", "गुजरात" ]
+        },
+        "answer": 1,
+        "explanation": {
+            "en": "Tanjore or Thanjavur painting is a classical South Indian painting style, which was inaugurated in the town of Thanjavur (Tanjore) in Tamil Nadu.",
+            "hi": "तंजौर या तंजावुर पेंटिंग एक शास्त्रीय दक्षिण भारतीय पेंटिंग शैली है, जिसका उद्घाटन तमिलनाडु के तंजावुर (तंजौर) शहर में हुआ था।"
+        }
+    },
+    {
+        "question": {
+            "en": "The 'Dudhwa National Park' is located in which state?",
+            "hi": "'दुधवा राष्ट्रीय उद्यान' किस राज्य में स्थित है?"
+        },
+        "options": {
+            "en": [ "Madhya Pradesh", "Bihar", "Uttar Pradesh", "Jharkhand" ],
+            "hi": [ "मध्य प्रदेश", "बिहार", "उत्तर प्रदेश", "झारखंड" ]
+        },
+        "answer": 2,
+        "explanation": {
+            "en": "Dudhwa National Park is located in the Terai belt of marshy grasslands of northern Uttar Pradesh.",
+            "hi": "दुधवा राष्ट्रीय उद्यान उत्तरी उत्तर प्रदेश के दलदली घास के मैदानों की तराई बेल्ट में स्थित है।"
+        }
+    },
+    {
+        "question": {
+            "en": "Which of the following rivers is also known as the 'Dakshina Ganga' (Ganges of the South)?",
+            "hi": "निम्नलिखित में से किस नदी को 'दक्षिणा गंगा' (दक्षिण की गंगा) के नाम से भी जाना जाता है?"
+        },
+        "options": {
+            "en": [ "Krishna", "Kaveri", "Godavari", "Mahanadi" ],
+            "hi": [ "कृष्णा", "कावेरी", "गोदावरी", "महानदी" ]
+        },
+        "answer": 2,
+        "explanation": {
+            "en": "The Godavari River is often referred to as the Dakshina Ganga because of its large size and extent, making it one of the largest rivers in Peninsular India.",
+            "hi": "गोदावरी नदी को अक्सर उसके बड़े आकार और विस्तार के कारण दक्षिणा गंगा कहा जाता है, जो इसे प्रायद्वीपीय भारत की सबसे बड़ी नदियों में से एक बनाता है।"
+        }
+    },
+    {
+        "question": {
+            "en": "The 'Zoji La' pass connects Srinagar with which region?",
+            "hi": "'जोजिला दर्रा' श्रीनगर को किस क्षेत्र से जोड़ता है?"
+        },
+        "options": {
+            "en": [ "Kargil and Leh", "Jammu", "Spiti Valley", "Kullu Valley" ],
+            "hi": [ "कारगिल और लेह", "जम्मू", "स्पीति घाटी", "कुल्लू घाटी" ]
+        },
+        "answer": 0,
+        "explanation": {
+            "en": "Zoji La is a high mountain pass in the Himalayas that provides a vital link between the Kashmir Valley (Srinagar) and Ladakh (Kargil and Leh).",
+            "hi": "जोजिला हिमालय में एक ऊंचा पहाड़ी दर्रा है जो कश्मीर घाटी (श्रीनगर) और लद्दाख (कारगिल और लेह) के बीच एक महत्वपूर्ण लिंक प्रदान करता है।"
+        }
+    },
+    {
+        "question": {
+            "en": "Which type of climate is characterized by 'Loo', a hot and dry local wind in the northern plains of India?",
+            "hi": "भारत के उत्तरी मैदानों में एक गर्म और शुष्क स्थानीय हवा 'लू' किस प्रकार की जलवायु की विशेषता है?"
+        },
+        "options": {
+            "en": [ "Tropical Monsoon", "Tropical Wet and Dry", "Hot Desert", "Humid Subtropical" ],
+            "hi": [ "उष्णकटिबंधीय मानसून", "उष्णकटिबंधीय आर्द्र और शुष्क", "गर्म मरुस्थल", "आर्द्र उपोष्णकटिबंधीय" ]
+        },
+        "answer": 2,
+        "explanation": {
+            "en": "The Loo is a strong, gusty, hot, and dry summer wind from the west which blows over the western Indo-Gangetic Plain region of North India and Pakistan, characteristic of a hot desert climate.",
+            "hi": "लू पश्चिम से एक मजबूत, झोंकेदार, गर्म और शुष्क गर्मी की हवा है जो उत्तरी भारत और पाकिस्तान के पश्चिमी भारत-गंगा के मैदानी क्षेत्र में चलती है, जो गर्म मरुस्थलीय जलवायु की विशेषता है।"
+        }
+    },
+    {
+        "question": {
+            "en": "The 'Bhitarkanika National Park', known for its mangrove ecosystem, is located in:",
+            "hi": "'भितरकनिका राष्ट्रीय उद्यान', जो अपने मैंग्रोव पारिस्थितिकी तंत्र के लिए जाना जाता है, कहाँ स्थित है:"
+        },
+        "options": {
+            "en": [ "West Bengal", "Odisha", "Andhra Pradesh", "Tamil Nadu" ],
+            "hi": [ "पश्चिम बंगाल", "ओडिशा", "आंध्र प्रदेश", "तमिलनाडु" ]
+        },
+        "answer": 1,
+        "explanation": {
+            "en": "Bhitarkanika National Park is a large national park in the northeast Kendrapara district of Odisha.",
+            "hi": "भितरकनिका राष्ट्रीय उद्यान ओडिशा के पूर्वोत्तर केंद्रपाड़ा जिले में एक बड़ा राष्ट्रीय उद्यान है।"
+        }
+    },
+    {
+        "question": {
+            "en": "The 'Tenth Schedule' of the Indian Constitution deals with:",
+            "hi": "भारतीय संविधान की 'दसवीं अनुसूची' किससे संबंधित है:"
+        },
+        "options": {
+            "en": [ "Panchayati Raj institutions", "The allocation of powers between Union and States", "Provisions regarding disqualification on the ground of defection", "The administration of tribal areas" ],
+            "hi": [ "पंचायती राज संस्थाएं", "संघ और राज्यों के बीच शक्तियों का आवंटन", "दल-बदल के आधार पर अयोग्यता संबंधी प्रावधान", "जनजातीय क्षेत्रों का प्रशासन" ]
+        },
+        "answer": 2,
+        "explanation": {
+            "en": "The Tenth Schedule, popularly known as the Anti-Defection Law, was introduced to prevent political defections prompted by the lure of office or other similar considerations.",
+            "hi": "दसवीं अनुसूची, जिसे लोकप्रिय रूप से दल-बदल विरोधी कानून के रूप में जाना जाता है, को पद के लालच या अन्य समान विचारों से प्रेरित राजनीतिक दल-बदल को रोकने के लिए पेश किया गया था।"
+        }
+    },
+    {
+        "question": {
+            "en": "What is the quorum required to conduct a meeting of the Lok Sabha?",
+            "hi": "लोकसभा की बैठक आयोजित करने के लिए आवश्यक गणपूर्ति क्या है?"
+        },
+        "options": {
+            "en": [ "One-tenth of the total number of members", "One-fourth of the total number of members", "One-third of the total number of members", "A minimum of 100 members" ],
+            "hi": [ "कुल सदस्यों का दसवां हिस्सा", "कुल सदस्यों का चौथाई हिस्सा", "कुल सदस्यों का तिहाई हिस्सा", "न्यूनतम 100 सदस्य" ]
+        },
+        "answer": 0,
+        "explanation": {
+            "en": "The quorum to constitute a sitting of the House is one-tenth of the total number of Members of the House.",
+            "hi": "सदन की बैठक के लिए गणपूर्ति सदन के कुल सदस्यों की संख्या का दसवां हिस्सा है।"
+        }
+    },
+    {
+        "question": {
+            "en": "The 'Public Accounts Committee' (PAC) of the Parliament submits its report to:",
+            "hi": "संसद की 'लोक लेखा समिति' (PAC) अपनी रिपोर्ट किसे सौंपती है:"
+        },
+        "options": {
+            "en": [ "The Prime Minister", "The President", "The Speaker of the Lok Sabha", "The Finance Minister" ],
+            "hi": [ "प्रधानमंत्री", "राष्ट्रपति", "लोकसभा अध्यक्ष", "वित्त मंत्री" ]
+        },
+        "answer": 2,
+        "explanation": {
+            "en": "The PAC examines the audit reports of the Comptroller and Auditor General (CAG) and submits its findings to the Speaker of the Lok Sabha.",
+            "hi": "PAC नियंत्रक और महालेखा परीक्षक (CAG) की लेखा परीक्षा रिपोर्टों की जांच करती है और अपने निष्कर्ष लोकसभा अध्यक्ष को सौंपती है।"
+        }
+    },
+    {
+        "question": {
+            "en": "Who has the power to declare a 'Financial Emergency' in India?",
+            "hi": "भारत में 'वित्तीय आपातकाल' घोषित करने की शक्ति किसके पास है?"
+        },
+        "options": {
+            "en": [ "The Finance Minister", "The Parliament", "The Prime Minister", "The President" ],
+            "hi": [ "वित्त मंत्री", "संसद", "प्रधानमंत्री", "राष्ट्रपति" ]
+        },
+        "answer": 3,
+        "explanation": {
+            "en": "Article 360 of the Constitution empowers the President to proclaim a Financial Emergency if they are satisfied that a situation has arisen whereby the financial stability or credit of India is threatened.",
+            "hi": "संविधान का अनुच्छेद 360 राष्ट्रपति को वित्तीय आपातकाल की घोषणा करने का अधिकार देता है यदि वे संतुष्ट हैं कि ऐसी स्थिति उत्पन्न हो गई है जिससे भारत की वित्तीय स्थिरता या साख को खतरा है।"
+        }
+    },
+    {
+        "question": {
+            "en": "The 'National Human Rights Commission' (NHRC) is a:",
+            "hi": "'राष्ट्रीय मानवाधिकार आयोग' (NHRC) एक है:"
+        },
+        "options": {
+            "en": [ "Constitutional Body", "Statutory Body", "Executive Body", "Non-governmental organization" ],
+            "hi": [ "संवैधानिक निकाय", "सांविधिक निकाय", "कार्यकारी निकाय", "गैर-सरकारी संगठन" ]
+        },
+        "answer": 1,
+        "explanation": {
+            "en": "The NHRC was established in 1993 under the Protection of Human Rights Act, 1993, making it a statutory body, not a constitutional one.",
+            "hi": "NHRC की स्थापना 1993 में मानवाधिकार संरक्षण अधिनियम, 1993 के तहत की गई थी, जो इसे एक सांविधिक निकाय बनाता है, न कि संवैधानिक।"
+        }
+    },
+    {
+        "question": {
+            "en": "The 'MARCOS', an elite special forces unit, belongs to which branch of the Indian Armed Forces?",
+            "hi": "'मार्कोस', एक विशिष्ट विशेष बल इकाई, भारतीय सशस्त्र बलों की किस शाखा से संबंधित है?"
+        },
+        "options": {
+            "en": [ "Indian Army", "Indian Air Force", "Indian Navy", "Indian Coast Guard" ],
+            "hi": [ "भारतीय सेना", "भारतीय वायु सेना", "भारतीय नौसेना", "भारतीय तटरक्षक" ]
+        },
+        "answer": 2,
+        "explanation": {
+            "en": "MARCOS, short for Marine Commandos, is the special forces unit of the Indian Navy, trained for amphibious warfare, counter-terrorism, and special reconnaissance.",
+            "hi": "मार्कोस, मरीन कमांडो का संक्षिप्त रूप, भारतीय नौसेना की विशेष बल इकाई है, जिसे उभयचर युद्ध, आतंकवाद-निरोध और विशेष टोही के लिए प्रशिक्षित किया गया है।"
+        }
+    },
+    {
+        "question": {
+            "en": "What is 'INS Dhruv', which was recently commissioned into the Indian Navy?",
+            "hi": "'आईएनएस ध्रुव' क्या है, जिसे हाल ही में भारतीय नौसेना में कमीशन किया गया था?"
+        },
+        "options": {
+            "en": [ "A nuclear-powered submarine", "A stealth frigate", "An ocean surveillance and missile tracking ship", "A landing craft utility ship" ],
+            "hi": [ "एक परमाणु-संचालित पनडुब्बी", "एक स्टील्थ फ्रिगेट", "एक महासागर निगरानी और मिसाइल ट्रैकिंग जहाज", "एक लैंडिंग क्राफ्ट यूटिलिटी जहाज" ]
+        },
+        "answer": 2,
+        "explanation": {
+            "en": "INS Dhruv is India's first nuclear missile tracking ship, capable of tracking satellites and ballistic missiles.",
+            "hi": "आईएनएस ध्रुव भारत का पहला परमाणु मिसाइल ट्रैकिंग जहाज है, जो उपग्रहों और बैलिस्टिक मिसाइलों को ट्रैक करने में सक्षम है।"
+        }
+    },
+    {
+        "question": {
+            "en": "The 'Armoured Corps Centre and School' of the Indian Army is located in:",
+            "hi": "भारतीय सेना का 'बख्तरबंद कोर केंद्र और स्कूल' कहाँ स्थित है:"
+        },
+        "options": {
+            "en": [ "Babina", "Ahmednagar", "Patiala", "Jodhpur" ],
+            "hi": [ "बबीना", "अहमदनगर", "पटियाला", "जोधपुर" ]
+        },
+        "answer": 1,
+        "explanation": {
+            "en": "The Armoured Corps Centre and School (ACCS) in Ahmednagar, Maharashtra, is a premier institution for training officers and soldiers of the Armoured Corps.",
+            "hi": "अहमदनगर, महाराष्ट्र में बख्तरबंद कोर केंद्र और स्कूल (ACCS) बख्तरबंद कोर के अधिकारियों और सैनिकों के प्रशिक्षण के लिए एक प्रमुख संस्थान है।"
+        }
+    },
+    {
+        "question": {
+            "en": "The joint military exercise 'Nomadic Elephant' is conducted between India and:",
+            "hi": "संयुक्त सैन्य अभ्यास 'नोमैडिक एलीफेंट' भारत और किसके बीच आयोजित किया जाता है:"
+        },
+        "options": {
+            "en": [ "Kazakhstan", "Kyrgyzstan", "Mongolia", "Uzbekistan" ],
+            "hi": [ "कजाकिस्तान", "किर्गिस्तान", "मंगोलिया", "उजबेकिस्तान" ]
+        },
+        "answer": 2,
+        "explanation": {
+            "en": "'Nomadic Elephant' is an annual bilateral military exercise between the Indian Army and the Mongolian Armed Forces.",
+            "hi": "'नोमैडिक एलीफेंट' भारतीय सेना और मंगोलियाई सशस्त्र बलों के बीच एक वार्षिक द्विपक्षीय सैन्य अभ्यास है।"
+        }
+    },
+    {
+        "question": {
+            "en": "The 'National Defence College' (NDC), the highest institution of strategic learning for officers, is located in:",
+            "hi": "'राष्ट्रीय रक्षा कॉलेज' (NDC), अधिकारियों के लिए रणनीतिक शिक्षा का सर्वोच्च संस्थान, कहाँ स्थित है:"
+        },
+        "options": {
+            "en": [ "Pune", "Dehradun", "New Delhi", "Mhow" ],
+            "hi": [ "पुणे", "देहरादून", "नई दिल्ली", "महू" ]
+        },
+        "answer": 2,
+        "explanation": {
+            "en": "The NDC is located in New Delhi and is dedicated to the training and strategic education of senior officers of the Armed Forces and Civil Services.",
+            "hi": "NDC नई दिल्ली में स्थित है और सशस्त्र बलों और सिविल सेवाओं के वरिष्ठ अधिकारियों के प्रशिक्षण और रणनीतिक शिक्षा के लिए समर्पित है।"
+        }
+    },
+    {
+        "question": {
+            "en": "Which Indian state was the first to establish Panchayati Raj institutions?",
+            "hi": "पंचायती राज संस्थाओं की स्थापना करने वाला पहला भारतीय राज्य कौन सा था?"
+        },
+        "options": {
+            "en": [ "Andhra Pradesh", "Bihar", "Rajasthan", "Uttar Pradesh" ],
+            "hi": [ "आंध्र प्रदेश", "बिहार", "राजस्थान", "उत्तर प्रदेश" ]
+        },
+        "answer": 2,
+        "explanation": {
+            "en": "The modern Panchayati Raj system was first introduced in Nagaur district of Rajasthan on October 2, 1959, by Prime Minister Jawaharlal Nehru.",
+            "hi": "आधुनिक पंचायती राज व्यवस्था सबसे पहले प्रधानमंत्री जवाहरलाल नेहरू द्वारा 2 अक्टूबर, 1959 को राजस्थान के नागौर जिले में शुरू की गई थी।"
+        }
+    },
+    {
+        "question": {
+            "en": "The 'National Dairy Research Institute' (NDRI) is located in which city?",
+            "hi": "'राष्ट्रीय डेयरी अनुसंधान संस्थान' (NDRI) किस शहर में स्थित है?"
+        },
+        "options": {
+            "en": [ "Anand", "Karnal", "Hisar", "New Delhi" ],
+            "hi": [ "आणंद", "करनाल", "हिसार", "नई दिल्ली" ]
+        },
+        "answer": 1,
+        "explanation": {
+            "en": "The NDRI is India's premier institute for dairy research, located in Karnal, Haryana.",
+            "hi": "NDRI डेयरी अनुसंधान के लिए भारत का प्रमुख संस्थान है, जो करनाल, हरियाणा में स्थित है।"
+        }
+    },
+    {
+        "question": {
+            "en": "Who was the first Indian woman to win a Grand Slam title in tennis?",
+            "hi": "टेनिस में ग्रैंड स्लैम खिताब जीतने वाली पहली भारतीय महिला कौन थीं?"
+        },
+        "options": {
+            "en": [ "Nirupama Sanjeev", "Sania Mirza", "Rushmi Chakravarthi", "Ankita Raina" ],
+            "hi": [ "निरुपमा संजीव", "सानिया मिर्जा", "रुश्मि चक्रवर्ती", "अंकिता रैना" ]
+        },
+        "answer": 1,
+        "explanation": {
+            "en": "Sania Mirza became the first Indian woman to win a Grand Slam title when she won the mixed doubles event at the 2009 Australian Open.",
+            "hi": "सानिया मिर्जा 2009 के ऑस्ट्रेलियन ओपन में मिश्रित युगल स्पर्धा जीतने पर ग्रैंड स्लैम खिताब जीतने वाली पहली भारतीय महिला बनीं।"
+        }
+    },
+    {
+        "question": {
+            "en": "The 'Central Rice Research Institute' is located in:",
+            "hi": "'केंद्रीय चावल अनुसंधान संस्थान' कहाँ स्थित है:"
+        },
+        "options": {
+            "en": [ "Cuttack", "Hyderabad", "Lucknow", "Shimla" ],
+            "hi": [ "कटक", "हैदराबाद", "लखनऊ", "शिमला" ]
+        },
+        "answer": 0,
+        "explanation": {
+            "en": "The National Rice Research Institute (formerly Central Rice Research Institute) is located in Cuttack, Odisha.",
+            "hi": "राष्ट्रीय चावल अनुसंधान संस्थान (पूर्व में केंद्रीय चावल अनुसंधान संस्थान) कटक, ओडिशा में स्थित है।"
+        }
+    },
+    {
+        "question": {
+            "en": "The 'National Voters' Day' is celebrated in India on:",
+            "hi": "भारत में 'राष्ट्रीय मतदाता दिवस' कब मनाया जाता है:"
+        },
+        "options": {
+            "en": [ "January 26", "January 25", "January 24", "January 30" ],
+            "hi": [ "26 जनवरी", "25 जनवरी", "24 जनवरी", "30 जनवरी" ]
+        },
+        "answer": 1,
+        "explanation": {
+            "en": "National Voters' Day is celebrated every year on January 25 to mark the foundation day of the Election Commission of India in 1950.",
+            "hi": "1950 में भारत के चुनाव आयोग के स्थापना दिवस को चिह्नित करने के लिए हर साल 25 जनवरी को राष्ट्रीय मतदाता दिवस मनाया जाता है।"
+        }
+    },
+    {
+        "question": {
+            "en": "The 'Pamban Bridge' connects the town of Rameswaram on Pamban Island to:",
+            "hi": "'पंबन ब्रिज' पंबन द्वीप पर रामेश्वरम शहर को किससे जोड़ता है:"
+        },
+        "options": {
+            "en": [ "Sri Lanka", "Mainland India", "Dhanushkodi", "Kanyakumari" ],
+            "hi": [ "श्रीलंका", "मुख्य भूमि भारत", "धनुषकोडी", "कन्याकुमारी" ]
+        },
+        "answer": 1,
+        "explanation": {
+            "en": "The Pamban Bridge is a railway bridge which connects the town of Mandapam in mainland India with Pamban Island, and Rameswaram.",
+            "hi": "पंबन ब्रिज एक रेलवे पुल है जो मुख्य भूमि भारत के मंडपम शहर को पंबन द्वीप और रामेश्वरम से जोड़ता है।"
+        }
+    },
+    {
+        "question": {
+            "en": "Who is known as the 'Grand Old Man of India'?",
+            "hi": "'भारत के ग्रैंड ओल्ड मैन' के रूप में किसे जाना जाता है?"
+        },
+        "options": {
+            "en": [ "Gopal Krishna Gokhale", "Dadabhai Naoroji", "W.C. Bonnerjee", "Surendranath Banerjee" ],
+            "hi": [ "गोपाल कृष्ण गोखले", "दादाभाई नौरोजी", "डब्ल्यू.सी. बनर्जी", "सुरेंद्रनाथ बनर्जी" ]
+        },
+        "answer": 1,
+        "explanation": {
+            "en": "Dadabhai Naoroji, a prominent Parsi intellectual and early Indian political leader, was known as the 'Grand Old Man of India'.",
+            "hi": "दादाभाई नौरोजी, एक प्रमुख पारसी बौद्धिक और प्रारंभिक भारतीय राजनीतिक नेता, को 'भारत के ग्रैंड ओल्ड मैन' के रूप में जाना जाता था।"
+        }
+    },
+    {
+        "question": {
+            "en": "The 'National Institute of Nutrition' is located in which city?",
+            "hi": "'राष्ट्रीय पोषण संस्थान' किस शहर में स्थित है?"
+        },
+        "options": {
+            "en": [ "Mumbai", "New Delhi", "Hyderabad", "Bengaluru" ],
+            "hi": [ "मुंबई", "नई दिल्ली", "हैदराबाद", "बेंगलुरु" ]
+        },
+        "answer": 2,
+        "explanation": {
+            "en": "The National Institute of Nutrition (NIN) is an Indian public health, nutrition and translational research center located in Hyderabad, Telangana.",
+            "hi": "राष्ट्रीय पोषण संस्थान (NIN) हैदराबाद, तेलंगाना में स्थित एक भारतीय सार्वजनिक स्वास्थ्य, पोषण और अनुवाद संबंधी अनुसंधान केंद्र है।"
+        }
+    },
+    {
+        "question": {
+            "en": "'Lavani' is a traditional folk dance and song genre from which state?",
+            "hi": "'लावणी' किस राज्य की एक पारंपरिक लोक नृत्य और गीत शैली है?"
+        },
+        "options": {
+            "en": [ "Gujarat", "Rajasthan", "Maharashtra", "Madhya Pradesh" ],
+            "hi": [ "गुजरात", "राजस्थान", "महाराष्ट्र", "मध्य प्रदेश" ]
+        },
+        "answer": 2,
+        "explanation": {
+            "en": "Lavani is a genre of music popular in Maharashtra, India. It is a combination of traditional song and dance, which particularly performed to the beats of Dholki, a percussion instrument.",
+            "hi": "लावणी भारत के महाराष्ट्र में लोकप्रिय संगीत की एक शैली है। यह पारंपरिक गीत और नृत्य का एक संयोजन है, जो विशेष रूप से ढोलकी, एक ताल वाद्य की ताल पर किया जाता है।"
+        }
+    },
+    {
+        "question": {
+            "en": "The first Indian to win an individual gold medal at the Olympic Games was:",
+            "hi": "ओलंपिक खेलों में व्यक्तिगत स्वर्ण पदक जीतने वाले पहले भारतीय थे:"
+        },
+        "options": {
+            "en": [ "Leander Paes", "Rajyavardhan Singh Rathore", "Abhinav Bindra", "Neeraj Chopra" ],
+            "hi": [ "लिएंडर पेस", "राज्यवर्धन सिंह राठौर", "अभिनव बिंद्रा", "नीरज चोपड़ा" ]
+        },
+        "answer": 2,
+        "explanation": {
+            "en": "Abhinav Bindra won the gold medal in the men's 10-meter air rifle event at the 2008 Beijing Olympics, becoming the first Indian to win an individual Olympic gold.",
+            "hi": "अभिनव बिंद्रा ने 2008 के बीजिंग ओलंपिक में पुरुषों की 10-मीटर एयर राइफल स्पर्धा में स्वर्ण पदक जीता, जिससे वे व्यक्तिगत ओलंपिक स्वर्ण जीतने वाले पहले भारतीय बन गए।"
+        }
+    },
+    {
+        "question": {
+            "en": "The 'Periyar National Park' is located in which state?",
+            "hi": "'पेरियार राष्ट्रीय उद्यान' किस राज्य में स्थित है?"
+        },
+        "options": {
+            "en": [ "Karnataka", "Tamil Nadu", "Kerala", "Andhra Pradesh" ],
+            "hi": [ "कर्नाटक", "तमिलनाडु", "केरल", "आंध्र प्रदेश" ]
+        },
+        "answer": 2,
+        "explanation": {
+            "en": "Periyar National Park and Wildlife Sanctuary is a protected area located in the districts of Idukki and Pathanamthitta in Kerala.",
+            "hi": "पेरियार राष्ट्रीय उद्यान और वन्यजीव अभयारण्य केरल के इडुक्की और पठानमथिट्टा जिलों में स्थित एक संरक्षित क्षेत्र है।"
+        }
+    },
+    {
+        "question": {
+            "en": "The term 'Regur Soil' is also known as:",
+            "hi": "'रेगुर मिट्टी' को और किस नाम से जाना जाता है:"
+        },
+        "options": {
+            "en": [ "Alluvial Soil", "Red Soil", "Laterite Soil", "Black Cotton Soil" ],
+            "hi": [ "जलोढ़ मिट्टी", "लाल मिट्टी", "लैटेराइट मिट्टी", "काली कपास मिट्टी" ]
+        },
+        "answer": 3,
+        "explanation": {
+            "en": "Regur soil is also known as Black Soil or Black Cotton Soil as it is ideal for growing cotton.",
+            "hi": "रेगुर मिट्टी को काली मिट्टी या काली कपास मिट्टी के रूप में भी जाना जाता है क्योंकि यह कपास उगाने के लिए आदर्श है।"
+        }
+    },
+    {
+        "question": {
+            "en": "The 'Atal Pension Yojana' is a government scheme focused on the:",
+            "hi": "'अटल पेंशन योजना' एक सरकारी योजना है जो किस पर केंद्रित है:"
+        },
+        "options": {
+            "en": [ "Health sector", "Education sector", "Unorganized sector (pension)", "Agricultural sector" ],
+            "hi": [ "स्वास्थ्य क्षेत्र", "शिक्षा क्षेत्र", "असंगठित क्षेत्र (पेंशन)", "कृषि क्षेत्र" ]
+        },
+        "answer": 2,
+        "explanation": {
+            "en": "Atal Pension Yojana is a government-backed pension scheme in India, targeted at the unorganized sector.",
+            "hi": "अटल पेंशन योजना भारत में एक सरकार समर्थित पेंशन योजना है, जो असंगठित क्षेत्र पर लक्षित है।"
+        }
+    },
+    {
+        "question": {
+            "en": "The 'Tungabhadra Dam' is located in which state?",
+            "hi": "'तुंगभद्रा बांध' किस राज्य में स्थित है?"
+        },
+        "options": {
+            "en": [ "Andhra Pradesh", "Telangana", "Karnataka", "Tamil Nadu" ],
+            "hi": [ "आंध्र प्रदेश", "तेलंगाना", "कर्नाटक", "तमिलनाडु" ]
+        },
+        "answer": 2,
+        "explanation": {
+            "en": "The Tungabhadra Dam is constructed across the Tungabhadra River, a tributary of the Krishna River, in Hospet, Ballari district of Karnataka.",
+            "hi": "तुंगभद्रा बांध कृष्णा नदी की एक सहायक नदी तुंगभद्रा नदी पर, कर्नाटक के बल्लारी जिले के होस्पेट में बनाया गया है।"
+        }
+    },
+    {
+        "question": {
+            "en": "Which Indian city is famous for its 'Chikankari' embroidery?",
+            "hi": "कौन सा भारतीय शहर अपनी 'चिकनकारी' कढ़ाई के लिए प्रसिद्ध है?"
+        },
+        "options": {
+            "en": [ "Jaipur", "Varanasi", "Lucknow", "Agra" ],
+            "hi": [ "जयपुर", "वाराणसी", "लखनऊ", "आगरा" ]
+        },
+        "answer": 2,
+        "explanation": {
+            "en": "Chikankari is a traditional embroidery style from Lucknow, Uttar Pradesh. It is a delicate and artfully done hand embroidery.",
+            "hi": "चिकनकारी लखनऊ, उत्तर प्रदेश की एक पारंपरिक कढ़ाई शैली है। यह एक नाजुक और कलात्मक रूप से की गई हाथ की कढ़ाई है।"
+        }
+    },
+    {
+        "question": {
+            "en": "Who was the first woman to receive the Jnanpith Award?",
+            "hi": "ज्ञानपीठ पुरस्कार प्राप्त करने वाली पहली महिला कौन थीं?"
+        },
+        "options": {
+            "en": [ "Mahadevi Varma", "Amrita Pritam", "Mahasweta Devi", "Ashapoorna Devi" ],
+            "hi": [ "महादेवी वर्मा", "अमृता प्रीतम", "महाश्वेता देवी", "आशापूर्णा देवी" ]
+        },
+        "answer": 3,
+        "explanation": {
+            "en": "Bengali novelist Ashapoorna Devi was the first woman to receive the Jnanpith Award, in 1976.",
+            "hi": "बंगाली उपन्यासकार आशापूर्णा देवी 1976 में ज्ञानपीठ पुरस्कार प्राप्त करने वाली पहली महिला थीं।"
+        }
+    },
+    {
+        "question": {
+            "en": "The 'Forest Research Institute' of India is located in:",
+            "hi": "भारत का 'वन अनुसंधान संस्थान' कहाँ स्थित है:"
+        },
+        "options": {
+            "en": [ "Shimla", "Dehradun", "Nainital", "Bhopal" ],
+            "hi": [ "शिमला", "देहरादून", "नैनीताल", "भोपाल" ]
+        },
+        "answer": 1,
+        "explanation": {
+            "en": "The Forest Research Institute (FRI) is a premier institution in the field of forestry research in India, located in Dehradun, Uttarakhand.",
+            "hi": "वन अनुसंधान संस्थान (FRI) भारत में वानिकी अनुसंधान के क्षेत्र में एक प्रमुख संस्थान है, जो देहरादून, उत्तराखंड में स्थित है।"
+        }
+    },
+    {
+        "question": {
+            "en": "Which state has the highest literacy rate in India according to the 2011 census?",
+            "hi": "2011 की जनगणना के अनुसार भारत में किस राज्य की साक्षरता दर सबसे अधिक है?"
+        },
+        "options": {
+            "en": [ "Mizoram", "Goa", "Tripura", "Kerala" ],
+            "hi": [ "मिजोरम", "गोवा", "त्रिपुरा", "केरल" ]
+        },
+        "answer": 3,
+        "explanation": {
+            "en": "As per the 2011 Census, Kerala has the highest literacy rate in India at 94%.",
+            "hi": "2011 की जनगणना के अनुसार, केरल में 94% के साथ भारत में सबसे अधिक साक्षरता दर है।"
+        }
+    },
+    {
+        "question": {
+            "en": "The 'Commonwealth of Nations' is headquartered in:",
+            "hi": "'राष्ट्रमंडल' का मुख्यालय कहाँ है:"
+        },
+        "options": {
+            "en": [ "New York", "Geneva", "Paris", "London" ],
+            "hi": [ "न्यूयॉर्क", "जिनेवा", "पेरिस", "लंदन" ]
+        },
+        "answer": 3,
+        "explanation": {
+            "en": "The Commonwealth Secretariat, the main intergovernmental agency of the Commonwealth, is located at Marlborough House in London.",
+            "hi": "राष्ट्रमंडल का मुख्य अंतर-सरकारी एजेंसी, राष्ट्रमंडल सचिवालय, लंदन के मार्लबोरो हाउस में स्थित है।"
+        }
+    },
+    {
+        "question": {
+            "en": "Who was the first Indian woman to become a commercial pilot?",
+            "hi": "वाणिज्यिक पायलट बनने वाली पहली भारतीय महिला कौन थीं?"
+        },
+        "options": {
+            "en": [ "Sarla Thukral", "Durba Banerjee", "Harita Kaur Deol", "Punita Arora" ],
+            "hi": [ "सरला ठकराल", "दुर्बा बनर्जी", "हरिता कौर देओल", "पुनीता अरोड़ा" ]
+        },
+        "answer": 1,
+        "explanation": {
+            "en": "Durba Banerjee was the first female commercial pilot in India, starting her career with Indian Airlines in 1956.",
+            "hi": "दुर्बा बनर्जी भारत की पहली महिला वाणिज्यिक पायलट थीं, जिन्होंने 1956 में इंडियन एयरलाइंस के साथ अपना करियर शुरू किया था।"
+        }
+    },
+    {
+        "question": {
+            "en": "The 'Ranganathittu Bird Sanctuary' is located in which state?",
+            "hi": "'रंगनाथिट्टू पक्षी अभयारण्य' किस राज्य में स्थित है?"
+        },
+        "options": {
+            "en": [ "Tamil Nadu", "Kerala", "Andhra Pradesh", "Karnataka" ],
+            "hi": [ "तमिलनाडु", "केरल", "आंध्र प्रदेश", "कर्नाटक" ]
+        },
+        "answer": 3,
+        "explanation": {
+            "en": "It is the largest bird sanctuary in the state, located in the Mandya District of Karnataka.",
+            "hi": "यह राज्य का सबसे बड़ा पक्षी अभयारण्य है, जो कर्नाटक के मांड्या जिले में स्थित है।"
+        }
+    },
+    {
+        "question": {
+            "en": "The 'Indian Council of Agricultural Research' (ICAR) is headquartered in:",
+            "hi": "'भारतीय कृषि अनुसंधान परिषद' (ICAR) का मुख्यालय कहाँ है:"
+        },
+        "options": {
+            "en": [ "Mumbai", "New Delhi", "Hyderabad", "Karnal" ],
+            "hi": [ "मुंबई", "नई दिल्ली", "हैदराबाद", "करनाल" ]
+        },
+        "answer": 1,
+        "explanation": {
+            "en": "ICAR is an autonomous organisation under the Department of Agricultural Research and Education, Ministry of Agriculture and Farmers Welfare, headquartered in New Delhi.",
+            "hi": "ICAR कृषि अनुसंधान और शिक्षा विभाग, कृषि और किसान कल्याण मंत्रालय के तहत एक स्वायत्त संगठन है, जिसका मुख्यालय नई दिल्ली में है।"
+        }
+    },
+    {
+        "question": {
+            "en": "'Operation Flood' is a movement related to the increase in production of:",
+            "hi": "'ऑपरेशन फ्लड' किसके उत्पादन में वृद्धि से संबंधित एक आंदोलन है:"
+        },
+        "options": {
+            "en": [ "Food grains", "Milk", "Fish", "Eggs" ],
+            "hi": [ "खाद्यान्न", "दूध", "मछली", "अंडे" ]
+        },
+        "answer": 1,
+        "explanation": {
+            "en": "Launched in 1970, Operation Flood was the world's largest dairy development program and a landmark project of India's National Dairy Development Board.",
+            "hi": "1970 में शुरू किया गया, ऑपरेशन फ्लड दुनिया का सबसे बड़ा डेयरी विकास कार्यक्रम था और भारत के राष्ट्रीय डेयरी विकास बोर्ड की एक ऐतिहासिक परियोजना थी।"
+        }
+    },
+    {
+        "question": {
+            "en": "The 'Nagarjuna Sagar Dam' is built on which river?",
+            "hi": "'नागार्जुन सागर बांध' किस नदी पर बनाया गया है?"
+        },
+        "options": {
+            "en": [ "Godavari", "Kaveri", "Krishna", "Tungabhadra" ],
+            "hi": [ "गोदावरी", "कावेरी", "कृष्णा", "तुंगभद्रा" ]
+        },
+        "answer": 2,
+        "explanation": {
+            "en": "Nagarjuna Sagar Dam is a masonry dam across the Krishna River at Nagarjuna Sagar which straddles the border between Telangana and Andhra Pradesh.",
+            "hi": "नागार्जुन सागर बांध कृष्णा नदी पर नागार्जुन सागर में एक चिनाई बांध है जो तेलंगाना और आंध्र प्रदेश के बीच की सीमा पर स्थित है।"
+        }
+    },
+    {
+        "question": {
+            "en": "The 'National Film Awards' in India are presented annually by the:",
+            "hi": "भारत में 'राष्ट्रीय फिल्म पुरस्कार' प्रतिवर्ष किसके द्वारा प्रदान किए जाते हैं:"
+        },
+        "options": {
+            "en": [ "Film and Television Institute of India", "Ministry of Information and Broadcasting", "Directorate of Film Festivals", "President of India" ],
+            "hi": [ "फिल्म और टेलीविजन संस्थान भारत", "सूचना और प्रसारण मंत्रालय", "फिल्म समारोह निदेशालय", "भारत के राष्ट्रपति" ]
+        },
+        "answer": 3,
+        "explanation": {
+            "en": "The National Film Awards are presented by the President of India in a formal ceremony.",
+            "hi": "राष्ट्रीय फिल्म पुरस्कार भारत के राष्ट्रपति द्वारा एक औपचारिक समारोह में प्रदान किए जाते हैं।"
+        }
     }
-];
+]
 
 export const gkTest2Questions: Question[] = [
     {
@@ -3908,3 +4658,6 @@ export const gkTest6Questions: Question[] = [
         }
     }
 ];
+
+
+    
