@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { ListChecks, Target, AlertTriangle, Clock, Flag, Palette, CheckCircle, BookOpen } from 'lucide-react';
+import { Palette, CheckCircle, BookOpen, Target, Flag, AlertTriangle } from 'lucide-react';
 import { useQuizLanguage } from '@/context/QuizLanguageContext';
 
 interface QuizRulesProps {
@@ -18,28 +18,38 @@ interface QuizRulesProps {
 const rules = [
     {
         icon: Target,
-        title: "Scoring System",
-        description: "You get +1 point for each correct answer and a penalty of -0.25 points for each incorrect answer. There is no penalty for unanswered questions.",
+        title_en: "Scoring System",
+        title_hi: "स्कोरिंग प्रणाली",
+        description_en: "You get +1 point for each correct answer and a penalty of -0.25 points for each incorrect answer. There is no penalty for unanswered questions.",
+        description_hi: "आपको प्रत्येक सही उत्तर के लिए +1 अंक मिलता है और प्रत्येक गलत उत्तर के लिए -0.25 अंक का दंड लगता है। अनुत्तरित प्रश्नों के लिए कोई दंड नहीं है।"
     },
     {
         icon: Palette,
-        title: "Question Palette Guide",
-        description: "Green: Correct, Red: Incorrect, Yellow: Marked for Review, Gray: Unanswered. Click any number to jump to that question.",
+        title_en: "Question Palette Guide",
+        title_hi: "प्रश्न पैलेट गाइड",
+        description_en: "Green: Correct, Red: Incorrect, Purple: Marked for Review, Blue: Answered & Marked, Gray: Unanswered. Click any number to jump to that question.",
+        description_hi: "हरा: सही, लाल: गलत, बैंगनी: समीक्षा के लिए चिह्नित, नीला: उत्तर दिया और चिह्नित, ग्रे: अनुत्तरित। किसी भी प्रश्न पर सीधे जाने के लिए उस नंबर पर क्लिक करें।"
     },
     {
         icon: Flag,
-        title: "Mark for Review",
-        description: "Use the 'Mark for Review' button for questions you are unsure about. They will be highlighted in yellow for easy access later.",
+        title_en: "Mark for Review",
+        title_hi: "समीक्षा के लिए चिह्नित करें",
+        description_en: "Use the 'Mark for Review' button for questions you are unsure about. They will be highlighted for easy access later.",
+        description_hi: "जिन प्रश्नों के बारे में आप अनिश्चित हैं, उनके लिए 'समीक्षा के लिए चिह्नित करें' बटन का उपयोग करें। बाद में आसान पहुंच के लिए उन्हें हाइलाइट किया जाएगा।"
     },
     {
         icon: CheckCircle,
-        title: "Review and Submit",
-        description: "You can navigate between questions and change answers any time before the final submission. Once submitted, the test is final.",
+        title_en: "Review and Submit",
+        title_hi: "समीक्षा करें और सबमिट करें",
+        description_en: "You can navigate between questions and change answers any time before the final submission. Once submitted, the test is final.",
+        description_hi: "आप अंतिम सबमिशन से पहले कभी भी प्रश्नों के बीच नेविगेट कर सकते हैं और उत्तर बदल सकते हैं। एक बार सबमिट करने के बाद, परीक्षण अंतिम होता है।"
     },
     {
         icon: AlertTriangle,
-        title: "Honesty Policy",
-        description: "Please attempt the quiz fairly. Do not use external aids or seek help from others during the test.",
+        title_en: "Honesty Policy",
+        title_hi: "ईमानदारी नीति",
+        description_en: "Please attempt the quiz fairly. Do not use external aids or seek help from others during the test.",
+        description_hi: "कृपया क्विज़ को ईमानदारी से हल करें। परीक्षण के दौरान बाहरी सहायता का उपयोग न करें या दूसरों से मदद न लें।"
     },
 ];
 
@@ -49,7 +59,7 @@ const QuizRules: React.FC<QuizRulesProps> = ({ onStartTest, quizTitle }) => {
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-slate-50 to-blue-100 p-4">
-      <Card className="w-full max-w-3xl shadow-2xl animate-fade-in-up border-0">
+      <Card className="w-full max-w-4xl shadow-2xl animate-fade-in-up border-0">
         <CardHeader className="text-center p-8">
           <div className="mx-auto bg-primary text-primary-foreground rounded-full p-3 w-fit mb-4 shadow-lg">
              <BookOpen className="h-8 w-8" />
@@ -62,7 +72,7 @@ const QuizRules: React.FC<QuizRulesProps> = ({ onStartTest, quizTitle }) => {
         <CardContent className="px-8 md:px-12 py-8 bg-slate-50/50">
           <div className="space-y-8">
              <div>
-                <h3 className="font-semibold text-lg text-foreground mb-3">Select Test Language</h3>
+                <h3 className="font-semibold text-lg text-foreground mb-3">Select Test Language / परीक्षा भाषा चुनें</h3>
                 <RadioGroup defaultValue={language} onValueChange={(value) => setLanguage(value as 'en' | 'hi')} className="flex gap-4">
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="en" id="en" />
@@ -83,8 +93,9 @@ const QuizRules: React.FC<QuizRulesProps> = ({ onStartTest, quizTitle }) => {
                     <Icon className="h-7 w-7 text-primary" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-lg text-foreground">{rule.title}</h3>
-                    <p className="text-muted-foreground leading-relaxed">{rule.description}</p>
+                    <h3 className="font-semibold text-lg text-foreground">{rule.title_en} / {rule.title_hi}</h3>
+                    <p className="text-muted-foreground leading-relaxed mt-1">{rule.description_en}</p>
+                    <p className="text-muted-foreground leading-relaxed mt-1">{rule.description_hi}</p>
                   </div>
                 </div>
               )
@@ -95,7 +106,7 @@ const QuizRules: React.FC<QuizRulesProps> = ({ onStartTest, quizTitle }) => {
           <div className="flex items-center space-x-3">
             <Checkbox id="terms" checked={isAccepted} onCheckedChange={(checked) => setIsAccepted(!!checked)} className="h-5 w-5"/>
             <Label htmlFor="terms" className="text-base text-muted-foreground cursor-pointer">
-              I have read and understood all the instructions.
+              I have read and understood all the instructions. / मैंने सभी निर्देशों को पढ़ और समझ लिया है।
             </Label>
           </div>
           <Button
