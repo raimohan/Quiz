@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { currencyQuestions } from '@/lib/currency-questions';
 import dynamic from 'next/dynamic';
 import LoadingAnimation from '@/components/ui/LoadingAnimation';
+import type { Question } from '@/lib/questions';
 
 const Results = dynamic(() => import('@/components/quiz/Results'), { 
   ssr: false,
@@ -21,6 +22,7 @@ interface ResultData {
   correctAnswers: number;
   incorrectAnswers: number;
   unanswered: number;
+  questions: Question[];
 }
 
 export default function CurrencyTestPage() {
@@ -33,8 +35,9 @@ export default function CurrencyTestPage() {
   };
 
   if (quizFinished && results) {
-    return <Results results={results} totalQuestions={currencyQuestions.length} />;
+    return <Results results={results} />;
   }
 
   return <Quiz questions={currencyQuestions} onFinish={handleFinish} />;
 }
+
