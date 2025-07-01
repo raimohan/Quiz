@@ -11,6 +11,7 @@ import {
   gkTest4Questions, 
   gkTest5Questions,
   gkTest6Questions,
+  gkTest7Questions,
   type Question 
 } from '@/lib/questions';
 import LoadingAnimation from '@/components/ui/LoadingAnimation';
@@ -30,6 +31,7 @@ interface ResultData {
   correctAnswers: number;
   incorrectAnswers: number;
   unanswered: number;
+  questions: Question[];
 }
 
 function GkTest() {
@@ -62,6 +64,9 @@ function GkTest() {
       case '6':
         selectedQuestions = gkTest6Questions;
         break;
+      case '7':
+        selectedQuestions = gkTest7Questions;
+        break;
       default:
         // Default to test 1 if set is invalid or not present
         selectedQuestions = gkTest1Questions;
@@ -82,7 +87,7 @@ function GkTest() {
   }
 
   if (quizFinished && results) {
-    return <Results results={results} totalQuestions={questions.length} />;
+    return <Results results={results} />;
   }
 
   return <Quiz questions={questions} onFinish={handleFinish} />;
@@ -96,3 +101,4 @@ export default function GkTestPage() {
     </Suspense>
   );
 }
+
