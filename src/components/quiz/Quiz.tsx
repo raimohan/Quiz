@@ -136,7 +136,7 @@ const Quiz: React.FC<QuizProps> = ({ questions, quizTitle, durationInSeconds, on
 
         if (isAnswered && isMarked) return { text: 'Answered & Marked', className: 'navigator-answered-marked' };
         if (isAnswered && isCorrect) return { text: 'Answered', className: 'navigator-answered' };
-        if (isAnswered && !isCorrect) return { text: 'Incorrect', className: 'navigator-incorrect' };
+        if (isAnswered && !isCorrect) return { text: 'Answered', className: 'navigator-incorrect' };
         if (isMarked) return { text: 'Marked for Review', className: 'navigator-marked' };
 
         return { text: 'Not Answered', className: 'navigator-unanswered' };
@@ -154,7 +154,7 @@ const Quiz: React.FC<QuizProps> = ({ questions, quizTitle, durationInSeconds, on
                     <div className="flex items-center gap-4">
                         <Button variant="secondary" size="sm" onClick={toggleLanguage} className="bg-white/20 hover:bg-white/30 text-white">
                             <Languages className="mr-2 h-4 w-4" />
-                            {language === 'en' ? 'à¤¹à¤¿à¤¨à¥à¤¦à¥€' : 'English'}
+                            {language === 'en' ? 'हिन्दी' : 'English'}
                         </Button>
                          <AlertDialog>
                           <AlertDialogTrigger asChild>
@@ -250,7 +250,7 @@ const Quiz: React.FC<QuizProps> = ({ questions, quizTitle, durationInSeconds, on
                         </div>
                     </CardHeader>
                     <CardContent className="flex-grow p-2 overflow-hidden">
-                        <ScrollArea className="pr-2">
+                        <ScrollArea className="h-full pr-2">
                              {viewMode === 'grid' ? (
                                 <ul className="grid grid-cols-3 gap-x-2 gap-y-3 justify-items-center">
                                     {questions.map((_, index) => {
@@ -338,12 +338,12 @@ const Quiz: React.FC<QuizProps> = ({ questions, quizTitle, durationInSeconds, on
                         className="bg-red-500 hover:bg-red-600 text-white font-bold"
                     >
                         <ArrowLeft className="mr-2 h-4 w-4" />
-                        {language === 'en' ? 'Previous' : 'à¤ªà¤¿à¤›à¤²à¤¾'}
+                        {language === 'en' ? 'Previous' : 'पिछला'}
                     </Button>
 
                     <Button variant="outline" onClick={handleMarkForReview} className={cn('font-bold', markedForReview[currentQuestionIndex] ? 'bg-purple-100 border-purple-400' : '')}>
                        <Star className={`mr-2 h-4 w-4 transition-colors ${markedForReview[currentQuestionIndex] ? 'fill-purple-500 text-purple-600' : ''}`} />
-                        {markedForReview[currentQuestionIndex] ? (language === 'en' ? 'Unmark & Next' : 'à¤…à¤¨à¤®à¤¾à¤°à¥à¤• à¤”à¤° à¤…à¤—à¤²à¤¾') : (language === 'en' ? 'Mark for Review & Next' : 'à¤¸à¤®à¥€à¤•à¥à¤·à¤¾ à¤”à¤° à¤…à¤—à¤²à¤¾')}
+                        {markedForReview[currentQuestionIndex] ? (language === 'en' ? 'Unmark & Next' : 'अनमार्क और अगला') : (language === 'en' ? 'Mark for Review & Next' : 'समीक्षा और अगला')}
                     </Button>
                     
                     <Button
@@ -351,7 +351,7 @@ const Quiz: React.FC<QuizProps> = ({ questions, quizTitle, durationInSeconds, on
                         disabled={currentQuestionIndex === totalQuestions - 1}
                         className="bg-green-500 hover:bg-green-600 text-white font-bold"
                     >
-                        {language === 'en' ? 'Next' : 'à¤…à¤—à¤²à¤¾'}
+                        {language === 'en' ? 'Next' : 'अगला'}
                         <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
                     
@@ -360,7 +360,7 @@ const Quiz: React.FC<QuizProps> = ({ questions, quizTitle, durationInSeconds, on
                         disabled={selectedAnswerIndex === null}
                         className="bg-blue-600 hover:bg-blue-700 text-white font-bold"
                     >
-                       {language === 'en' ? 'Save & Next' : 'à¤¸à¤¹à¥‡à¤œà¥‡à¤‚ à¤”à¤° à¤…à¤—à¤²à¤¾'} <ArrowRight className="ml-2 h-4 w-4" />
+                       {language === 'en' ? 'Save & Next' : 'सहेजें और अगला'} <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
                 </div>
             </footer>
@@ -369,3 +369,4 @@ const Quiz: React.FC<QuizProps> = ({ questions, quizTitle, durationInSeconds, on
 };
 
 export default Quiz;
+      
