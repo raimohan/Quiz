@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { capitalQuestions } from '@/lib/capital-questions';
 import dynamic from 'next/dynamic';
 import LoadingAnimation from '@/components/ui/LoadingAnimation';
+import type { Question } from '@/lib/questions';
 
 const Results = dynamic(() => import('@/components/quiz/Results'), { 
   ssr: false,
@@ -21,6 +22,7 @@ interface ResultData {
   correctAnswers: number;
   incorrectAnswers: number;
   unanswered: number;
+  questions: Question[];
 }
 
 export default function CapitalTestPage() {
@@ -33,8 +35,9 @@ export default function CapitalTestPage() {
   };
 
   if (quizFinished && results) {
-    return <Results results={results} totalQuestions={capitalQuestions.length} />;
+    return <Results results={results} />;
   }
 
   return <Quiz questions={capitalQuestions} onFinish={handleFinish} />;
 }
+
