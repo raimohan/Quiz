@@ -39,41 +39,51 @@ function GkTest() {
   const testSet = searchParams.get('set');
 
   const [questions, setQuestions] = useState<Question[]>([]);
+  const [quizTitle, setQuizTitle] = useState('');
   const [quizFinished, setQuizFinished] = useState(false);
   const [results, setResults] = useState<ResultData | null>(null);
 
   useEffect(() => {
     let selectedQuestions: Question[] = [];
+    let title = '';
 
     switch (testSet) {
       case '1':
         selectedQuestions = gkTest1Questions;
+        title = 'General Knowledge - Test 1';
         break;
       case '2':
         selectedQuestions = gkTest2Questions;
+        title = 'General Knowledge - Test 2';
         break;
       case '3':
         selectedQuestions = gkTest3Questions;
+        title = 'General Knowledge - Test 3';
         break;
       case '4':
         selectedQuestions = gkTest4Questions;
+        title = 'General Knowledge - Test 4';
         break;
       case '5':
         selectedQuestions = gkTest5Questions;
+        title = 'General Knowledge - Test 5';
         break;
       case '6':
         selectedQuestions = gkTest6Questions;
+        title = 'General Knowledge - Test 6';
         break;
       case '7':
         selectedQuestions = gkTest7Questions;
+        title = 'General Knowledge - Test 7';
         break;
       default:
-        // Default to test 1 if set is invalid or not present
         selectedQuestions = gkTest1Questions;
+        title = 'General Knowledge - Test 1';
         break;
     }
     
     setQuestions(selectedQuestions);
+    setQuizTitle(title);
 
   }, [testSet]);
 
@@ -89,8 +99,11 @@ function GkTest() {
   if (quizFinished && results) {
     return <Results results={results} />;
   }
+  
+  // 30 minutes for 50 questions, 15 for 25
+  const quizDuration = questions.length * 36; 
 
-  return <Quiz questions={questions} onFinish={handleFinish} />;
+  return <Quiz questions={questions} onFinish={handleFinish} quizTitle={quizTitle} durationInSeconds={quizDuration} />;
 }
 
 
@@ -101,4 +114,3 @@ export default function GkTestPage() {
     </Suspense>
   );
 }
-
