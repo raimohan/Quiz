@@ -28,6 +28,7 @@ interface QuizProps {
     correctAnswers: number;
     incorrectAnswers: number;
     unanswered: number;
+    questions: Question[];
   }) => void;
 }
 
@@ -99,6 +100,7 @@ const Quiz: React.FC<QuizProps> = ({ questions, onFinish }) => {
             correctAnswers,
             incorrectAnswers,
             unanswered: totalQuestions - (correctAnswers + incorrectAnswers),
+            questions: questions,
         });
     };
 
@@ -299,3 +301,4 @@ const Quiz: React.FC<QuizProps> = ({ questions, onFinish }) => {
 };
 
 export default Quiz;
+
