@@ -42,15 +42,15 @@ const testCategories = [
 
 export default function Home() {
   return (
-    <div className="text-slate-800 antialiased hero-section">
+    <div className="antialiased hero-section">
         {/* Header / Navigation Bar */}
         <header className="sticky-header">
             <nav className="container mx-auto px-4 py-4 flex justify-between items-center">
-                <Link href="/" className="font-heading uppercase tracking-wider text-2xl text-slate-800">Agniveer Ascent</Link>
+                <Link href="/" className="font-heading uppercase tracking-wider text-2xl text-foreground">Agniveer Ascent</Link>
                 <div className="hidden md:flex items-center space-x-8">
-                    <Link href="#challenges" className="text-slate-600 hover:text-blue-600 transition-colors font-semibold">Challenges</Link>
-                    <Link href="#" className="text-slate-600 hover:text-blue-600 transition-colors font-semibold">About</Link>
-                    <Link href="#" className="text-slate-600 hover:text-blue-600 transition-colors font-semibold">Leaderboard</Link>
+                    <Link href="#challenges" className="text-muted-foreground hover:text-primary transition-colors font-semibold">Challenges</Link>
+                    <Link href="#" className="text-muted-foreground hover:text-primary transition-colors font-semibold">About</Link>
+                    <Link href="#" className="text-muted-foreground hover:text-primary transition-colors font-semibold">Leaderboard</Link>
                 </div>
             </nav>
         </header>
@@ -58,10 +58,10 @@ export default function Home() {
         {/* Hero Section */}
         <section className="min-h-screen flex items-center justify-center">
             <div className="hero-content container mx-auto px-4 py-12 text-center fade-in-stagger">
-                <h1 className="font-heading uppercase tracking-wider text-5xl sm:text-6xl md:text-7xl mb-4 text-slate-900">
-                    Master Your Knowledge
+                <h1 className="font-heading uppercase tracking-wider text-5xl sm:text-6xl md:text-7xl mb-4 text-foreground">
+                    The Agniveer Knowledge Challenge
                 </h1>
-                <p className="text-lg text-slate-600 max-w-2xl mx-auto mb-8">
+                <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
                     Your journey to mastery begins here. Select a challenge below and prove your knowledge.
                 </p>
                 <Link href="#challenges" className="solid-button font-bold py-4 px-8 rounded-lg text-lg inline-block">
@@ -74,7 +74,7 @@ export default function Home() {
         <div id="challenges">
             <div className="container mx-auto px-4 py-16 sm:py-24">
                 <header className="text-center mb-16">
-                    <h2 className="font-heading uppercase text-4xl text-slate-900 tracking-wider">Choose Your Challenge</h2>
+                    <h2 className="font-heading uppercase text-4xl text-foreground tracking-wider">Choose Your Challenge</h2>
                 </header>
 
                 <main className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto">
@@ -87,11 +87,11 @@ export default function Home() {
                                     <Icon />
                                 </div>
                             </div>
-                            <h3 className="font-heading uppercase tracking-wider text-2xl mb-2 text-slate-900">{category.title}</h3>
-                            <p className="text-slate-600 mb-6 flex-grow">{category.description}</p>
+                            <h3 className="font-heading uppercase tracking-wider text-2xl mb-2 text-card-foreground">{category.title}</h3>
+                            <p className="text-muted-foreground mb-6 flex-grow">{category.description}</p>
                             
                             {category.disabled ? (
-                              <span className="mt-auto w-full bg-slate-300 text-slate-500 font-bold py-3 px-6 rounded-lg cursor-not-allowed text-base">Coming Soon</span>
+                              <span className="mt-auto w-full bg-muted text-muted-foreground font-bold py-3 px-6 rounded-lg cursor-not-allowed text-base">Coming Soon</span>
                             ) : (
                               <Link href={category.href} className="mt-auto solid-button font-bold py-3 px-6 rounded-lg text-base">
                                 Start Challenge &rarr;
@@ -117,7 +117,7 @@ export default function Home() {
                     <div>
                         <h3 className="text-lg font-bold mb-4">Quick Links</h3>
                         <ul className="space-y-2">
-                            <li><Link href="#" className="text-slate-400 hover:text-white transition-colors">Home</Link></li>
+                            <li><Link href="/" className="text-slate-400 hover:text-white transition-colors">Home</Link></li>
                             <li><Link href="#challenges" className="text-slate-400 hover:text-white transition-colors">Challenges</Link></li>
                             <li><Link href="#" className="text-slate-400 hover:text-white transition-colors">About Us</Link></li>
                         </ul>
@@ -126,15 +126,15 @@ export default function Home() {
                     <div>
                         <h3 className="text-lg font-bold mb-4">Legal</h3>
                         <ul className="space-y-2">
-                            <li><Link href="#" className="text-slate-400 hover:text-white transition-colors">Privacy Policy</Link></li>
-                            <li><Link href="#" className="text-slate-400 hover:text-white transition-colors">Terms of Service</Link></li>
+                            <li><Link href="/privacy-policy" className="text-slate-400 hover:text-white transition-colors">Privacy Policy</Link></li>
+                            <li><Link href="/terms-of-service" className="text-slate-400 hover:text-white transition-colors">Terms of Service</Link></li>
                         </ul>
                     </div>
                     {/* Social Column */}
                     <div>
                         <h3 className="text-lg font-bold mb-4">Follow Us</h3>
                         <div className="flex space-x-4">
-                            <Link href="#" className="text-slate-400 hover:text-white transition-colors"><svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M22.46,6C21.69,6.35 20.86,6.58 20,6.69C20.88,6.16 21.56,5.32 21.88,4.31C21.05,4.81 20.13,5.16 19.16,5.36C18.37,4.5 17.26,4 16,4C13.65,4 11.73,5.92 11.73,8.29C11.73,8.63 11.77,8.96 11.84,9.28C8.28,9.09 5.11,7.38 2.9,4.79C2.53,5.42 2.33,6.16 2.33,6.94C2.33,8.43 3.08,9.75 4.18,10.54C3.49,10.52 2.82,10.33 2.22,10.03C2.22,10.05 2.22,10.07 2.22,10.09C2.22,12.24 3.73,14.01 5.79,14.41C5.45,14.5 5.08,14.55 4.7,14.55C4.42,14.55 4.15,14.52 3.89,14.47C4.45,16.22 6.04,17.41 7.9,17.44C6.41,18.58 4.54,19.26 2.5,19.26C2.17,19.26 1.85,19.24 1.52,19.2C3.44,20.45 5.7,21.19 8.12,21.19C16.01,21.19 20.24,14.64 20.24,8.84C20.24,8.63 20.24,8.42 20.23,8.21C21.05,7.61 21.82,6.86 22.46,6Z"></path></svg></Link>
+                            <Link href="https://x.com/raimohan96" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors"><svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M22.46,6C21.69,6.35 20.86,6.58 20,6.69C20.88,6.16 21.56,5.32 21.88,4.31C21.05,4.81 20.13,5.16 19.16,5.36C18.37,4.5 17.26,4 16,4C13.65,4 11.73,5.92 11.73,8.29C11.73,8.63 11.77,8.96 11.84,9.28C8.28,9.09 5.11,7.38 2.9,4.79C2.53,5.42 2.33,6.16 2.33,6.94C2.33,8.43 3.08,9.75 4.18,10.54C3.49,10.52 2.82,10.33 2.22,10.03C2.22,10.05 2.22,10.07 2.22,10.09C2.22,12.24 3.73,14.01 5.79,14.41C5.45,14.5 5.08,14.55 4.7,14.55C4.42,14.55 4.15,14.52 3.89,14.47C4.45,16.22 6.04,17.41 7.9,17.44C6.41,18.58 4.54,19.26 2.5,19.26C2.17,19.26 1.85,19.24 1.52,19.2C3.44,20.45 5.7,21.19 8.12,21.19C16.01,21.19 20.24,14.64 20.24,8.84C20.24,8.63 20.24,8.42 20.23,8.21C21.05,7.61 21.82,6.86 22.46,6Z"></path></svg></Link>
                             <Link href="#" className="text-slate-400 hover:text-white transition-colors"><svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12,2.04C6.5,2.04 2,6.53 2,12.06C2,17.06 5.67,21.22 10.44,21.96V14.96H7.9V12.06H10.44V9.85C10.44,7.32 11.93,5.96 14.22,5.96C15.31,5.96 16.45,6.15 16.45,6.15V8.62H15.19C13.95,8.62 13.56,9.39 13.56,10.18V12.06H16.34L15.89,14.96H13.56V21.96A10,10 0 0,0 22,12.06C22,6.53 17.5,2.04 12,2.04Z"></path></svg></Link>
                         </div>
                     </div>
