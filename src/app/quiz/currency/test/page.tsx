@@ -38,6 +38,8 @@ export default function CurrencyTestPage() {
     return <Results results={results} />;
   }
 
-  return <Quiz questions={currencyQuestions} onFinish={handleFinish} />;
-}
+  // 30 seconds per question
+  const quizDuration = currencyQuestions.length * 30;
 
+  return <Quiz questions={currencyQuestions} onFinish={handleFinish} quizTitle="Currency Test" durationInSeconds={quizDuration} />;
+}
