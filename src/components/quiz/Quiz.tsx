@@ -5,7 +5,7 @@ import React, { useState, useMemo, useCallback } from 'react';
 import type { Question } from '@/lib/questions';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
-import { ArrowRight, Star, Languages, LayoutGrid, List, HelpCircle, ArrowLeft, LogOut, Trash2 } from 'lucide-react';
+import { ArrowRight, Star, Languages, LayoutGrid, List, HelpCircle, ArrowLeft, LogOut } from 'lucide-react';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -44,7 +44,7 @@ const instructionRules = [
     },
     {
         title: "Question Palette Guide",
-        description: "The color of the question button indicates its status: Green (Answered), Red (Answered), Purple (Marked for Review), Blue (Answered & Marked), Gray (Not Answered).",
+        description: "The color of the question button indicates its status: Green (Answered Correctly), Red (Answered Incorrectly), Purple (Marked for Review), Blue (Answered & Marked), Gray (Not Answered).",
     },
     {
         title: "Navigation",
@@ -94,12 +94,6 @@ const Quiz: React.FC<QuizProps> = ({ questions, quizTitle, durationInSeconds, on
         setAnswers(newAnswers);
     };
 
-    const handleClearResponse = () => {
-        const newAnswers = [...answers];
-        newAnswers[currentQuestionIndex] = null;
-        setAnswers(newAnswers);
-    };
-
     const handleMarkForReview = () => {
         const newMarked = [...markedForReview];
         newMarked[currentQuestionIndex] = !newMarked[currentQuestionIndex];
@@ -138,15 +132,15 @@ const Quiz: React.FC<QuizProps> = ({ questions, quizTitle, durationInSeconds, on
     const getStatusInfo = useCallback((index: number) => {
         const isAnswered = answers[index] !== null;
         const isMarked = markedForReview[index];
+        const isCorrect = isAnswered && answers[index] === questions[index].answer;
 
         if (isAnswered && isMarked) return { text: 'Answered & Marked', className: 'navigator-answered-marked' };
-        if (isAnswered) {
-             return { text: 'Answered', className: 'navigator-answered' };
-        }
+        if (isAnswered && isCorrect) return { text: 'Answered', className: 'navigator-answered' };
+        if (isAnswered && !isCorrect) return { text: 'Incorrect', className: 'navigator-incorrect' };
         if (isMarked) return { text: 'Marked for Review', className: 'navigator-marked' };
 
         return { text: 'Not Answered', className: 'navigator-unanswered' };
-    }, [answers, markedForReview]);
+    }, [answers, markedForReview, questions]);
 
     const selectedAnswerIndex = answers[currentQuestionIndex];
     
@@ -160,7 +154,7 @@ const Quiz: React.FC<QuizProps> = ({ questions, quizTitle, durationInSeconds, on
                     <div className="flex items-center gap-4">
                         <Button variant="secondary" size="sm" onClick={toggleLanguage} className="bg-white/20 hover:bg-white/30 text-white">
                             <Languages className="mr-2 h-4 w-4" />
-                            {language === 'en' ? 'हिन्दी' : 'English'}
+                            {language === 'en' ? 'à¤¹à¤¿à¤¨à¥à¤¦à¥€' : 'English'}
                         </Button>
                          <AlertDialog>
                           <AlertDialogTrigger asChild>
@@ -215,7 +209,7 @@ const Quiz: React.FC<QuizProps> = ({ questions, quizTitle, durationInSeconds, on
                         </CardContent>
                     </Card>
 
-                    <Card className="shadow-sm flex-grow">
+                    <Card className="shadow-sm">
                         <CardHeader>
                             <CardTitle className="text-lg">Options</CardTitle>
                         </CardHeader>
@@ -243,7 +237,7 @@ const Quiz: React.FC<QuizProps> = ({ questions, quizTitle, durationInSeconds, on
                 </div>
 
                 {/* Right Sidebar: Question Palette */}
-                <Card className="col-span-12 lg:col-span-4 shadow-sm flex flex-col max-h-[calc(100vh-150px)]">
+                <Card className="col-span-12 lg:col-span-4 shadow-sm flex flex-col h-[60vh] lg:h-auto lg:max-h-[calc(100vh-150px)]">
                     <CardHeader className="flex flex-row items-center justify-between border-b pb-3">
                         <CardTitle>Questions</CardTitle>
                         <div className="flex items-center gap-2">
@@ -303,6 +297,7 @@ const Quiz: React.FC<QuizProps> = ({ questions, quizTitle, durationInSeconds, on
                      <CardFooter className="flex flex-col items-start gap-4 text-xs text-muted-foreground border-t pt-4">
                         <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
                             <div className="flex items-center gap-1.5"><div className="w-3 h-3 rounded-md bg-green-500"/>Answered</div>
+                            <div className="flex items-center gap-1.5"><div className="w-3 h-3 rounded-md bg-red-500"/>Incorrect</div>
                             <div className="flex items-center gap-1.5"><div className="w-3 h-3 rounded-md bg-slate-200"/>Not Visited</div>
                             <div className="flex items-center gap-1.5"><div className="w-3 h-3 rounded-md bg-purple-500"/>Marked</div>
                             <div className="flex items-center gap-1.5"><div className="w-3 h-3 rounded-md bg-blue-500"/>Ans &amp; Marked</div>
@@ -343,12 +338,12 @@ const Quiz: React.FC<QuizProps> = ({ questions, quizTitle, durationInSeconds, on
                         className="bg-red-500 hover:bg-red-600 text-white font-bold"
                     >
                         <ArrowLeft className="mr-2 h-4 w-4" />
-                        {language === 'en' ? 'Previous' : 'पिछला'}
+                        {language === 'en' ? 'Previous' : 'à¤ªà¤¿à¤›à¤²à¤¾'}
                     </Button>
 
                     <Button variant="outline" onClick={handleMarkForReview} className={cn('font-bold', markedForReview[currentQuestionIndex] ? 'bg-purple-100 border-purple-400' : '')}>
                        <Star className={`mr-2 h-4 w-4 transition-colors ${markedForReview[currentQuestionIndex] ? 'fill-purple-500 text-purple-600' : ''}`} />
-                        {markedForReview[currentQuestionIndex] ? (language === 'en' ? 'Unmark & Next' : 'अनमार्क और अगला') : (language === 'en' ? 'Mark for Review & Next' : 'समीक्षा और अगला')}
+                        {markedForReview[currentQuestionIndex] ? (language === 'en' ? 'Unmark & Next' : 'à¤…à¤¨à¤®à¤¾à¤°à¥à¤• à¤”à¤° à¤…à¤—à¤²à¤¾') : (language === 'en' ? 'Mark for Review & Next' : 'à¤¸à¤®à¥€à¤•à¥à¤·à¤¾ à¤”à¤° à¤…à¤—à¤²à¤¾')}
                     </Button>
                     
                     <Button
@@ -356,7 +351,7 @@ const Quiz: React.FC<QuizProps> = ({ questions, quizTitle, durationInSeconds, on
                         disabled={currentQuestionIndex === totalQuestions - 1}
                         className="bg-green-500 hover:bg-green-600 text-white font-bold"
                     >
-                        {language === 'en' ? 'Next' : 'अगला'}
+                        {language === 'en' ? 'Next' : 'à¤…à¤—à¤²à¤¾'}
                         <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
                     
@@ -365,7 +360,7 @@ const Quiz: React.FC<QuizProps> = ({ questions, quizTitle, durationInSeconds, on
                         disabled={selectedAnswerIndex === null}
                         className="bg-blue-600 hover:bg-blue-700 text-white font-bold"
                     >
-                       {language === 'en' ? 'Save & Next' : 'सहेजें और अगला'} <ArrowRight className="ml-2 h-4 w-4" />
+                       {language === 'en' ? 'Save & Next' : 'à¤¸à¤¹à¥‡à¤œà¥‡à¤‚ à¤”à¤° à¤…à¤—à¤²à¤¾'} <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
                 </div>
             </footer>
