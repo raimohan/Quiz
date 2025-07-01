@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from 'next/link';
@@ -6,8 +7,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import { Button } from '@/components/ui/button';
 import { BookText, ArrowRight } from 'lucide-react';
 import QuizRules from '@/components/quiz/QuizRules';
-import { useState, useEffect } from 'react';
-import LoadingAnimation from '@/components/ui/LoadingAnimation';
+import { useState } from 'react';
 
 const gkTests = [
   {
@@ -50,16 +50,7 @@ const gkTests = [
 
 export default function GkTestSelectionPage() {
   const [selectedTest, setSelectedTest] = useState<{title: string, href: string} | null>(null);
-  const [isClient, setIsClient] = useState(false);
   const router = useRouter();
-
-  useEffect(() => {
-    // When a test is selected, we need to render a client component (QuizRules).
-    // This effect ensures we only do that after the component has mounted on the client.
-    if (selectedTest) {
-      setIsClient(true);
-    }
-  }, [selectedTest]);
 
   const handleStartTest = () => {
     if (selectedTest) {
@@ -68,11 +59,6 @@ export default function GkTestSelectionPage() {
   };
 
   if (selectedTest) {
-    // If a test is selected, but we're not yet on the client, show a loader
-    if (!isClient) {
-      return <LoadingAnimation />;
-    }
-    // Once we are on the client, we can safely render QuizRules which uses context
     return (
       <QuizRules 
         quizTitle={selectedTest.title}
