@@ -5,11 +5,15 @@ import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Award, CheckCircle, XCircle, HelpCircle, Repeat, BarChart3 } from 'lucide-react';
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Bar, XAxis, YAxis, CartesianGrid, Legend, BarChart } from 'recharts';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Award, CheckCircle, XCircle, HelpCircle, Repeat, BarChart3, Star, Eye } from 'lucide-react';
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Bar, XAxis, YAxis, CartesianGrid, Legend, BarChart as RechartsBarChart } from 'recharts';
+import { ChartContainer, type ChartConfig } from '@/components/ui/chart';
 import Confetti from 'react-confetti';
 import LoadingAnimation from '@/components/ui/LoadingAnimation';
 import type { Question } from '@/lib/questions';
+import { cn } from '@/lib/utils';
 
 interface ResultData {
   score: number;
@@ -17,6 +21,8 @@ interface ResultData {
   incorrectAnswers: number;
   unanswered: number;
   questions: Question[];
+  answers: (number | null)[];
+  marked: boolean[];
 }
 
 interface ResultsProps {
@@ -33,6 +39,74 @@ const StatCard = ({ icon, label, value, className }: { icon: React.ReactNode, la
     </div>
 );
 
+const QuestionReview = ({ questions, answers, marked }: { questions: Question[], answers: (number | null)[], marked: boolean[] }) => {
+    const { language } = { language: 'en' }; // Simplified for now
+
+    const allQuestions = useMemo(() => questions.map((q, i) => ({
+        ...q,
+        userAnswer: answers[i],
+        isMarked: marked[i],
+        originalIndex: i,
+        isCorrect: answers[i] === q.answer,
+    })), [questions, answers, marked]);
+
+    const correctQuestions = allQuestions.filter(q => q.isCorrect);
+    const incorrectQuestions = allQuestions.filter(q => q.userAnswer !== null && !q.isCorrect);
+    const unansweredQuestions = allQuestions.filter(q => q.userAnswer === null);
+    const markedQuestions = allQuestions.filter(q => q.isMarked);
+
+    const renderQuestionList = (qs: typeof allQuestions) => (
+        <Accordion type="single" collapsible className="w-full space-y-4">
+            {qs.length > 0 ? qs.map((q) => (
+                <AccordionItem value={`q-${q.originalIndex}`} key={q.originalIndex} className="bg-white rounded-lg border">
+                    <AccordionTrigger className="p-4 text-left hover:no-underline">
+                        <span className="font-semibold mr-2">{q.originalIndex + 1}.</span> {q.question[language]}
+                    </AccordionTrigger>
+                    <AccordionContent className="p-4 border-t">
+                        <div className="space-y-2 mb-4">
+                            {q.options[language].map((option, i) => {
+                                const isCorrectAnswer = i === q.answer;
+                                const isUserChoice = i === q.userAnswer;
+                                return (
+                                    <div key={i} className={cn(
+                                        "flex items-center gap-3 p-2 rounded-md border",
+                                        isUserChoice && !isCorrectAnswer && "bg-red-100 border-red-300",
+                                        isCorrectAnswer && "bg-green-100 border-green-300"
+                                    )}>
+                                        {isCorrectAnswer ? <CheckCircle className="h-5 w-5 text-green-600" /> : isUserChoice ? <XCircle className="h-5 w-5 text-red-600" /> : <div className="h-5 w-5" />}
+                                        <span className="flex-1">{option}</span>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                        <div className="p-3 bg-blue-50 rounded-lg border-l-4 border-blue-400">
+                           <h4 className="font-bold text-slate-800">Explanation</h4>
+                           <p className="text-slate-600 mt-1">{q.explanation[language]}</p>
+                        </div>
+                    </AccordionContent>
+                </AccordionItem>
+            )) : <p className="text-muted-foreground text-center py-8">No questions in this category.</p>}
+        </Accordion>
+    );
+
+    return (
+        <Tabs defaultValue="all" className="w-full">
+            <TabsList className="grid w-full grid-cols-2 md:grid-cols-5 h-auto">
+                <TabsTrigger value="all">All ({allQuestions.length})</TabsTrigger>
+                <TabsTrigger value="correct">Correct ({correctQuestions.length})</TabsTrigger>
+                <TabsTrigger value="incorrect">Incorrect ({incorrectQuestions.length})</TabsTrigger>
+                <TabsTrigger value="unanswered">Unanswered ({unansweredQuestions.length})</TabsTrigger>
+                <TabsTrigger value="marked">Marked ({markedQuestions.length})</TabsTrigger>
+            </TabsList>
+            <TabsContent value="all">{renderQuestionList(allQuestions)}</TabsContent>
+            <TabsContent value="correct">{renderQuestionList(correctQuestions)}</TabsContent>
+            <TabsContent value="incorrect">{renderQuestionList(incorrectQuestions)}</TabsContent>
+            <TabsContent value="unanswered">{renderQuestionList(unansweredQuestions)}</TabsContent>
+            <TabsContent value="marked">{renderQuestionList(markedQuestions)}</TabsContent>
+        </Tabs>
+    );
+};
+
 const Results: React.FC<ResultsProps> = ({ results }) => {
   const [isClient, setIsClient] = useState(false);
   const [showConfetti, setShowConfetti] = useState(true);
@@ -45,13 +119,29 @@ const Results: React.FC<ResultsProps> = ({ results }) => {
 
   const totalQuestions = results.questions.length;
 
+  const slugify = (text: string) => text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/&/g, 'and');
+
   const categoryData = useMemo(() => {
     const counts: { [key: string]: number } = {};
     results.questions.forEach(q => {
       counts[q.category] = (counts[q.category] || 0) + 1;
     });
-    return Object.keys(counts).map(name => ({ name, count: counts[name] }));
+    return Object.keys(counts).map(name => ({ name, count: counts[name], slug: slugify(name) }));
   }, [results.questions]);
+
+  const chartColors = ["chart-1", "chart-2", "chart-3", "chart-4", "chart-5"];
+  
+  const categoryChartConfig = useMemo(() => {
+      const config: ChartConfig = {};
+      categoryData.forEach((category, index) => {
+          config[category.slug] = {
+              label: category.name,
+              color: `hsl(var(--${chartColors[index % chartColors.length]}))`,
+          };
+      });
+      return config;
+  }, [categoryData]);
+
 
   if (!isClient) {
     return <LoadingAnimation />;
@@ -180,26 +270,41 @@ const Results: React.FC<ResultsProps> = ({ results }) => {
                 <CardDescription>Here's a breakdown of the questions by topic.</CardDescription>
             </CardHeader>
             <CardContent>
-                <div className="h-80 w-full">
-                    <ResponsiveContainer>
-                        <BarChart data={categoryData} layout="vertical" margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis type="number" allowDecimals={false} />
-                            <YAxis dataKey="name" type="category" width={100} tick={{ fontSize: 12 }} />
-                            <Tooltip
-                                cursor={{fill: 'rgba(239, 246, 255, 0.5)'}}
-                                contentStyle={{
-                                    background: "rgba(255, 255, 255, 0.9)",
-                                    backdropFilter: "blur(5px)",
-                                    border: "1px solid #e2e8f0",
-                                    borderRadius: "0.5rem"
-                                }}
-                            />
-                            <Legend />
-                            <Bar dataKey="count" name="No. of Questions" fill="var(--color-chart-1)" radius={[0, 4, 4, 0]} barSize={20} />
-                        </BarChart>
-                    </ResponsiveContainer>
+                <ChartContainer config={categoryChartConfig} className="h-80 w-full">
+                    <RechartsBarChart data={categoryData} layout="vertical" margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis type="number" dataKey="count" allowDecimals={false} />
+                        <YAxis dataKey="name" type="category" width={100} tick={{ fontSize: 12 }} />
+                        <Tooltip
+                            cursor={{fill: 'rgba(239, 246, 255, 0.5)'}}
+                            contentStyle={{
+                                background: "rgba(255, 255, 255, 0.9)",
+                                backdropFilter: "blur(5px)",
+                                border: "1px solid #e2e8f0",
+                                borderRadius: "0.5rem"
+                            }}
+                        />
+                        <Legend />
+                        <Bar dataKey="count" name="No. of Questions" radius={[0, 4, 4, 0]} barSize={20}>
+                          {categoryData.map((entry) => (
+                            <Cell key={`cell-${entry.name}`} fill={categoryChartConfig[entry.slug]?.color} />
+                          ))}
+                        </Bar>
+                    </RechartsBarChart>
+                </ChartContainer>
+            </CardContent>
+          </Card>
+
+          <Card className="shadow-2xl border-0 overflow-hidden">
+             <CardHeader>
+                <div className="flex items-center gap-3">
+                    <Eye className="h-7 w-7 text-primary" />
+                    <CardTitle className="text-2xl font-bold">Review Your Answers</CardTitle>
                 </div>
+                <CardDescription>Check your performance question by question.</CardDescription>
+            </CardHeader>
+            <CardContent className="bg-slate-50/70 p-4 md:p-6">
+                <QuestionReview questions={results.questions} answers={results.answers} marked={results.marked} />
             </CardContent>
           </Card>
         </div>
