@@ -5,7 +5,7 @@ import React, { useState, useMemo, useCallback } from 'react';
 import type { Question } from '@/lib/questions';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
-import { ArrowRight, Star, Languages, LayoutGrid, List, HelpCircle, ArrowLeft, LogOut } from 'lucide-react';
+import { ArrowRight, Star, Languages, LayoutGrid, List, HelpCircle, ArrowLeft, LogOut, Trash2 } from 'lucide-react';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -32,6 +32,8 @@ interface QuizProps {
     incorrectAnswers: number;
     unanswered: number;
     questions: Question[];
+    answers: (number | null)[];
+    marked: boolean[];
   }) => void;
 }
 
@@ -42,7 +44,7 @@ const instructionRules = [
     },
     {
         title: "Question Palette Guide",
-        description: "The color of the question button indicates its status: Green (Answered Correctly), Red (Answered Incorrectly), Purple (Marked for Review), Blue (Answered & Marked), Gray (Not Answered).",
+        description: "The color of the question button indicates its status: Green (Answered), Red (Answered), Purple (Marked for Review), Blue (Answered & Marked), Gray (Not Answered).",
     },
     {
         title: "Navigation",
@@ -71,10 +73,6 @@ const Quiz: React.FC<QuizProps> = ({ questions, quizTitle, durationInSeconds, on
     };
     
     const handleSaveAndNext = () => {
-        if (answers[currentQuestionIndex] === null) {
-          // You could show a toast or message here that an option must be selected to save.
-          // For now, we'll just move to the next question.
-        }
         if (currentQuestionIndex < totalQuestions - 1) {
             setCurrentQuestionIndex(prev => prev + 1);
         }
@@ -85,7 +83,7 @@ const Quiz: React.FC<QuizProps> = ({ questions, quizTitle, durationInSeconds, on
             setCurrentQuestionIndex(prev => prev - 1);
         }
     };
-    
+
     const handleNavigateToQuestion = (index: number) => {
         setCurrentQuestionIndex(index);
     };
@@ -96,10 +94,17 @@ const Quiz: React.FC<QuizProps> = ({ questions, quizTitle, durationInSeconds, on
         setAnswers(newAnswers);
     };
 
+    const handleClearResponse = () => {
+        const newAnswers = [...answers];
+        newAnswers[currentQuestionIndex] = null;
+        setAnswers(newAnswers);
+    };
+
     const handleMarkForReview = () => {
         const newMarked = [...markedForReview];
         newMarked[currentQuestionIndex] = !newMarked[currentQuestionIndex];
         setMarkedForReview(newMarked);
+        handleNext();
     };
 
     const handleSubmitTest = useCallback(() => {
@@ -125,8 +130,10 @@ const Quiz: React.FC<QuizProps> = ({ questions, quizTitle, durationInSeconds, on
             incorrectAnswers,
             unanswered: totalQuestions - (correctAnswers + incorrectAnswers),
             questions: questions,
+            answers: answers,
+            marked: markedForReview,
         });
-    }, [answers, questions, onFinish, totalQuestions]);
+    }, [answers, questions, onFinish, totalQuestions, markedForReview]);
     
     const getStatusInfo = useCallback((index: number) => {
         const isAnswered = answers[index] !== null;
@@ -134,13 +141,12 @@ const Quiz: React.FC<QuizProps> = ({ questions, quizTitle, durationInSeconds, on
 
         if (isAnswered && isMarked) return { text: 'Answered & Marked', className: 'navigator-answered-marked' };
         if (isAnswered) {
-             const isCorrect = answers[index] === questions[index].answer;
-             return { text: 'Answered', className: isCorrect ? 'navigator-answered' : 'navigator-incorrect' };
+             return { text: 'Answered', className: 'navigator-answered' };
         }
         if (isMarked) return { text: 'Marked for Review', className: 'navigator-marked' };
 
         return { text: 'Not Answered', className: 'navigator-unanswered' };
-    }, [answers, markedForReview, questions]);
+    }, [answers, markedForReview]);
 
     const selectedAnswerIndex = answers[currentQuestionIndex];
     
@@ -149,9 +155,7 @@ const Quiz: React.FC<QuizProps> = ({ questions, quizTitle, durationInSeconds, on
             {/* Header */}
             <header className="flex-shrink-0 bg-primary text-primary-foreground shadow-md z-10">
                 <div className="container mx-auto px-4 py-3 flex justify-between items-center">
-                    <div className="flex items-center gap-4">
-                       <QuizTimer duration={durationInSeconds} onTimeout={handleSubmitTest} />
-                    </div>
+                    <QuizTimer duration={durationInSeconds} onTimeout={handleSubmitTest} />
                     <h1 className="text-xl font-bold tracking-wider hidden md:block">{quizTitle}</h1>
                     <div className="flex items-center gap-4">
                         <Button variant="secondary" size="sm" onClick={toggleLanguage} className="bg-white/20 hover:bg-white/30 text-white">
@@ -202,7 +206,7 @@ const Quiz: React.FC<QuizProps> = ({ questions, quizTitle, durationInSeconds, on
             <main className="flex-grow container mx-auto p-4 grid grid-cols-12 gap-6">
                 {/* Left Column: Question & Options */}
                 <div className="col-span-12 lg:col-span-8 flex flex-col gap-6">
-                    <Card className="shadow-sm flex flex-col">
+                    <Card className="shadow-sm">
                         <CardHeader>
                             <CardTitle className="text-lg">Question {currentQuestionIndex + 1}</CardTitle>
                         </CardHeader>
@@ -211,34 +215,23 @@ const Quiz: React.FC<QuizProps> = ({ questions, quizTitle, durationInSeconds, on
                         </CardContent>
                     </Card>
 
-                    <Card className="shadow-sm">
+                    <Card className="shadow-sm flex-grow">
                         <CardHeader>
                             <CardTitle className="text-lg">Options</CardTitle>
                         </CardHeader>
                         <CardContent className="space-y-3">
                             {currentQuestion.options[language].map((option, i) => {
                                 const isSelected = selectedAnswerIndex === i;
-                                const isCorrect = currentQuestion.answer === i;
-                                const hasAnswered = selectedAnswerIndex !== null;
-
-                                let buttonClass = 'border-slate-300 hover:bg-slate-50';
-                                if (hasAnswered) {
-                                    if (isSelected && !isCorrect) {
-                                        buttonClass = 'incorrect-answer'; // Selected and wrong
-                                    } else if (isCorrect) {
-                                        buttonClass = 'correct-answer'; // The correct answer
-                                    } else {
-                                        buttonClass = 'other-option'; // Other non-selected options
-                                    }
-                                }
                                 
                                 return (
                                     <Button
                                         key={i}
                                         onClick={() => handleAnswerSelect(i)}
-                                        disabled={hasAnswered}
                                         variant="outline"
-                                        className={`justify-start h-auto p-3 text-base text-left whitespace-normal leading-snug border-2 w-full ${buttonClass}`}
+                                        className={cn(
+                                            "justify-start h-auto p-3 text-base text-left whitespace-normal leading-snug border-2 w-full",
+                                            isSelected ? 'bg-primary/10 border-primary text-primary' : 'border-slate-300 hover:bg-slate-50'
+                                        )}
                                     >
                                         <span className="mr-4 flex h-7 w-7 items-center justify-center rounded-full bg-slate-200 font-bold text-slate-600">{String.fromCharCode(65 + i)}</span>
                                         <span className="flex-1">{option}</span>
@@ -247,17 +240,6 @@ const Quiz: React.FC<QuizProps> = ({ questions, quizTitle, durationInSeconds, on
                             })}
                         </CardContent>
                     </Card>
-                    
-                    {selectedAnswerIndex !== null && (
-                        <div className="p-5 bg-blue-50 rounded-lg border-l-4 border-l-blue-500 space-y-4">
-                            <div>
-                                <h4 className="font-bold text-lg text-slate-800">
-                                  {language === 'en' ? 'Explanation' : 'स्पष्टीकरण'}
-                                </h4>
-                                <p className="text-slate-600 mt-2 text-base">{currentQuestion.explanation[language]}</p>
-                            </div>
-                        </div>
-                    )}
                 </div>
 
                 {/* Right Sidebar: Question Palette */}
@@ -320,8 +302,7 @@ const Quiz: React.FC<QuizProps> = ({ questions, quizTitle, durationInSeconds, on
                     </CardContent>
                      <CardFooter className="flex flex-col items-start gap-4 text-xs text-muted-foreground border-t pt-4">
                         <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-                            <div className="flex items-center gap-1.5"><div className="w-3 h-3 rounded-md bg-green-500"/>Correct</div>
-                            <div className="flex items-center gap-1.5"><div className="w-3 h-3 rounded-md bg-red-500"/>Incorrect</div>
+                            <div className="flex items-center gap-1.5"><div className="w-3 h-3 rounded-md bg-green-500"/>Answered</div>
                             <div className="flex items-center gap-1.5"><div className="w-3 h-3 rounded-md bg-slate-200"/>Not Visited</div>
                             <div className="flex items-center gap-1.5"><div className="w-3 h-3 rounded-md bg-purple-500"/>Marked</div>
                             <div className="flex items-center gap-1.5"><div className="w-3 h-3 rounded-md bg-blue-500"/>Ans &amp; Marked</div>
@@ -367,7 +348,7 @@ const Quiz: React.FC<QuizProps> = ({ questions, quizTitle, durationInSeconds, on
 
                     <Button variant="outline" onClick={handleMarkForReview} className={cn('font-bold', markedForReview[currentQuestionIndex] ? 'bg-purple-100 border-purple-400' : '')}>
                        <Star className={`mr-2 h-4 w-4 transition-colors ${markedForReview[currentQuestionIndex] ? 'fill-purple-500 text-purple-600' : ''}`} />
-                        {markedForReview[currentQuestionIndex] ? (language === 'en' ? 'Unmark' : 'अनमार्क करें') : (language === 'en' ? 'Mark for Review' : 'समीक्षा के लिए')}
+                        {markedForReview[currentQuestionIndex] ? (language === 'en' ? 'Unmark & Next' : 'अनमार्क और अगला') : (language === 'en' ? 'Mark for Review & Next' : 'समीक्षा और अगला')}
                     </Button>
                     
                     <Button
@@ -381,7 +362,7 @@ const Quiz: React.FC<QuizProps> = ({ questions, quizTitle, durationInSeconds, on
                     
                     <Button
                         onClick={handleSaveAndNext}
-                        disabled={currentQuestionIndex === totalQuestions - 1}
+                        disabled={selectedAnswerIndex === null}
                         className="bg-blue-600 hover:bg-blue-700 text-white font-bold"
                     >
                        {language === 'en' ? 'Save & Next' : 'सहेजें और अगला'} <ArrowRight className="ml-2 h-4 w-4" />
