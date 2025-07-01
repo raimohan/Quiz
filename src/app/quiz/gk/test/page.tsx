@@ -32,6 +32,8 @@ interface ResultData {
   incorrectAnswers: number;
   unanswered: number;
   questions: Question[];
+  answers: (number | null)[];
+  marked: boolean[];
 }
 
 function GkTest() {
