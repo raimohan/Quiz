@@ -38,6 +38,8 @@ export default function CapitalTestPage() {
     return <Results results={results} />;
   }
 
-  return <Quiz questions={capitalQuestions} onFinish={handleFinish} />;
-}
+  // 30 seconds per question
+  const quizDuration = capitalQuestions.length * 30;
 
+  return <Quiz questions={capitalQuestions} onFinish={handleFinish} quizTitle="Capital Test" durationInSeconds={quizDuration} />;
+}
