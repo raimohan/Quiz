@@ -7,7 +7,8 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import { Button } from '@/components/ui/button';
 import { BookText, ArrowRight } from 'lucide-react';
 import QuizRules from '@/components/quiz/QuizRules';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import LoadingAnimation from '@/components/ui/LoadingAnimation';
 
 const gkTests = [
   {
@@ -42,8 +43,14 @@ const gkTests = [
   },
    {
     title: 'General Knowledge - Test 6',
-    description: 'A diverse set of 25 questions covering topics from awards and honours to international organizations.',
+    description: 'A diverse set of 50 questions covering topics from awards and honours to international organizations.',
     href: '/quiz/gk/test?set=6',
+    questionCount: 50,
+  },
+  {
+    title: 'General Knowledge - Test 7',
+    description: 'A comprehensive set of 25 questions covering Indian history, geography, polity, defence, and more.',
+    href: '/quiz/gk/test?set=7',
     questionCount: 25,
   },
 ];
@@ -51,12 +58,21 @@ const gkTests = [
 export default function GkTestSelectionPage() {
   const [selectedTest, setSelectedTest] = useState<{title: string, href: string} | null>(null);
   const router = useRouter();
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const handleStartTest = () => {
     if (selectedTest) {
       router.push(selectedTest.href);
     }
   };
+
+  if (!isClient) {
+    return <LoadingAnimation />;
+  }
 
   if (selectedTest) {
     return (
@@ -114,3 +130,4 @@ export default function GkTestSelectionPage() {
     </main>
   );
 }
+
