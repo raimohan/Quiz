@@ -1,8 +1,10 @@
+
 import type { Metadata } from 'next';
 import Script from 'next/script';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
-import { Inter, Staatliches } from 'next/font/google';
+import { Inter, Oswald } from 'next/font/google';
+import { QuizLanguageProvider } from '@/context/QuizLanguageContext';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -10,9 +12,9 @@ const inter = Inter({
   variable: '--font-sans',
 });
 
-const staatliches = Staatliches({
+const oswald = Oswald({
   subsets: ['latin'],
-  weight: '400',
+  weight: ['400', '500', '600', '700'],
   display: 'swap',
   variable: '--font-heading',
 });
@@ -33,7 +35,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${staatliches.variable} font-sans text-slate-800 antialiased`}>
+      <body className={`${inter.variable} ${oswald.variable} font-sans text-slate-800 antialiased`}>
         <Script
           id="adsbygoogle-script"
           async
@@ -41,7 +43,9 @@ export default function RootLayout({
           crossOrigin="anonymous"
           strategy="afterInteractive"
         />
-        {children}
+        <QuizLanguageProvider>
+          {children}
+        </QuizLanguageProvider>
         <Toaster />
       </body>
     </html>
